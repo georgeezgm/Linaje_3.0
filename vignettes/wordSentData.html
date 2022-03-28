@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create NRC emotion data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for wordSentData {VOSONDash}"><tr><td>wordSentData {VOSONDash}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create NRC emotion data</h2>
+
+<h3>Description</h3>
+
+<p>This function creates an NRC emotion dataframe from a text corpus.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+wordSentData(corp, word_len = c(3, 26))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>corp</code></td>
+<td>
+<p><span class="pkg">tm</span> package document <code><a href="../../tm/help/Corpus.html">Corpus</a></code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>word_len</code></td>
+<td>
+<p>Numeric vector. Min and max length of words to include. Default is <code>c(3, 26)</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An NRC sentiment dataframe.
+</p>
+
+
+<h3>Note</h3>
+
+<p>Uses the <span class="pkg">syuzhet</span> package implementation of Saif Mohammad’s NRC emotion lexicon.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>VOSONDash</em> version 0.5.7 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

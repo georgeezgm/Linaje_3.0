@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Parse a GET query string from a URL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for parseQueryString {shiny}"><tr><td>parseQueryString {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parse a GET query string from a URL</h2>
+
+<h3>Description</h3>
+
+<p>Returns a named list of key-value pairs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+parseQueryString(str, nested = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>str</code></td>
+<td>
+<p>The query string. It can have a leading <code>"?"</code> or not.</p>
+</td></tr>
+<tr valign="top"><td><code>nested</code></td>
+<td>
+<p>Whether to parse the query string of as a nested list when it
+contains pairs of square brackets <code>[]</code>. For example, the query
+<span class="samp">a[i1][j1]=x&amp;b[i1][j1]=y&amp;b[i2][j1]=z</span> will be parsed as <code>list(a =
+list(i1 = list(j1 = 'x')), b = list(i1 = list(j1 = 'y'), i2 = list(j1 =
+'z')))</code> when <code>nested = TRUE</code>, and <code>list(`a[i1][j1]` = 'x',
+`b[i1][j1]` = 'y', `b[i2][j1]` = 'z')</code> when <code>nested = FALSE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">parseQueryString(&quot;?foo=1&amp;bar=b%20a%20r&quot;)
+</code></pre>
+
+<pre><code>## $foo
+## [1] &quot;1&quot;
+## 
+## $bar
+## [1] &quot;b a r&quot;
+</code></pre>
+
+<pre><code class="r">## Not run: 
+##D # Example of usage within a Shiny app
+##D function(input, output, session) {
+##D 
+##D   output$queryText &lt;- renderText({
+##D     query &lt;- parseQueryString(session$clientData$url_search)
+##D 
+##D     # Ways of accessing the values
+##D     if (as.numeric(query$foo) == 1) {
+##D       # Do something
+##D     }
+##D     if (query[[&quot;bar&quot;]] == &quot;targetstring&quot;) {
+##D       # Do something else
+##D     }
+##D 
+##D     # Return a string with key-value pairs
+##D     paste(names(query), query, sep = &quot;=&quot;, collapse=&quot;, &quot;)
+##D   })
+##D }
+## End(Not run)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.7.1 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

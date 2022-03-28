@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AdminLTE2 social button</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for socialButton {shinydashboardPlus}"><tr><td>socialButton {shinydashboardPlus}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AdminLTE2 social button</h2>
+
+<h3>Description</h3>
+
+<p>Create a social button
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+socialButton(href, icon)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>href</code></td>
+<td>
+<p>External link.</p>
+</td></tr>
+<tr valign="top"><td><code>icon</code></td>
+<td>
+<p>social network icon: see here for valid names <a href="https://adminlte.io/themes/AdminLTE/pages/UI/buttons.html">https://adminlte.io/themes/AdminLTE/pages/UI/buttons.html</a>.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>David Granjon, <a href="mailto:dgranjon@ymail.com">dgranjon@ymail.com</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">if (interactive()) {
+ library(shiny)
+ library(shinydashboard)
+ library(shinydashboardPlus)
+
+ shinyApp(
+  ui = dashboardPage(
+    dashboardHeader(),
+    dashboardSidebar(),
+    dashboardBody(
+     box(
+      title = &quot;Social Buttons&quot;,
+      status = NULL,
+      socialButton(
+        href = &quot;https://dropbox.com&quot;,
+        icon = icon(&quot;dropbox&quot;)
+      ),
+      socialButton(
+        href = &quot;https://github.com&quot;,
+        icon = icon(&quot;github&quot;)
+      )
+     )
+    ),
+    title = &quot;Social Buttons&quot;
+  ),
+  server = function(input, output) { }
+ )
+}
+</code></pre>
+
+<pre><code>## This Font Awesome icon (&#39;gears&#39;) does not exist:
+## * if providing a custom `html_dependency` these `name` checks can 
+##   be deactivated with `verify_fa = FALSE`
+</code></pre>
+
+<pre><code>## Error in loadNamespace(name): there is no package called &#39;webshot&#39;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>shinydashboardPlus</em> version 2.0.3 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Remove Packages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for remove {renv}"><tr><td>remove {renv}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Remove Packages</h2>
+
+<h3>Description</h3>
+
+<p>Remove (uninstall) <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> packages.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+remove(packages, ..., library = NULL, project = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>packages</code></td>
+<td>
+<p>A character vector of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> packages to remove.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Unused arguments, reserved for future expansion. If any arguments
+are matched to <code>...</code>, <code>renv</code> will signal an error.</p>
+</td></tr>
+<tr valign="top"><td><code>library</code></td>
+<td>
+<p>The library from which packages should be removed. When
+<code>NULL</code>, the active library (that is, the first entry reported in
+<code>.libPaths()</code>) is used instead.</p>
+</td></tr>
+<tr valign="top"><td><code>project</code></td>
+<td>
+<p>The project directory. If <code>NULL</code>, then the active project will
+be used. If no project is currently active, then the current working
+directory is used instead.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A vector of package records, describing the packages (if any) which
+were successfully removed.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">## Not run: 
+##D 
+##D # disable automatic snapshots
+##D auto.snapshot &lt;- getOption(&quot;renv.config.auto.snapshot&quot;)
+##D options(renv.config.auto.snapshot = FALSE)
+##D 
+##D # initialize a new project (with an empty R library)
+##D renv::init(bare = TRUE)
+##D 
+##D # install digest 0.6.19
+##D renv::install(&quot;digest@0.6.19&quot;)
+##D 
+##D # save library state to lockfile
+##D renv::snapshot()
+##D 
+##D # remove digest from library
+##D renv::remove(&quot;digest&quot;)
+##D 
+##D # check library status
+##D renv::status()
+##D 
+##D # restore lockfile, thereby reinstalling digest 0.6.19
+##D renv::restore()
+##D 
+##D # restore automatic snapshots
+##D options(renv.config.auto.snapshot = auto.snapshot)
+##D 
+## End(Not run)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>renv</em> version 0.14.0-79 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

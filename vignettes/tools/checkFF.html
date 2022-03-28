@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Check Foreign Function Calls</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for checkFF {tools}"><tr><td>checkFF {tools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Check Foreign Function Calls</h2>
+
+<h3>Description</h3>
+
+<p>Performs checks on calls to compiled code from R code.  Currently only
+checks whether the interface functions such as <code>.C</code> and
+<code>.Fortran</code> are called with a <code>"<a href="../../base/html/getNativeSymbolInfo.html">NativeSymbolInfo</a>"</code>
+first argument or with argument <code>PACKAGE</code> specified, which is
+highly recommended to avoid name clashes in foreign function calls.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+checkFF(package, dir, file, lib.loc = NULL,
+        registration = FALSE, check_DUP = FALSE,
+        verbose = getOption("verbose"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>package</code></td>
+<td>
+<p>a character string naming an installed package.  If
+given, the installed R code of the package is checked.</p>
+</td></tr>
+<tr valign="top"><td><code>dir</code></td>
+<td>
+<p>a character string specifying the path to a package's root
+source directory.  This should contain the subdirectory &lsquo;<span class="file">R</span>&rsquo;
+(for R code).  Only used if <code>package</code> is not given.</p>
+</td></tr>
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>the name of a file containing R code to be checked.  Used
+if neither <code>package</code> nor <code>dir</code> are given.</p>
+</td></tr>
+<tr valign="top"><td><code>lib.loc</code></td>
+<td>
+<p>a character vector of directory names of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> libraries,
+or <code>NULL</code>.  The default value of <code>NULL</code> corresponds to all
+libraries currently known.  The specified library trees are used to
+search for <code>package</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>registration</code></td>
+<td>
+<p>a logical.  If <code>TRUE</code>, checks
+the registration information on the call (if available).</p>
+</td></tr>
+<tr valign="top"><td><code>check_DUP</code></td>
+<td>
+<p>a logical.  If <code>TRUE</code>, <code>.C</code> and
+<code>.Fortran</code> calls with <code>DUP = FALSE</code> are reported.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>a logical.  If <code>TRUE</code>, additional diagnostics are
+printed (and the result is returned invisibly).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that we can only check if the <code>name</code> argument is a symbol or
+a character string, not what class of object the symbol resolves to
+at run-time.
+</p>
+<p>If the package has a namespace which contains a <code>useDynLib</code>
+directive, calls in top-level functions in the package are not
+reported as their symbols will be preferentially looked up in the DLL
+named in the first <code>useDynLib</code> directive.
+</p>
+<p>This checks that calls with <code>PACKAGE</code> specified are to the
+same package, and reports separately those which are in base packages
+and those which are in other packages (and if those packages are
+specified in the &lsquo;<span class="file">DESCRIPTION</span>&rsquo; file).
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"checkFF"</code>.
+</p>
+<p>There are <code><a href="../../base/html/format.html">format</a></code> and <code>print</code> methods to display the
+information contained in such objects.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/Foreign.html">.C</a></code>,
+<code><a href="../../base/html/Foreign.html">.Fortran</a></code>;
+<code><a href="../../base/html/Foreign.html">Foreign</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">## No test: 
+ # order is pretty much random
+checkFF(package = &quot;stats&quot;, verbose = TRUE)
+</code></pre>
+
+<pre><code>## 
+## Attaching package: &#39;stats&#39;
+</code></pre>
+
+<pre><code>## The following objects are masked from &#39;package:igraph&#39;:
+## 
+##     decompose, spectrum
+</code></pre>
+
+<pre><code>## .Call(C_Approx, ... ): Called with symbol
+## .Call(C_Cdqrls, ... ): Called with symbol
+## .Call(C_SplineEval, ... ): Called with symbol
+## .Call(C_acf, ... ): Called with symbol
+## .Fortran(C_eureka, ... ): Called with symbol
+## .Call(C_pAnsari, ... ): Called with symbol
+## .Call(C_qAnsari, ... ): Called with symbol
+## .Call(C_ApproxTest, ... ): Called with symbol
+## .Call(C_Approx, ... ): Called with symbol
+## .Call(C_ApproxTest, ... ): Called with symbol
+## .Call(C_Burg, ... ): Called with symbol
+## .C(C_multi_burg, ... ): Called with symbol
+## .Fortran(C_eureka, ... ): Called with symbol
+## .C(C_multi_yw, ... ): Called with symbol
+## .Call(C_TSconv, ... ): Called with symbol
+## .Call(C_getQ0, ... ): Called with symbol
+## .Call(C_getQ0bis, ... ): Called with symbol
+## .Call(C_ARIMA_Like, ... ): Called with symbol
+## .Call(C_ARIMA_transPars, ... ): Called with symbol
+## .Call(C_ARIMA_Like, ... ): Called with symbol
+## .Call(C_ARIMA_transPars, ... ): Called with symbol
+## .Call(C_ARIMA_CSS, ... ): Called with symbol
+## .Call(C_ARIMA_Invtrans, ... ): Called with symbol
+## .Call(C_ARIMA_transPars, ... ): Called with symbol
+## .Call(C_ARIMA_CSS, ... ): Called with symbol
+## .Call(C_ARIMA_Invtrans, ... ): Called with symbol
+## .Call(C_ARIMA_transPars, ... ): Called with symbol
+## .Call(C_ARIMA_Gradtrans, ... ): Called with symbol
+## .Call(C_ARIMA_undoPars, ... ): Called with symbol
+## .Call(C_ARIMA_transPars, ... ): Called with symbol
+## .Call(C_arma0fa, ... ): Called with symbol
+## .Call(C_setup_starma, ... ): Called with symbol
+## .Call(C_free_starma, ... ): Called with symbol
+## .Call(C_Invtrans, ... ): Called with symbol
+## .Call(C_Starma_method, ... ): Called with symbol
+## .Call(C_Gradtrans, ... ): Called with symbol
+## .Call(C_Dotrans, ... ): Called with symbol
+## .Call(C_set_trans, ... ): Called with symbol
+## .Call(C_get_s2, ... ): Called with symbol
+## .Call(C_get_resid, ... ): Called with symbol
+## .Call(C_pacf1, ... ): Called with symbol
+## .Call(C_ARMAtoMA, ... ): Called with symbol
+## .Call(C_binomial_dev_resids, ... ): Called with symbol
+## .Call(C_bw_den_binned, ... ): Called with symbol
+## .Call(C_bw_den, ... ): Called with symbol
+## .Call(C_bw_bcv, ... ): Called with symbol
+## .Call(C_bw_phi4, ... ): Called with symbol
+## .Call(C_bw_phi6, ... ): Called with symbol
+## .Call(C_bw_ucv, ... ): Called with symbol
+## .Call(C_chisq_sim, ... ): Called with symbol
+## .Call(C_DoubleCentre, ... ): Called with symbol
+## .Call(C_DoubleCentre, ... ): Called with symbol
+## .Call(C_DoubleCentre, ... ): Called with symbol
+## .External(C_compcases, ... ): Called with symbol
+## .Call(C_cor, ... ): Called with symbol
+## .Call(C_cor, ... ): Called with symbol
+## .Call(C_cor, ... ): Called with symbol
+## .Call(C_cor, ... ): Called with symbol
+## .Call(C_cor, ... ): Called with symbol
+## .Call(C_cor, ... ): Called with symbol
+## .Call(C_pKendall, ... ): Called with symbol
+## .Call(C_pRho, ... ): Called with symbol
+## .Call(C_cov, ... ): Called with symbol
+## .Call(C_cov, ... ): Called with symbol
+## .Call(C_cov, ... ): Called with symbol
+## .Call(C_cov, ... ): Called with symbol
+## .Call(C_cutree, ... ): Called with symbol
+## .External(C_doD, ... ): Called with symbol
+## .Call(C_dbeta, ... ): Called with symbol
+## .Call(C_dnbeta, ... ): Called with symbol
+## .Call(C_dbinom, ... ): Called with symbol
+## .Call(C_dcauchy, ... ): Called with symbol
+## .Call(C_dchisq, ... ): Called with symbol
+## .Call(C_dnchisq, ... ): Called with symbol
+## .Call(C_BinDist, ... ): Called with symbol
+## .External(C_deriv, ... ): Called with symbol
+## .External(C_deriv, ... ): Called with symbol
+## .External(C_deriv, ... ): Called with symbol
+## .External(C_deriv, ... ): Called with symbol
+## .Call(C_dexp, ... ): Called with symbol
+## .Call(C_df, ... ): Called with symbol
+## .Call(C_dnf, ... ): Called with symbol
+## .Call(C_dgamma, ... ): Called with symbol
+## .Call(C_dgeom, ... ): Called with symbol
+## .Call(C_dhyper, ... ): Called with symbol
+## .Call(C_intgrt_vec, ... ): Called with symbol
+## .Call(C_Cdist, ... ): Called with symbol
+## .Call(C_dlnorm, ... ): Called with symbol
+## .Call(C_dlogis, ... ): Called with symbol
+## .Call(C_dnbinom_mu, ... ): Called with symbol
+## .Call(C_dnbinom, ... ): Called with symbol
+## .Call(C_dnorm, ... ): Called with symbol
+## .Call(C_dpois, ... ): Called with symbol
+## .External(C_signrank_free, ... ): Called with symbol
+## .Call(C_dsignrank, ... ): Called with symbol
+## .Call(C_dt, ... ): Called with symbol
+## .Call(C_dnt, ... ): Called with symbol
+## .Call(C_dunif, ... ): Called with symbol
+## .Call(C_dweibull, ... ): Called with symbol
+## .External(C_wilcox_free, ... ): Called with symbol
+## .Call(C_dwilcox, ... ): Called with symbol
+## .Call(C_fft, ... ): Called with symbol
+## .Call(C_cfilter, ... ): Called with symbol
+## .Call(C_cfilter, ... ): Called with symbol
+## .Call(C_rfilter, ... ): Called with symbol
+## .Call(C_rfilter, ... ): Called with symbol
+## .Call(C_Fisher_sim, ... ): Called with symbol
+## .Call(C_Fexact, ... ): Called with symbol
+## .Call(C_Fexact, ... ): Called with symbol
+## .Call(C_Cdqrls, ... ): Called with symbol
+## .Fortran(C_hclust, ... ): Called with symbol
+## .Fortran(C_hcass2, ... ): Called with symbol
+## .C(C_HoltWinters, ... ): Called with symbol
+## .External(C_call_dqags, ... ): Called with symbol
+## .External(C_call_dqagi, ... ): Called with symbol
+## .Call(C_isoreg, ... ): Called with symbol
+## .Call(C_KalmanFore, ... ): Called with symbol
+## .Call(C_KalmanLike, ... ): Called with symbol
+## .Call(C_KalmanLike, ... ): Called with symbol
+## .Call(C_KalmanSmooth, ... ): Called with symbol
+## .Fortran(C_kmns, ... ): Called with symbol
+## .C(C_kmeans_Lloyd, ... ): Called with symbol
+## .C(C_kmeans_MacQueen, ... ): Called with symbol
+## .Call(C_pSmirnov2x, ... ): Called with symbol
+## .Call(C_pKolmogorov2x, ... ): Called with symbol
+## .Call(C_pKS2, ... ): Called with symbol
+## .Call(C_ksmooth, ... ): Called with symbol
+## .Call(C_tukeyline, ... ): Called with symbol
+## .Call(C_Cdqrls, ... ): Called with symbol
+## .Call(C_influence, ... ): Called with symbol
+## .Call(C_Cdqrls, ... ): Called with symbol
+## .C(C_loess_ifit, ... ): Called with symbol
+## .Call(C_LogLin, ... ): Called with symbol
+## .Call(C_lowess, ... ): Called with symbol
+## .Call(C_Cdqrls, ... ): Called with symbol
+## .Call(C_logit_link, ... ): Called with symbol
+## .Call(C_logit_linkinv, ... ): Called with symbol
+## .Call(C_logit_mu_eta, ... ): Called with symbol
+## .Call(C_getQ0, ... ): Called with symbol
+## .Call(C_getQ0bis, ... ): Called with symbol
+## .Call(C_d2x2xk, ... ): Called with symbol
+## .Call(C_mvfft, ... ): Called with symbol
+## .Call(C_nextn, ... ): Called with symbol
+## .Call(C_port_ivset, ... ): Called with symbol
+## .Call(C_port_nlminb, ... ): Called with symbol
+## .Call(C_nls_iter, ... ): Called with symbol
+## .Call(C_port_ivset, ... ): Called with symbol
+## .Call(C_port_nlsb, ... ): Called with symbol
+## .Call(C_numeric_deriv, ... ): Called with symbol
+## .Call(C_pacf1, ... ): Called with symbol
+## .Call(C_pbeta, ... ): Called with symbol
+## .Call(C_pnbeta, ... ): Called with symbol
+## .Call(C_pbinom, ... ): Called with symbol
+## .Call(C_pcauchy, ... ): Called with symbol
+## .Call(C_pchisq, ... ): Called with symbol
+## .Call(C_pnchisq, ... ): Called with symbol
+## .Call(C_pexp, ... ): Called with symbol
+## .Call(C_pf, ... ): Called with symbol
+## .Call(C_pnf, ... ): Called with symbol
+## .Call(C_pgamma, ... ): Called with symbol
+## .Call(C_pgeom, ... ): Called with symbol
+## .Call(C_phyper, ... ): Called with symbol
+## .Call(C_plnorm, ... ): Called with symbol
+## .Call(C_plogis, ... ): Called with symbol
+## .Call(C_pnbinom_mu, ... ): Called with symbol
+## .Call(C_pnbinom, ... ): Called with symbol
+## .Call(C_pnorm, ... ): Called with symbol
+## .Call(C_pp_sum, ... ): Called with symbol
+## .Call(C_ppois, ... ): Called with symbol
+## .Fortran(C_setppr, ... ): Called with symbol
+## .Fortran(C_smart, ... ): Called with symbol
+## .Fortran(C_pppred, ... ): Called with symbol
+## .Call(C_ar2ma, ... ): Called with symbol
+## .Call(C_setup_starma, ... ): Called with symbol
+## .Call(C_free_starma, ... ): Called with symbol
+## .Call(C_Starma_method, ... ): Called with symbol
+## .Call(C_arma0fa, ... ): Called with symbol
+## .Call(C_arma0_kfore, ... ): Called with symbol
+## .Fortran(C_pppred, ... ): Called with symbol
+## .Fortran(C_bvalus, ... ): Called with symbol
+## .C(C_loess_dfitse, ... ): Called with symbol
+## .C(C_loess_dfit, ... ): Called with symbol
+## .C(C_loess_ifit, ... ): Called with symbol
+## .C(C_loess_ise, ... ): Called with symbol
+## .Call(C_nls_iter, ... ): Called with symbol
+## .External(C_signrank_free, ... ): Called with symbol
+## .Call(C_psignrank, ... ): Called with symbol
+## .Call(C_pt, ... ): Called with symbol
+## .Call(C_pnt, ... ): Called with symbol
+## .Call(C_ptukey, ... ): Called with symbol
+## .Call(C_punif, ... ): Called with symbol
+## .Call(C_pweibull, ... ): Called with symbol
+## .External(C_wilcox_free, ... ): Called with symbol
+## .Call(C_pwilcox, ... ): Called with symbol
+## .Call(C_qbeta, ... ): Called with symbol
+## .Call(C_qnbeta, ... ): Called with symbol
+## .Call(C_qbinom, ... ): Called with symbol
+## .Call(C_qcauchy, ... ): Called with symbol
+## .Call(C_qchisq, ... ): Called with symbol
+## .Call(C_qnchisq, ... ): Called with symbol
+## .Call(C_qexp, ... ): Called with symbol
+## .Call(C_qf, ... ): Called with symbol
+## .Call(C_qnf, ... ): Called with symbol
+## .Call(C_qgamma, ... ): Called with symbol
+## .Call(C_qgeom, ... ): Called with symbol
+## .Call(C_qhyper, ... ): Called with symbol
+## .Call(C_qlnorm, ... ): Called with symbol
+## .Call(C_qlogis, ... ): Called with symbol
+## .Call(C_qnbinom_mu, ... ): Called with symbol
+## .Call(C_qnbinom, ... ): Called with symbol
+## .Call(C_qnorm, ... ): Called with symbol
+## .Call(C_qpois, ... ): Called with symbol
+## .External(C_signrank_free, ... ): Called with symbol
+## .Call(C_qsignrank, ... ): Called with symbol
+## .Call(C_qt, ... ): Called with symbol
+## .Call(C_qnt, ... ): Called with symbol
+## .Call(C_qtukey, ... ): Called with symbol
+## .Call(C_binomial_dev_resids, ... ): Called with symbol
+## .Call(C_binomial_dev_resids, ... ): Called with symbol
+## .Call(C_qunif, ... ): Called with symbol
+## .Call(C_qweibull, ... ): Called with symbol
+## .External(C_wilcox_free, ... ): Called with symbol
+## .Call(C_qwilcox, ... ): Called with symbol
+## .Call(C_r2dtable, ... ): Called with symbol
+## .Call(C_rbeta, ... ): Called with symbol
+## .Call(C_rbinom, ... ): Called with symbol
+## .Call(C_rcauchy, ... ): Called with symbol
+## .Call(C_rchisq, ... ): Called with symbol
+## .Call(C_rnchisq, ... ): Called with symbol
+## .Call(C_rexp, ... ): Called with symbol
+## .Call(C_rf, ... ): Called with symbol
+## .Call(C_rgamma, ... ): Called with symbol
+## .Call(C_rgeom, ... ): Called with symbol
+## .Call(C_rhyper, ... ): Called with symbol
+## .Call(C_rlnorm, ... ): Called with symbol
+## .Call(C_rlogis, ... ): Called with symbol
+## .Call(C_rmultinom, ... ): Called with symbol
+## .Call(C_rnbinom_mu, ... ): Called with symbol
+## .Call(C_rnbinom, ... ): Called with symbol
+## .Call(C_rnorm, ... ): Called with symbol
+## .Call(C_rpois, ... ): Called with symbol
+## .Call(C_rsignrank, ... ): Called with symbol
+## .Call(C_rt, ... ): Called with symbol
+## .Call(C_runif, ... ): Called with symbol
+## .Call(C_runmed, ... ): Called with symbol
+## .Call(C_runmed, ... ): Called with symbol
+## .Call(C_rweibull, ... ): Called with symbol
+## .Call(C_rwilcox, ... ): Called with symbol
+## .Call(C_rWishart, ... ): Called with symbol
+## .Call(C_SWilk, ... ): Called with symbol
+## .C(C_loess_raw, ... ): Called with symbol
+## .Fortran(C_lowesw, ... ): Called with symbol
+## .Fortran(C_lowesp, ... ): Called with symbol
+## .C(C_loess_raw, ... ): Called with symbol
+## .Call(C_Rsm, ... ): Called with symbol
+## .Fortran(C_rbart, ... ): Called with symbol
+## .Call(C_SplineCoef, ... ): Called with symbol
+## .Call(C_SplineEval, ... ): Called with symbol
+## .Call(C_monoFC_m, ... ): Called with symbol
+## .Call(C_SplineCoef, ... ): Called with symbol
+## .Fortran(C_stl, ... ): Called with symbol
+## .Call(C_KalmanLike, ... ): Called with symbol
+## .Fortran(C_setsmu, ... ): Called with symbol
+## .Fortran(C_supsmu, ... ): Called with symbol
+## .External(C_termsform, ... ): Called with symbol
+## .Call(C_updateform, ... ): Called with symbol
+## .Call(C_cov, ... ): Called with symbol
+</code></pre>
+
+<pre><code class="r">## End(No test)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>tools</em> version 4.1.2 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,2978 @@
+tags$html(
+  lang = "en",
+  tags$head(
+    tags$meta(
+      charset = "utf-8"
+    ),
+    tags$meta(
+      name = "viewport",
+      content = "width=device-width, initial-scale=1"
+    ),
+    tags$title(
+      "AdminLTE 3 | Dashboard"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "plugins/fontawesome-free/css/all.min.css"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "plugins/icheck-bootstrap/icheck-bootstrap.min.css"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "plugins/jqvmap/jqvmap.min.css"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "dist/css/adminlte.min.css"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "plugins/overlayScrollbars/css/OverlayScrollbars.min.css"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "plugins/daterangepicker/daterangepicker.css"
+    ),
+    tags$link(
+      rel = "stylesheet",
+      href = "plugins/summernote/summernote-bs4.min.css"
+    )
+  ),
+  tags$body(
+    class = "hold-transition sidebar-mini layout-fixed",
+    tags$div(
+      class = "wrapper",
+      tags$div(
+        class = "preloader flex-column justify-content-center align-items-center",
+        tags$img(
+          class = "animation__shake",
+          src = "dist/img/AdminLTELogo.png",
+          alt = "AdminLTELogo",
+          height = "60",
+          width = "60"
+        )
+      ),
+      tags$nav(
+        class = "main-header navbar navbar-expand navbar-white navbar-light",
+        tags$ul(
+          class = "navbar-nav",
+          tags$li(
+            class = "nav-item",
+            tags$a(
+              class = "nav-link",
+              `data-widget` = "pushmenu",
+              href = "#",
+              role = "button",
+              tags$i(
+                class = "fas fa-bars"
+              )
+            )
+          ),
+          tags$li(
+            class = "nav-item d-none d-sm-inline-block",
+            tags$a(
+              href = "index3.html",
+              class = "nav-link",
+              "Home"
+            )
+          ),
+          tags$li(
+            class = "nav-item d-none d-sm-inline-block",
+            tags$a(
+              href = "#",
+              class = "nav-link",
+              "Contact"
+            )
+          )
+        ),
+        tags$ul(
+          class = "navbar-nav ml-auto",
+          tags$li(
+            class = "nav-item",
+            tags$a(
+              class = "nav-link",
+              `data-widget` = "navbar-search",
+              href = "#",
+              role = "button",
+              tags$i(
+                class = "fas fa-search"
+              )
+            ),
+            tags$div(
+              class = "navbar-search-block",
+              tags$form(
+                class = "form-inline",
+                tags$div(
+                  class = "input-group input-group-sm",
+                  tags$input(
+                    class = "form-control form-control-navbar",
+                    type = "search",
+                    placeholder = "Search",
+                    `aria-label` = "Search"
+                  ),
+                  tags$div(
+                    class = "input-group-append",
+                    tags$button(
+                      class = "btn btn-navbar",
+                      type = "submit",
+                      tags$i(
+                        class = "fas fa-search"
+                      )
+                    ),
+                    tags$button(
+                      class = "btn btn-navbar",
+                      type = "button",
+                      `data-widget` = "navbar-search",
+                      tags$i(
+                        class = "fas fa-times"
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          ),
+          tags$li(
+            class = "nav-item dropdown",
+            tags$a(
+              class = "nav-link",
+              `data-toggle` = "dropdown",
+              href = "#",
+              tags$i(
+                class = "far fa-comments"
+              ),
+              tags$span(
+                class = "badge badge-danger navbar-badge",
+                "3"
+              )
+            ),
+            tags$div(
+              class = "dropdown-menu dropdown-menu-lg dropdown-menu-right",
+              tags$a(
+                href = "#",
+                class = "dropdown-item",
+                tags$div(
+                  class = "media",
+                  tags$img(
+                    src = "dist/img/user1-128x128.jpg",
+                    alt = "User Avatar",
+                    class = "img-size-50 mr-3 img-circle"
+                  ),
+                  tags$div(
+                    class = "media-body",
+                    tags$h3(
+                      class = "dropdown-item-title",
+                      "Brad Diesel",
+                      tags$span(
+                        class = "float-right text-sm text-danger",
+                        tags$i(
+                          class = "fas fa-star"
+                        )
+                      )
+                    ),
+                    tags$p(
+                      class = "text-sm",
+                      "Call me whenever you can..."
+                    ),
+                    tags$p(
+                      class = "text-sm text-muted",
+                      tags$i(
+                        class = "far fa-clock mr-1"
+                      ),
+                      "4 Hours Ago"
+                    )
+                  )
+                )
+              ),
+              tags$div(
+                class = "dropdown-divider"
+              ),
+              tags$a(
+                href = "#",
+                class = "dropdown-item",
+                tags$div(
+                  class = "media",
+                  tags$img(
+                    src = "dist/img/user8-128x128.jpg",
+                    alt = "User Avatar",
+                    class = "img-size-50 img-circle mr-3"
+                  ),
+                  tags$div(
+                    class = "media-body",
+                    tags$h3(
+                      class = "dropdown-item-title",
+                      "John Pierce",
+                      tags$span(
+                        class = "float-right text-sm text-muted",
+                        tags$i(
+                          class = "fas fa-star"
+                        )
+                      )
+                    ),
+                    tags$p(
+                      class = "text-sm",
+                      "I got your message bro"
+                    ),
+                    tags$p(
+                      class = "text-sm text-muted",
+                      tags$i(
+                        class = "far fa-clock mr-1"
+                      ),
+                      "4 Hours Ago"
+                    )
+                  )
+                )
+              ),
+              tags$div(
+                class = "dropdown-divider"
+              ),
+              tags$a(
+                href = "#",
+                class = "dropdown-item",
+                tags$div(
+                  class = "media",
+                  tags$img(
+                    src = "dist/img/user3-128x128.jpg",
+                    alt = "User Avatar",
+                    class = "img-size-50 img-circle mr-3"
+                  ),
+                  tags$div(
+                    class = "media-body",
+                    tags$h3(
+                      class = "dropdown-item-title",
+                      "Nora Silvester",
+                      tags$span(
+                        class = "float-right text-sm text-warning",
+                        tags$i(
+                          class = "fas fa-star"
+                        )
+                      )
+                    ),
+                    tags$p(
+                      class = "text-sm",
+                      "The subject goes here"
+                    ),
+                    tags$p(
+                      class = "text-sm text-muted",
+                      tags$i(
+                        class = "far fa-clock mr-1"
+                      ),
+                      "4 Hours Ago"
+                    )
+                  )
+                )
+              ),
+              tags$div(
+                class = "dropdown-divider"
+              ),
+              tags$a(
+                href = "#",
+                class = "dropdown-item dropdown-footer",
+                "See All Messages"
+              )
+            )
+          ),
+          tags$li(
+            class = "nav-item dropdown",
+            tags$a(
+              class = "nav-link",
+              `data-toggle` = "dropdown",
+              href = "#",
+              tags$i(
+                class = "far fa-bell"
+              ),
+              tags$span(
+                class = "badge badge-warning navbar-badge",
+                "15"
+              )
+            ),
+            tags$div(
+              class = "dropdown-menu dropdown-menu-lg dropdown-menu-right",
+              tags$span(
+                class = "dropdown-item dropdown-header",
+                "15 Notifications"
+              ),
+              tags$div(
+                class = "dropdown-divider"
+              ),
+              tags$a(
+                href = "#",
+                class = "dropdown-item",
+                tags$i(
+                  class = "fas fa-envelope mr-2"
+                ),
+                "4 new messages",
+                tags$span(
+                  class = "float-right text-muted text-sm",
+                  "3 mins"
+                )
+              ),
+              tags$div(
+                class = "dropdown-divider"
+              ),
+              tags$a(
+                href = "#",
+                class = "dropdown-item",
+                tags$i(
+                  class = "fas fa-users mr-2"
+                ),
+                "8 friend requests",
+                tags$span(
+                  class = "float-right text-muted text-sm",
+                  "12 hours"
+                )
+              ),
+              tags$div(
+                class = "dropdown-divider"
+              ),
+              tags$a(
+                href = "#",
+                class = "dropdown-item",
+                tags$i(
+                  class = "fas fa-file mr-2"
+                ),
+                "3 new reports",
+                tags$span(
+                  class = "float-right text-muted text-sm",
+                  "2 days"
+                )
+              ),
+              tags$div(
+                class = "dropdown-divider"
+              ),
+              tags$a(
+                href = "#",
+                class = "dropdown-item dropdown-footer",
+                "See All Notifications"
+              )
+            )
+          ),
+          tags$li(
+            class = "nav-item",
+            tags$a(
+              class = "nav-link",
+              `data-widget` = "fullscreen",
+              href = "#",
+              role = "button",
+              tags$i(
+                class = "fas fa-expand-arrows-alt"
+              )
+            )
+          ),
+          tags$li(
+            class = "nav-item",
+            tags$a(
+              class = "nav-link",
+              `data-widget` = "control-sidebar",
+              `data-slide` = "true",
+              href = "#",
+              role = "button",
+              tags$i(
+                class = "fas fa-th-large"
+              )
+            )
+          )
+        )
+      ),
+      tags$aside(
+        class = "main-sidebar sidebar-dark-primary elevation-4",
+        tags$a(
+          href = "index3.html",
+          class = "brand-link",
+          tags$img(
+            src = "dist/img/AdminLTELogo.png",
+            alt = "AdminLTE Logo",
+            class = "brand-image img-circle elevation-3",
+            style = "opacity: .8"
+          ),
+          tags$span(
+            class = "brand-text font-weight-light",
+            "AdminLTE 3"
+          )
+        ),
+        tags$div(
+          class = "sidebar",
+          tags$div(
+            class = "user-panel mt-3 pb-3 mb-3 d-flex",
+            tags$div(
+              class = "image",
+              tags$img(
+                src = "dist/img/user2-160x160.jpg",
+                class = "img-circle elevation-2",
+                alt = "User Image"
+              )
+            ),
+            tags$div(
+              class = "info",
+              tags$a(
+                href = "#",
+                class = "d-block",
+                "Alexander Pierce"
+              )
+            )
+          ),
+          tags$div(
+            class = "form-inline",
+            tags$div(
+              class = "input-group",
+              `data-widget` = "sidebar-search",
+              tags$input(
+                class = "form-control form-control-sidebar",
+                type = "search",
+                placeholder = "Search",
+                `aria-label` = "Search"
+              ),
+              tags$div(
+                class = "input-group-append",
+                tags$button(
+                  class = "btn btn-sidebar",
+                  tags$i(
+                    class = "fas fa-search fa-fw"
+                  )
+                )
+              )
+            )
+          ),
+          tags$nav(
+            class = "mt-2",
+            tags$ul(
+              class = "nav nav-pills nav-sidebar flex-column",
+              `data-widget` = "treeview",
+              role = "menu",
+              `data-accordion` = "false",
+              tags$li(
+                class = "nav-item menu-open",
+                tags$a(
+                  href = "#",
+                  class = "nav-link active",
+                  tags$i(
+                    class = "nav-icon fas fa-tachometer-alt"
+                  ),
+                  tags$p(
+                    "Dashboard",
+                    tags$i(
+                      class = "right fas fa-angle-left"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "./index.html",
+                      class = "nav-link active",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Dashboard v1"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "./index2.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Dashboard v2"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "./index3.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Dashboard v3"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "pages/widgets.html",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-th"
+                  ),
+                  tags$p(
+                    "Widgets",
+                    tags$span(
+                      class = "right badge badge-danger",
+                      "New"
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-copy"
+                  ),
+                  tags$p(
+                    "Layout Options",
+                    tags$i(
+                      class = "fas fa-angle-left right"
+                    ),
+                    tags$span(
+                      class = "badge badge-info right",
+                      "6"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/layout/top-nav.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Top Navigation"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/layout/top-nav-sidebar.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Top Navigation + Sidebar"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/layout/boxed.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Boxed"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/layout/fixed-sidebar.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Fixed Sidebar"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/layout/fixed-sidebar-custom.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Fixed Sidebar",
+                        tags$small(
+                          "+ Custom Area"
+                        )
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/layout/fixed-topnav.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Fixed Navbar"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/layout/fixed-footer.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Fixed Footer"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/layout/collapsed-sidebar.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Collapsed Sidebar"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-chart-pie"
+                  ),
+                  tags$p(
+                    "Charts",
+                    tags$i(
+                      class = "right fas fa-angle-left"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/charts/chartjs.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "ChartJS"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/charts/flot.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Flot"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/charts/inline.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Inline"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/charts/uplot.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "uPlot"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-tree"
+                  ),
+                  tags$p(
+                    "UI Elements",
+                    tags$i(
+                      class = "fas fa-angle-left right"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/UI/general.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "General"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/UI/icons.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Icons"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/UI/buttons.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Buttons"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/UI/sliders.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Sliders"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/UI/modals.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Modals & Alerts"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/UI/navbar.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Navbar & Tabs"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/UI/timeline.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Timeline"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/UI/ribbons.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Ribbons"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-edit"
+                  ),
+                  tags$p(
+                    "Forms",
+                    tags$i(
+                      class = "fas fa-angle-left right"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/forms/general.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "General Elements"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/forms/advanced.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Advanced Elements"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/forms/editors.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Editors"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/forms/validation.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Validation"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-table"
+                  ),
+                  tags$p(
+                    "Tables",
+                    tags$i(
+                      class = "fas fa-angle-left right"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/tables/simple.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Simple Tables"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/tables/data.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "DataTables"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/tables/jsgrid.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "jsGrid"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-header",
+                "EXAMPLES"
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "pages/calendar.html",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon far fa-calendar-alt"
+                  ),
+                  tags$p(
+                    "Calendar",
+                    tags$span(
+                      class = "badge badge-info right",
+                      "2"
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "pages/gallery.html",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon far fa-image"
+                  ),
+                  tags$p(
+                    "Gallery"
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "pages/kanban.html",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-columns"
+                  ),
+                  tags$p(
+                    "Kanban Board"
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon far fa-envelope"
+                  ),
+                  tags$p(
+                    "Mailbox",
+                    tags$i(
+                      class = "fas fa-angle-left right"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/mailbox/mailbox.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Inbox"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/mailbox/compose.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Compose"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/mailbox/read-mail.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Read"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-book"
+                  ),
+                  tags$p(
+                    "Pages",
+                    tags$i(
+                      class = "fas fa-angle-left right"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/invoice.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Invoice"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/profile.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Profile"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/e-commerce.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "E-commerce"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/projects.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Projects"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/project-add.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Project Add"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/project-edit.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Project Edit"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/project-detail.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Project Detail"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/contacts.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Contacts"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/faq.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "FAQ"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/contact-us.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Contact us"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon far fa-plus-square"
+                  ),
+                  tags$p(
+                    "Extras",
+                    tags$i(
+                      class = "fas fa-angle-left right"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "#",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Login & Register v1",
+                        tags$i(
+                          class = "fas fa-angle-left right"
+                        )
+                      )
+                    ),
+                    tags$ul(
+                      class = "nav nav-treeview",
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "pages/examples/login.html",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Login v1"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "pages/examples/register.html",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Register v1"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "pages/examples/forgot-password.html",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Forgot Password v1"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "pages/examples/recover-password.html",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Recover Password v1"
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "#",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Login & Register v2",
+                        tags$i(
+                          class = "fas fa-angle-left right"
+                        )
+                      )
+                    ),
+                    tags$ul(
+                      class = "nav nav-treeview",
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "pages/examples/login-v2.html",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Login v2"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "pages/examples/register-v2.html",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Register v2"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "pages/examples/forgot-password-v2.html",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Forgot Password v2"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "pages/examples/recover-password-v2.html",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Recover Password v2"
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/lockscreen.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Lockscreen"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/legacy-user-menu.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Legacy User Menu"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/language-menu.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Language Menu"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/404.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Error 404"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/500.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Error 500"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/pace.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Pace"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/examples/blank.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Blank Page"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "starter.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Starter Page"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-search"
+                  ),
+                  tags$p(
+                    "Search",
+                    tags$i(
+                      class = "fas fa-angle-left right"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/search/simple.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Simple Search"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "pages/search/enhanced.html",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Enhanced"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-header",
+                "MISCELLANEOUS"
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "iframe.html",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-ellipsis-h"
+                  ),
+                  tags$p(
+                    "Tabbed IFrame Plugin"
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "https://adminlte.io/docs/3.1/",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-file"
+                  ),
+                  tags$p(
+                    "Documentation"
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-header",
+                "MULTI LEVEL EXAMPLE"
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "fas fa-circle nav-icon"
+                  ),
+                  tags$p(
+                    "Level 1"
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon fas fa-circle"
+                  ),
+                  tags$p(
+                    "Level 1",
+                    tags$i(
+                      class = "right fas fa-angle-left"
+                    )
+                  )
+                ),
+                tags$ul(
+                  class = "nav nav-treeview",
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "#",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Level 2"
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "#",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Level 2",
+                        tags$i(
+                          class = "right fas fa-angle-left"
+                        )
+                      )
+                    ),
+                    tags$ul(
+                      class = "nav nav-treeview",
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "#",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-dot-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Level 3"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "#",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-dot-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Level 3"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        class = "nav-item",
+                        tags$a(
+                          href = "#",
+                          class = "nav-link",
+                          tags$i(
+                            class = "far fa-dot-circle nav-icon"
+                          ),
+                          tags$p(
+                            "Level 3"
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  tags$li(
+                    class = "nav-item",
+                    tags$a(
+                      href = "#",
+                      class = "nav-link",
+                      tags$i(
+                        class = "far fa-circle nav-icon"
+                      ),
+                      tags$p(
+                        "Level 2"
+                      )
+                    )
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "fas fa-circle nav-icon"
+                  ),
+                  tags$p(
+                    "Level 1"
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-header",
+                "LABELS"
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon far fa-circle text-danger"
+                  ),
+                  tags$p(
+                    class = "text",
+                    "Important"
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon far fa-circle text-warning"
+                  ),
+                  tags$p(
+                    "Warning"
+                  )
+                )
+              ),
+              tags$li(
+                class = "nav-item",
+                tags$a(
+                  href = "#",
+                  class = "nav-link",
+                  tags$i(
+                    class = "nav-icon far fa-circle text-info"
+                  ),
+                  tags$p(
+                    "Informational"
+                  )
+                )
+              )
+            )
+          )
+        )
+      ),
+      tags$div(
+        class = "content-wrapper",
+        tags$div(
+          class = "content-header",
+          tags$div(
+            class = "container-fluid",
+            tags$div(
+              class = "row mb-2",
+              tags$div(
+                class = "col-sm-6",
+                tags$h1(
+                  class = "m-0",
+                  "Dashboard"
+                )
+              ),
+              tags$div(
+                class = "col-sm-6",
+                tags$ol(
+                  class = "breadcrumb float-sm-right",
+                  tags$li(
+                    class = "breadcrumb-item",
+                    tags$a(
+                      href = "#",
+                      "Home"
+                    )
+                  ),
+                  tags$li(
+                    class = "breadcrumb-item active",
+                    "Dashboard v1"
+                  )
+                )
+              )
+            )
+          )
+        ),
+        tags$section(
+          class = "content",
+          tags$div(
+            class = "container-fluid",
+            tags$div(
+              class = "row",
+              tags$div(
+                class = "col-lg-3 col-6",
+                tags$div(
+                  class = "small-box bg-info",
+                  tags$div(
+                    class = "inner",
+                    tags$h3(
+                      "View(app_tablas_teradata)"
+                    ),
+                    tags$p(
+                      "New Orders"
+                    )
+                  ),
+                  tags$div(
+                    class = "icon",
+                    tags$i(
+                      class = "ion ion-bag"
+                    )
+                  ),
+                  tags$a(
+                    href = "#",
+                    class = "small-box-footer",
+                    "More info",
+                    tags$i(
+                      class = "fas fa-arrow-circle-right"
+                    )
+                  )
+                )
+              ),
+              tags$div(
+                class = "col-lg-3 col-6",
+                tags$div(
+                  class = "small-box bg-success",
+                  tags$div(
+                    class = "inner",
+                    tags$h3(
+                      "53",
+                      tags$sup(
+                        style = "font-size: 20px",
+                        "%"
+                      )
+                    ),
+                    tags$p(
+                      "Bounce Rate"
+                    )
+                  ),
+                  tags$div(
+                    class = "icon",
+                    tags$i(
+                      class = "ion ion-stats-bars"
+                    )
+                  ),
+                  tags$a(
+                    href = "#",
+                    class = "small-box-footer",
+                    "More info",
+                    tags$i(
+                      class = "fas fa-arrow-circle-right"
+                    )
+                  )
+                )
+              ),
+              tags$div(
+                class = "col-lg-3 col-6",
+                tags$div(
+                  class = "small-box bg-warning",
+                  tags$div(
+                    class = "inner",
+                    tags$h3(
+                      "44"
+                    ),
+                    tags$p(
+                      "User Registrations"
+                    )
+                  ),
+                  tags$div(
+                    class = "icon",
+                    tags$i(
+                      class = "ion ion-person-add"
+                    )
+                  ),
+                  tags$a(
+                    href = "#",
+                    class = "small-box-footer",
+                    "More info",
+                    tags$i(
+                      class = "fas fa-arrow-circle-right"
+                    )
+                  )
+                )
+              ),
+              tags$div(
+                class = "col-lg-3 col-6",
+                tags$div(
+                  class = "small-box bg-danger",
+                  tags$div(
+                    class = "inner",
+                    tags$h3(
+                      "65"
+                    ),
+                    tags$p(
+                      "Unique Visitors"
+                    )
+                  ),
+                  tags$div(
+                    class = "icon",
+                    tags$i(
+                      class = "ion ion-pie-graph"
+                    )
+                  ),
+                  tags$a(
+                    href = "#",
+                    class = "small-box-footer",
+                    "More info",
+                    tags$i(
+                      class = "fas fa-arrow-circle-right"
+                    )
+                  )
+                )
+              )
+            ),
+            tags$div(
+              class = "row",
+              tags$section(
+                class = "col-lg-7 connectedSortable",
+                tags$div(
+                  class = "card",
+                  tags$div(
+                    class = "card-header",
+                    tags$h3(
+                      class = "card-title",
+                      tags$i(
+                        class = "fas fa-chart-pie mr-1"
+                      ),
+                      "Sales"
+                    ),
+                    tags$div(
+                      class = "card-tools",
+                      tags$ul(
+                        class = "nav nav-pills ml-auto",
+                        tags$li(
+                          class = "nav-item",
+                          tags$a(
+                            class = "nav-link active",
+                            href = "#revenue-chart",
+                            `data-toggle` = "tab",
+                            "Area"
+                          )
+                        ),
+                        tags$li(
+                          class = "nav-item",
+                          tags$a(
+                            class = "nav-link",
+                            href = "#sales-chart",
+                            `data-toggle` = "tab",
+                            "Donut"
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  tags$div(
+                    class = "card-body",
+                    tags$div(
+                      class = "tab-content p-0",
+                      tags$div(
+                        class = "chart tab-pane active",
+                        id = "revenue-chart",
+                        style = "position: relative; height: 300px;",
+                        tags$canvas(
+                          id = "revenue-chart-canvas",
+                          height = "300",
+                          style = "height: 300px;"
+                        )
+                      ),
+                      tags$div(
+                        class = "chart tab-pane",
+                        id = "sales-chart",
+                        style = "position: relative; height: 300px;",
+                        tags$canvas(
+                          id = "sales-chart-canvas",
+                          height = "300",
+                          style = "height: 300px;"
+                        )
+                      )
+                    )
+                  )
+                ),
+                tags$div(
+                  class = "card direct-chat direct-chat-primary",
+                  tags$div(
+                    class = "card-header",
+                    tags$h3(
+                      class = "card-title",
+                      "Direct Chat"
+                    ),
+                    tags$div(
+                      class = "card-tools",
+                      tags$span(
+                        title = "3 New Messages",
+                        class = "badge badge-primary",
+                        "3"
+                      ),
+                      tags$button(
+                        type = "button",
+                        class = "btn btn-tool",
+                        `data-card-widget` = "collapse",
+                        tags$i(
+                          class = "fas fa-minus"
+                        )
+                      ),
+                      tags$button(
+                        type = "button",
+                        class = "btn btn-tool",
+                        title = "Contacts",
+                        `data-widget` = "chat-pane-toggle",
+                        tags$i(
+                          class = "fas fa-comments"
+                        )
+                      ),
+                      tags$button(
+                        type = "button",
+                        class = "btn btn-tool",
+                        `data-card-widget` = "remove",
+                        tags$i(
+                          class = "fas fa-times"
+                        )
+                      )
+                    )
+                  ),
+                  tags$div(
+                    class = "card-body",
+                    tags$div(
+                      class = "direct-chat-messages",
+                      tags$div(
+                        class = "direct-chat-msg",
+                        tags$div(
+                          class = "direct-chat-infos clearfix",
+                          tags$span(
+                            class = "direct-chat-name float-left",
+                            "Alexander Pierce"
+                          ),
+                          tags$span(
+                            class = "direct-chat-timestamp float-right",
+                            "23 Jan 2:00 pm"
+                          )
+                        ),
+                        tags$img(
+                          class = "direct-chat-img",
+                          src = "dist/img/user1-128x128.jpg",
+                          alt = "message user image"
+                        ),
+                        tags$div(
+                          class = "direct-chat-text",
+                          "Is this template really for free? That's unbelievable!"
+                        )
+                      ),
+                      tags$div(
+                        class = "direct-chat-msg right",
+                        tags$div(
+                          class = "direct-chat-infos clearfix",
+                          tags$span(
+                            class = "direct-chat-name float-right",
+                            "Sarah Bullock"
+                          ),
+                          tags$span(
+                            class = "direct-chat-timestamp float-left",
+                            "23 Jan 2:05 pm"
+                          )
+                        ),
+                        tags$img(
+                          class = "direct-chat-img",
+                          src = "dist/img/user3-128x128.jpg",
+                          alt = "message user image"
+                        ),
+                        tags$div(
+                          class = "direct-chat-text",
+                          "You better believe it!"
+                        )
+                      ),
+                      tags$div(
+                        class = "direct-chat-msg",
+                        tags$div(
+                          class = "direct-chat-infos clearfix",
+                          tags$span(
+                            class = "direct-chat-name float-left",
+                            "Alexander Pierce"
+                          ),
+                          tags$span(
+                            class = "direct-chat-timestamp float-right",
+                            "23 Jan 5:37 pm"
+                          )
+                        ),
+                        tags$img(
+                          class = "direct-chat-img",
+                          src = "dist/img/user1-128x128.jpg",
+                          alt = "message user image"
+                        ),
+                        tags$div(
+                          class = "direct-chat-text",
+                          "Working with AdminLTE on a great new app! Wanna join?"
+                        )
+                      ),
+                      tags$div(
+                        class = "direct-chat-msg right",
+                        tags$div(
+                          class = "direct-chat-infos clearfix",
+                          tags$span(
+                            class = "direct-chat-name float-right",
+                            "Sarah Bullock"
+                          ),
+                          tags$span(
+                            class = "direct-chat-timestamp float-left",
+                            "23 Jan 6:10 pm"
+                          )
+                        ),
+                        tags$img(
+                          class = "direct-chat-img",
+                          src = "dist/img/user3-128x128.jpg",
+                          alt = "message user image"
+                        ),
+                        tags$div(
+                          class = "direct-chat-text",
+                          "I would love to."
+                        )
+                      )
+                    ),
+                    tags$div(
+                      class = "direct-chat-contacts",
+                      tags$ul(
+                        class = "contacts-list",
+                        tags$li(
+                          tags$a(
+                            href = "#",
+                            tags$img(
+                              class = "contacts-list-img",
+                              src = "dist/img/user1-128x128.jpg",
+                              alt = "User Avatar"
+                            ),
+                            tags$div(
+                              class = "contacts-list-info",
+                              tags$span(
+                                class = "contacts-list-name",
+                                "Count Dracula",
+                                tags$small(
+                                  class = "contacts-list-date float-right",
+                                  "2/28/2015"
+                                )
+                              ),
+                              tags$span(
+                                class = "contacts-list-msg",
+                                "How have you been? I was..."
+                              )
+                            )
+                          )
+                        ),
+                        tags$li(
+                          tags$a(
+                            href = "#",
+                            tags$img(
+                              class = "contacts-list-img",
+                              src = "dist/img/user7-128x128.jpg",
+                              alt = "User Avatar"
+                            ),
+                            tags$div(
+                              class = "contacts-list-info",
+                              tags$span(
+                                class = "contacts-list-name",
+                                "Sarah Doe",
+                                tags$small(
+                                  class = "contacts-list-date float-right",
+                                  "2/23/2015"
+                                )
+                              ),
+                              tags$span(
+                                class = "contacts-list-msg",
+                                "I will be waiting for..."
+                              )
+                            )
+                          )
+                        ),
+                        tags$li(
+                          tags$a(
+                            href = "#",
+                            tags$img(
+                              class = "contacts-list-img",
+                              src = "dist/img/user3-128x128.jpg",
+                              alt = "User Avatar"
+                            ),
+                            tags$div(
+                              class = "contacts-list-info",
+                              tags$span(
+                                class = "contacts-list-name",
+                                "Nadia Jolie",
+                                tags$small(
+                                  class = "contacts-list-date float-right",
+                                  "2/20/2015"
+                                )
+                              ),
+                              tags$span(
+                                class = "contacts-list-msg",
+                                "I'll call you back at..."
+                              )
+                            )
+                          )
+                        ),
+                        tags$li(
+                          tags$a(
+                            href = "#",
+                            tags$img(
+                              class = "contacts-list-img",
+                              src = "dist/img/user5-128x128.jpg",
+                              alt = "User Avatar"
+                            ),
+                            tags$div(
+                              class = "contacts-list-info",
+                              tags$span(
+                                class = "contacts-list-name",
+                                "Nora S. Vans",
+                                tags$small(
+                                  class = "contacts-list-date float-right",
+                                  "2/10/2015"
+                                )
+                              ),
+                              tags$span(
+                                class = "contacts-list-msg",
+                                "Where is your new..."
+                              )
+                            )
+                          )
+                        ),
+                        tags$li(
+                          tags$a(
+                            href = "#",
+                            tags$img(
+                              class = "contacts-list-img",
+                              src = "dist/img/user6-128x128.jpg",
+                              alt = "User Avatar"
+                            ),
+                            tags$div(
+                              class = "contacts-list-info",
+                              tags$span(
+                                class = "contacts-list-name",
+                                "John K.",
+                                tags$small(
+                                  class = "contacts-list-date float-right",
+                                  "1/27/2015"
+                                )
+                              ),
+                              tags$span(
+                                class = "contacts-list-msg",
+                                "Can I take a look at..."
+                              )
+                            )
+                          )
+                        ),
+                        tags$li(
+                          tags$a(
+                            href = "#",
+                            tags$img(
+                              class = "contacts-list-img",
+                              src = "dist/img/user8-128x128.jpg",
+                              alt = "User Avatar"
+                            ),
+                            tags$div(
+                              class = "contacts-list-info",
+                              tags$span(
+                                class = "contacts-list-name",
+                                "Kenneth M.",
+                                tags$small(
+                                  class = "contacts-list-date float-right",
+                                  "1/4/2015"
+                                )
+                              ),
+                              tags$span(
+                                class = "contacts-list-msg",
+                                "Never mind I found..."
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  tags$div(
+                    class = "card-footer",
+                    tags$form(
+                      action = "#",
+                      method = "post",
+                      tags$div(
+                        class = "input-group",
+                        tags$input(
+                          type = "text",
+                          name = "message",
+                          placeholder = "Type Message ...",
+                          class = "form-control"
+                        ),
+                        tags$span(
+                          class = "input-group-append",
+                          tags$button(
+                            type = "button",
+                            class = "btn btn-primary",
+                            "Send"
+                          )
+                        )
+                      )
+                    )
+                  )
+                ),
+                tags$div(
+                  class = "card",
+                  tags$div(
+                    class = "card-header",
+                    tags$h3(
+                      class = "card-title",
+                      tags$i(
+                        class = "ion ion-clipboard mr-1"
+                      ),
+                      "To Do List"
+                    ),
+                    tags$div(
+                      class = "card-tools",
+                      tags$ul(
+                        class = "pagination pagination-sm",
+                        tags$li(
+                          class = "page-item",
+                          tags$a(
+                            href = "#",
+                            class = "page-link",
+                            "&laquo;"
+                          )
+                        ),
+                        tags$li(
+                          class = "page-item",
+                          tags$a(
+                            href = "#",
+                            class = "page-link",
+                            "1"
+                          )
+                        ),
+                        tags$li(
+                          class = "page-item",
+                          tags$a(
+                            href = "#",
+                            class = "page-link",
+                            "2"
+                          )
+                        ),
+                        tags$li(
+                          class = "page-item",
+                          tags$a(
+                            href = "#",
+                            class = "page-link",
+                            "3"
+                          )
+                        ),
+                        tags$li(
+                          class = "page-item",
+                          tags$a(
+                            href = "#",
+                            class = "page-link",
+                            "&raquo;"
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  tags$div(
+                    class = "card-body",
+                    tags$ul(
+                      class = "todo-list",
+                      `data-widget` = "todo-list",
+                      tags$li(
+                        tags$span(
+                          class = "handle",
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          ),
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          )
+                        ),
+                        tags$div(
+                          class = "icheck-primary d-inline ml-2",
+                          tags$input(
+                            type = "checkbox",
+                            value = "",
+                            name = "todo1",
+                            id = "todoCheck1"
+                          ),
+                          tags$label(
+                            `for` = "todoCheck1"
+                          )
+                        ),
+                        tags$span(
+                          class = "text",
+                          "Design a nice theme"
+                        ),
+                        tags$small(
+                          class = "badge badge-danger",
+                          tags$i(
+                            class = "far fa-clock"
+                          ),
+                          "2 mins"
+                        ),
+                        tags$div(
+                          class = "tools",
+                          tags$i(
+                            class = "fas fa-edit"
+                          ),
+                          tags$i(
+                            class = "fas fa-trash-o"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        tags$span(
+                          class = "handle",
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          ),
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          )
+                        ),
+                        tags$div(
+                          class = "icheck-primary d-inline ml-2",
+                          tags$input(
+                            type = "checkbox",
+                            value = "",
+                            name = "todo2",
+                            id = "todoCheck2",
+                            checked = ""
+                          ),
+                          tags$label(
+                            `for` = "todoCheck2"
+                          )
+                        ),
+                        tags$span(
+                          class = "text",
+                          "Make the theme responsive"
+                        ),
+                        tags$small(
+                          class = "badge badge-info",
+                          tags$i(
+                            class = "far fa-clock"
+                          ),
+                          "4 hours"
+                        ),
+                        tags$div(
+                          class = "tools",
+                          tags$i(
+                            class = "fas fa-edit"
+                          ),
+                          tags$i(
+                            class = "fas fa-trash-o"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        tags$span(
+                          class = "handle",
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          ),
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          )
+                        ),
+                        tags$div(
+                          class = "icheck-primary d-inline ml-2",
+                          tags$input(
+                            type = "checkbox",
+                            value = "",
+                            name = "todo3",
+                            id = "todoCheck3"
+                          ),
+                          tags$label(
+                            `for` = "todoCheck3"
+                          )
+                        ),
+                        tags$span(
+                          class = "text",
+                          "Let theme shine like a star"
+                        ),
+                        tags$small(
+                          class = "badge badge-warning",
+                          tags$i(
+                            class = "far fa-clock"
+                          ),
+                          "1 day"
+                        ),
+                        tags$div(
+                          class = "tools",
+                          tags$i(
+                            class = "fas fa-edit"
+                          ),
+                          tags$i(
+                            class = "fas fa-trash-o"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        tags$span(
+                          class = "handle",
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          ),
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          )
+                        ),
+                        tags$div(
+                          class = "icheck-primary d-inline ml-2",
+                          tags$input(
+                            type = "checkbox",
+                            value = "",
+                            name = "todo4",
+                            id = "todoCheck4"
+                          ),
+                          tags$label(
+                            `for` = "todoCheck4"
+                          )
+                        ),
+                        tags$span(
+                          class = "text",
+                          "Let theme shine like a star"
+                        ),
+                        tags$small(
+                          class = "badge badge-success",
+                          tags$i(
+                            class = "far fa-clock"
+                          ),
+                          "3 days"
+                        ),
+                        tags$div(
+                          class = "tools",
+                          tags$i(
+                            class = "fas fa-edit"
+                          ),
+                          tags$i(
+                            class = "fas fa-trash-o"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        tags$span(
+                          class = "handle",
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          ),
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          )
+                        ),
+                        tags$div(
+                          class = "icheck-primary d-inline ml-2",
+                          tags$input(
+                            type = "checkbox",
+                            value = "",
+                            name = "todo5",
+                            id = "todoCheck5"
+                          ),
+                          tags$label(
+                            `for` = "todoCheck5"
+                          )
+                        ),
+                        tags$span(
+                          class = "text",
+                          "Check your messages and notifications"
+                        ),
+                        tags$small(
+                          class = "badge badge-primary",
+                          tags$i(
+                            class = "far fa-clock"
+                          ),
+                          "1 week"
+                        ),
+                        tags$div(
+                          class = "tools",
+                          tags$i(
+                            class = "fas fa-edit"
+                          ),
+                          tags$i(
+                            class = "fas fa-trash-o"
+                          )
+                        )
+                      ),
+                      tags$li(
+                        tags$span(
+                          class = "handle",
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          ),
+                          tags$i(
+                            class = "fas fa-ellipsis-v"
+                          )
+                        ),
+                        tags$div(
+                          class = "icheck-primary d-inline ml-2",
+                          tags$input(
+                            type = "checkbox",
+                            value = "",
+                            name = "todo6",
+                            id = "todoCheck6"
+                          ),
+                          tags$label(
+                            `for` = "todoCheck6"
+                          )
+                        ),
+                        tags$span(
+                          class = "text",
+                          "Let theme shine like a star"
+                        ),
+                        tags$small(
+                          class = "badge badge-secondary",
+                          tags$i(
+                            class = "far fa-clock"
+                          ),
+                          "1 month"
+                        ),
+                        tags$div(
+                          class = "tools",
+                          tags$i(
+                            class = "fas fa-edit"
+                          ),
+                          tags$i(
+                            class = "fas fa-trash-o"
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  tags$div(
+                    class = "card-footer clearfix",
+                    tags$button(
+                      type = "button",
+                      class = "btn btn-primary float-right",
+                      tags$i(
+                        class = "fas fa-plus"
+                      ),
+                      "Add item"
+                    )
+                  )
+                )
+              ),
+              tags$section(
+                class = "col-lg-5 connectedSortable",
+                tags$div(
+                  class = "card bg-gradient-primary",
+                  tags$div(
+                    class = "card-header border-0",
+                    tags$h3(
+                      class = "card-title",
+                      tags$i(
+                        class = "fas fa-map-marker-alt mr-1"
+                      ),
+                      "Visitors"
+                    ),
+                    tags$div(
+                      class = "card-tools",
+                      tags$button(
+                        type = "button",
+                        class = "btn btn-primary btn-sm daterange",
+                        title = "Date range",
+                        tags$i(
+                          class = "far fa-calendar-alt"
+                        )
+                      ),
+                      tags$button(
+                        type = "button",
+                        class = "btn btn-primary btn-sm",
+                        `data-card-widget` = "collapse",
+                        title = "Collapse",
+                        tags$i(
+                          class = "fas fa-minus"
+                        )
+                      )
+                    )
+                  ),
+                  tags$div(
+                    class = "card-body",
+                    tags$div(
+                      id = "world-map",
+                      style = "height: 250px; width: 100%;"
+                    )
+                  ),
+                  tags$div(
+                    class = "card-footer bg-transparent",
+                    tags$div(
+                      class = "row",
+                      tags$div(
+                        class = "col-4 text-center",
+                        tags$div(
+                          id = "sparkline-1"
+                        ),
+                        tags$div(
+                          class = "text-white",
+                          "Visitors"
+                        )
+                      ),
+                      tags$div(
+                        class = "col-4 text-center",
+                        tags$div(
+                          id = "sparkline-2"
+                        ),
+                        tags$div(
+                          class = "text-white",
+                          "Online"
+                        )
+                      ),
+                      tags$div(
+                        class = "col-4 text-center",
+                        tags$div(
+                          id = "sparkline-3"
+                        ),
+                        tags$div(
+                          class = "text-white",
+                          "Sales"
+                        )
+                      )
+                    )
+                  )
+                ),
+                tags$div(
+                  class = "card bg-gradient-info",
+                  tags$div(
+                    class = "card-header border-0",
+                    tags$h3(
+                      class = "card-title",
+                      tags$i(
+                        class = "fas fa-th mr-1"
+                      ),
+                      "Sales Graph"
+                    ),
+                    tags$div(
+                      class = "card-tools",
+                      tags$button(
+                        type = "button",
+                        class = "btn bg-info btn-sm",
+                        `data-card-widget` = "collapse",
+                        tags$i(
+                          class = "fas fa-minus"
+                        )
+                      ),
+                      tags$button(
+                        type = "button",
+                        class = "btn bg-info btn-sm",
+                        `data-card-widget` = "remove",
+                        tags$i(
+                          class = "fas fa-times"
+                        )
+                      )
+                    )
+                  ),
+                  tags$div(
+                    class = "card-body",
+                    tags$canvas(
+                      class = "chart",
+                      id = "line-chart",
+                      style = "min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    )
+                  ),
+                  tags$div(
+                    class = "card-footer bg-transparent",
+                    tags$div(
+                      class = "row",
+                      tags$div(
+                        class = "col-4 text-center",
+                        tags$input(
+                          type = "text",
+                          class = "knob",
+                          `data-readonly` = "true",
+                          value = "20",
+                          `data-width` = "60",
+                          `data-height` = "60",
+                          `data-fgColor` = "#39CCCC"
+                        ),
+                        tags$div(
+                          class = "text-white",
+                          "Mail-Orders"
+                        )
+                      ),
+                      tags$div(
+                        class = "col-4 text-center",
+                        tags$input(
+                          type = "text",
+                          class = "knob",
+                          `data-readonly` = "true",
+                          value = "50",
+                          `data-width` = "60",
+                          `data-height` = "60",
+                          `data-fgColor` = "#39CCCC"
+                        ),
+                        tags$div(
+                          class = "text-white",
+                          "Online"
+                        )
+                      ),
+                      tags$div(
+                        class = "col-4 text-center",
+                        tags$input(
+                          type = "text",
+                          class = "knob",
+                          `data-readonly` = "true",
+                          value = "30",
+                          `data-width` = "60",
+                          `data-height` = "60",
+                          `data-fgColor` = "#39CCCC"
+                        ),
+                        tags$div(
+                          class = "text-white",
+                          "In-Store"
+                        )
+                      )
+                    )
+                  )
+                ),
+                tags$div(
+                  class = "card bg-gradient-success",
+                  tags$div(
+                    class = "card-header border-0",
+                    tags$h3(
+                      class = "card-title",
+                      tags$i(
+                        class = "far fa-calendar-alt"
+                      ),
+                      "Calendar"
+                    ),
+                    tags$div(
+                      class = "card-tools",
+                      tags$div(
+                        class = "btn-group",
+                        tags$button(
+                          type = "button",
+                          class = "btn btn-success btn-sm dropdown-toggle",
+                          `data-toggle` = "dropdown",
+                          `data-offset` = "-52",
+                          tags$i(
+                            class = "fas fa-bars"
+                          )
+                        ),
+                        tags$div(
+                          class = "dropdown-menu",
+                          role = "menu",
+                          tags$a(
+                            href = "#",
+                            class = "dropdown-item",
+                            "Add new event"
+                          ),
+                          tags$a(
+                            href = "#",
+                            class = "dropdown-item",
+                            "Clear events"
+                          ),
+                          tags$div(
+                            class = "dropdown-divider"
+                          ),
+                          tags$a(
+                            href = "#",
+                            class = "dropdown-item",
+                            "View calendar"
+                          )
+                        )
+                      ),
+                      tags$button(
+                        type = "button",
+                        class = "btn btn-success btn-sm",
+                        `data-card-widget` = "collapse",
+                        tags$i(
+                          class = "fas fa-minus"
+                        )
+                      ),
+                      tags$button(
+                        type = "button",
+                        class = "btn btn-success btn-sm",
+                        `data-card-widget` = "remove",
+                        tags$i(
+                          class = "fas fa-times"
+                        )
+                      )
+                    )
+                  ),
+                  tags$div(
+                    class = "card-body pt-0",
+                    tags$div(
+                      id = "calendar",
+                      style = "width: 100%"
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      ),
+      tags$footer(
+        class = "main-footer",
+        tags$strong(
+          "Copyright &copy; 2014-2021",
+          tags$a(
+            href = "https://adminlte.io",
+            "AdminLTE.io"
+          ),
+          "."
+        ),
+        "All rights reserved.",
+        tags$div(
+          class = "float-right d-none d-sm-inline-block",
+          tags$b(
+            "Version"
+          ),
+          "3.1.0"
+        )
+      ),
+      tags$aside(
+        class = "control-sidebar control-sidebar-dark"
+      )
+    ),
+    tags$script(
+      src = "plugins/jquery/jquery.min.js"
+    ),
+    tags$script(
+      src = "plugins/jquery-ui/jquery-ui.min.js"
+    ),
+    tags$script(
+      HTML(
+        "\n",
+        "$.widget.bridge('uibutton', $.ui.button)\n"
+      )
+    ),
+    tags$script(
+      src = "plugins/bootstrap/js/bootstrap.bundle.min.js"
+    ),
+    tags$script(
+      src = "plugins/chart.js/Chart.min.js"
+    ),
+    tags$script(
+      src = "plugins/sparklines/sparkline.js"
+    ),
+    tags$script(
+      src = "plugins/jqvmap/jquery.vmap.min.js"
+    ),
+    tags$script(
+      src = "plugins/jqvmap/maps/jquery.vmap.usa.js"
+    ),
+    tags$script(
+      src = "plugins/jquery-knob/jquery.knob.min.js"
+    ),
+    tags$script(
+      src = "plugins/moment/moment.min.js"
+    ),
+    tags$script(
+      src = "plugins/daterangepicker/daterangepicker.js"
+    ),
+    tags$script(
+      src = "plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"
+    ),
+    tags$script(
+      src = "plugins/summernote/summernote-bs4.min.js"
+    ),
+    tags$script(
+      src = "plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"
+    ),
+    tags$script(
+      src = "dist/js/adminlte.js"
+    ),
+    tags$script(
+      src = "dist/js/demo.js"
+    ),
+    tags$script(
+      src = "dist/js/pages/dashboard.js"
+    )
+  )
+)
+<!--begin.rcode
+
+end.rcode-->

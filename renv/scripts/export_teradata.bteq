@@ -1,0 +1,13 @@
+.LOGON localtd/dbc,dbc;
+.EXPORT FILE = /Users/jorge/Documents/R/Parser_v1/Parser_v1/DATOS/Entrada/teradata.txt;
+
+SELECT distinct 
+trim(cast(co_query_amp as varchar(22))) as co_query,
+trim(tabla) as tabla,
+trim(tipo) as tipo,
+trim(tabla_vista) as tabla_vista,
+trim(cast(orden as varchar(3))) as orden
+FROM dwgobdp0.god_parser_fin
+where it_ini_consulta(date, format 'dd/MM/YYYY') between '01/06/2020' (date ,format 'dd/MM/YYYY') and '01/09/2020' (date ,format 'dd/MM/YYYY') 
+order by 1, 5  asc
+;

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Collect twitter data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for collectTwitterData {VOSONDash}"><tr><td>collectTwitterData {VOSONDash}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Collect twitter data</h2>
+
+<h3>Description</h3>
+
+<p>This function is a wrapper for collecting tweets using <code>vosonSML::Collect</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+collectTwitterData(
+  cred,
+  search_term,
+  search_type,
+  tweet_count,
+  include_retweets,
+  retry_on_rate_limit,
+  language,
+  date_until,
+  since_id,
+  max_id
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>cred</code></td>
+<td>
+<p><span class="pkg">vosonSML</span> twitter credential object.</p>
+</td></tr>
+<tr valign="top"><td><code>search_term</code></td>
+<td>
+<p>Character string. Twitter search term.</p>
+</td></tr>
+<tr valign="top"><td><code>search_type</code></td>
+<td>
+<p>Character string. Search type <code>"mixed"</code>, <code>"recent"</code> or <code>"popular"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>tweet_count</code></td>
+<td>
+<p>Numeric. Number of tweets to collect.</p>
+</td></tr>
+<tr valign="top"><td><code>include_retweets</code></td>
+<td>
+<p>Logical. Include retweets in the results.</p>
+</td></tr>
+<tr valign="top"><td><code>retry_on_rate_limit</code></td>
+<td>
+<p>Logical. Wait and retry when the twitter api rate limit is reached.</p>
+</td></tr>
+<tr valign="top"><td><code>language</code></td>
+<td>
+<p>Character string. Language code of tweets to collect as two character ISO 639-1 code.</p>
+</td></tr>
+<tr valign="top"><td><code>date_until</code></td>
+<td>
+<p>Character string. Date to collect tweets to in format <code>"YYYY-MM-DD"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>since_id</code></td>
+<td>
+<p>Numeric. Collect tweets with a tweet id more recent than <code>since_id</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>max_id</code></td>
+<td>
+<p>Numeric. Collect tweets with a tweet id older than <code>max_id</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A vosonSML twitter dataframe.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>VOSONDash</em> version 0.5.7 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

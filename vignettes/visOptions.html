@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Network visualization general options</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for visOptions {visNetwork}"><tr><td>visOptions {visNetwork}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Network visualization general options</h2>
+
+<h3>Description</h3>
+
+<p>Network visualization general options. For full documentation, have a look at <a href="../../visNetwork/help/visDocumentation.html">visDocumentation</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+visOptions(
+  graph,
+  width = NULL,
+  height = NULL,
+  highlightNearest = FALSE,
+  nodesIdSelection = FALSE,
+  selectedBy = NULL,
+  collapse = FALSE,
+  autoResize = NULL,
+  clickToUse = NULL,
+  manipulation = NULL
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>graph</code></td>
+<td>
+<p>: a visNetwork object</p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>: String. Default to &quot;100%&quot;. The width of the network in pixels or as a percentage.</p>
+</td></tr>
+<tr valign="top"><td><code>height</code></td>
+<td>
+<p>: String. Default to &quot;100%&quot;. The height of the network in pixels or as a percentage.</p>
+</td></tr>
+<tr valign="top"><td><code>highlightNearest</code></td>
+<td>
+<p>: Custom Option. Just a Boolean, or a named list. Default to false. Highlight nearest when clicking a node ? Not available for DOT and Gephi.
+</p>
+
+<ul>
+<li><p>&quot;enabled&quot; : Boolean. Default to false. Activated or not ?.
+</p>
+</li>
+<li><p>&quot;degree&quot; : Optional. Integer. Degree of depth of nodes to be colored. Default to 1. Set high number to have the entire sub-network. In case of &quot;hierarchical&quot; algorithm, you can also pass a list(from = 1, to = 1) to control degree in both direction
+</p>
+</li>
+<li><p>&quot;hover&quot; : Optional. Boolean. Enable highlightNearest alos hovering a node ? Default to FALSE
+</p>
+</li>
+<li><p>&quot;algorithm&quot; : Optional. String. highlightNearest algorithm. &quot;all&quot; highlight all nodes, without taking direction information. &quot;hierarchical&quot; look only at inputs/outputs nodes.
+</p>
+</li>
+<li><p>&quot;hideColor&quot; : Optional. String. Color for hidden nodes/edges. Use a rgba definition. Default to rgba(200,200,200,0.5)
+</p>
+</li>
+<li><p>&quot;labelOnly&quot; : Optional. Boolean. Keep just label for nodes on degree + 1 ? Default to TRUE
+</p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>nodesIdSelection</code></td>
+<td>
+<p>:  Custom Option. Just a Boolean, or a named list. Default to false. Add an id node selection creating an HTML select element. This options use click event. Not available for DOT and Gephi.
+</p>
+
+<ul>
+<li><p>&quot;enabled&quot; : Boolean. Default to false. Activated or not ?.
+</p>
+</li>
+<li><p>&quot;values : Optional. Vector of possible values (node's id), and so order is preserve. Default to all id in nodes data.frame.
+</p>
+</li>
+<li><p>&quot;selected&quot; : Optional. Integer/Character. Initial id selection. Default to NULL
+</p>
+</li>
+<li><p>&quot;style&quot; : Optional. Character. HTML style of list. Default to 'width: 150px; height: 26px'.
+</p>
+</li>
+<li><p>&quot;useLabels&quot; : Optional. Boolean. Use labels instead of id ? Default to TRUE.
+</p>
+</li>
+<li><p>&quot;main&quot; : Optional. Default to &quot;Select by id&quot;
+</p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>selectedBy</code></td>
+<td>
+<p>: Custom option. Character or a named list. Add a multiple selection based on column of node data.frame creating an HTML select element. Not available for DOT and Gephi.
+</p>
+
+<ul>
+<li><p>&quot;variable&quot; : Character. Column name of selection variable.
+</p>
+</li>
+<li><p>&quot;values : Optional. Vector of possible values. Default to all values in nodes data.frame.
+</p>
+</li>
+<li><p>&quot;selected&quot; : Optional. Integer/Character. Initial selection. Default to NULL
+</p>
+</li>
+<li><p>&quot;style&quot; : Optional. Character. HTML style of list. Default to 'width: 150px; height: 26px'.
+</p>
+</li>
+<li><p>&quot;multiple&quot; : Optional. Boolean. Default to FALSE. If TRUE, you can affect multiple groups per nodes using a comma (&quot;gr1,gr2&quot;)
+</p>
+</li>
+<li><p>&quot;hideColor&quot; : Optional. String. Color for hidden nodes/edges. Use a rgba definition. Default to rgba(200,200,200,0.5)
+</p>
+</li>
+<li><p>&quot;main&quot; : Optional. Default to &quot;Select by variable&quot;
+</p>
+</li>
+<li><p>&quot;sort&quot; : Optional. If values is NULL, sort all possible values ?. Default to TRUE
+</p>
+</li>
+<li><p>&quot;highlight&quot; : Optional. Boolean. Run highlightNearest if defined on each selected node ? Default to FALSE
+</p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>collapse</code></td>
+<td>
+<p>: Custom option. Just a Boolean, or a named list. Collapse / Uncollapse nodes using double-click. In dev.
+</p>
+
+<ul>
+<li><p>&quot;enabled&quot; : Boolean. Default to false. Activated or not ?
+</p>
+</li>
+<li><p>&quot;fit&quot; : Optional. Boolean. Default to FALSE. Call fit method after collapse/uncollapse event ?
+</p>
+</li>
+<li><p>&quot;resetHighlight&quot; : Optional. Boolean. Default to TRUE to reset highlighted nodes after collapse/uncollapse event.
+</p>
+</li>
+<li><p>&quot;clusterOptions&quot; : Optional. List. Default to NULL. A list of all options you want to pass to cluster collapsed node
+</p>
+</li>
+<li><p>&quot;keepCoord&quot; : Optional. Boolean. Default to TRUE to keep nodes coordinates on collapse
+</p>
+</li>
+<li><p>&quot;labelSuffix&quot; : Optional. Character. Use node label + suffix or just suffix. Default to '(cluster)'
+</p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>autoResize</code></td>
+<td>
+<p>: Boolean. Default to true. If true, the Network will automatically detect when its container is resized, and redraw itself accordingly. If false, the Network can be forced to repaint after its container has been resized using the function redraw() and setSize().</p>
+</td></tr>
+<tr valign="top"><td><code>clickToUse</code></td>
+<td>
+<p>: Boolean. Default to false. When a Network is configured to be clickToUse, it will react to mouse, touch, and keyboard events only when active. When active, a blue shadow border is displayed around the Network. The Network is set active by clicking on it, and is changed to inactive again by clicking outside the Network or by pressing the ESC key.</p>
+</td></tr>
+<tr valign="top"><td><code>manipulation</code></td>
+<td>
+<p>: Just a Boolean or a list. See <a href="../../visNetwork/help/visDocumentation.html">visDocumentation</a>. You can also choose the columns to edit : 
+</p>
+
+<ul>
+<li><p>&quot;editEdgeCols&quot; : Optional. Default to NULL, and so you can just move edge. If set, you can't move edge but just edit.
+</p>
+</li>
+<li><p>&quot;editNodeCols&quot; : Optional. Default to c(&quot;id&quot;, &quot;label&quot;). See examples.
+</p>
+</li>
+<li><p>&quot;addNodeCols&quot; : Optional. Default to c(&quot;id&quot;, &quot;label&quot;). See examples.
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>References</h3>
+
+<p>See online documentation <a href="http://datastorm-open.github.io/visNetwork/">http://datastorm-open.github.io/visNetwork/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../visNetwork/help/visNodes.html">visNodes</a> for nodes options, <a href="../../visNetwork/help/visEdges.html">visEdges</a> for edges options, <a href="../../visNetwork/help/visGroups.html">visGroups</a> for groups options, 
+<a href="../../visNetwork/help/visLegend.html">visLegend</a> for adding legend, <a href="../../visNetwork/help/visOptions.html">visOptions</a> for custom option, <a href="../../visNetwork/help/visLayout.html">visLayout</a> &amp; <a href="../../visNetwork/help/visHierarchicalLayout.html">visHierarchicalLayout</a> for layout, 
+<a href="../../visNetwork/help/visPhysics.html">visPhysics</a> for control physics, <a href="../../visNetwork/help/visInteraction.html">visInteraction</a> for interaction, <a href="../../visNetwork/help/visNetworkProxy.html">visNetworkProxy</a> &amp; <a href="../../visNetwork/help/visFocus.html">visFocus</a> &amp; <a href="../../visNetwork/help/visFit.html">visFit</a> for animation within shiny,
+<a href="../../visNetwork/help/visDocumentation.html">visDocumentation</a>, <a href="../../visNetwork/help/visEvents.html">visEvents</a>, <a href="../../visNetwork/help/visConfigure.html">visConfigure</a> ...
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">
+
+nodes <- data.frame(id = 1:15, label = paste("Label", 1:15),
+ group = sample(LETTERS[1:3], 15, replace = TRUE))
+
+edges <- data.frame(from = trunc(runif(15)*(15-1))+1,
+ to = trunc(runif(15)*(15-1))+1)
+ 
+###################  
+# highlight nearest
+###################
+
+visNetwork(nodes, edges) %>% visOptions(highlightNearest = TRUE)
+visNetwork(nodes, edges) %>% visOptions(highlightNearest = list(enabled = TRUE, degree = 2))
+
+# also when hover a node ?
+visNetwork(nodes, edges) %>% visOptions(highlightNearest = list(enabled = TRUE, hover = TRUE))
+
+# don't show nodes/edges
+visNetwork(nodes, edges) %>% visOptions(highlightNearest = list(enabled = TRUE, 
+ hover = TRUE, hideColor = 'rgba(200,200,200,0)'))
+
+# Using hierarchical information
+nodes = data.frame(id = 1:6, level = c(1, 2, 3, 3, 4, 2))
+edges = data.frame(from = c(1, 2, 2, 4, 6), to = c(2, 3, 4, 5, 4))
+
+visNetwork(nodes, edges) %>% visHierarchicalLayout() %>% visEdges(arrows = "to") %>% 
+ visOptions(highlightNearest = list(enabled = TRUE, algorithm = "hierarchical"))
+ 
+visNetwork(nodes, edges) %>% visHierarchicalLayout() %>% visEdges(arrows = "to") %>% 
+ visOptions(highlightNearest = list(enabled = TRUE, algorithm = "hierarchical", 
+   degree = list(from = 0, to = 2)))
+   
+##########################
+# nodesIdSelection
+##########################
+ 
+visNetwork(nodes, edges) %>% 
+ visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE)
+
+# add a default selected node ?
+visNetwork(nodes, edges) %>% 
+ visOptions(highlightNearest = TRUE, 
+ nodesIdSelection = list(enabled = TRUE, selected = "1"))
+ 
+# subset on id values & don't use labels ?
+visNetwork(nodes, edges) %>% 
+ visOptions(highlightNearest = TRUE, 
+ nodesIdSelection = list(enabled = TRUE, 
+   selected = "2", values = c(2:10), useLabels = FALSE))
+ 
+# some style
+visNetwork(nodes, edges) %>% 
+ visOptions(highlightNearest = TRUE, 
+ nodesIdSelection = list(enabled = TRUE, style = 'width: 200px; height: 26px;
+   background: #f8f8f8;
+   color: darkblue;
+   border:none;
+   outline:none;'))   
+ 
+##########################
+# collapse
+##########################
+ 
+nodes <- data.frame(id = 1:15, label = paste("Label", 1:15),
+ group = sample(LETTERS[1:3], 15, replace = TRUE))
+
+edges <- data.frame(from = trunc(runif(15)*(15-1))+1,
+ to = trunc(runif(15)*(15-1))+1)
+ 
+# keeping all parent node attributes  
+visNetwork(nodes, edges) %>% visEdges(arrows = "to") %>%
+ visOptions(collapse = TRUE)
+
+# setting some properties  
+visNetwork(nodes, edges) %>% visEdges(arrows = "to") %>%
+ visOptions(collapse = list(enabled = TRUE, clusterOptions = list(shape = "square"))) 
+   
+# enable / disable open cluster (proxy only) : 
+# visEvents(type = "off", doubleClick = "networkOpenCluster")
+# visEvents(type = "on", doubleClick = "networkOpenCluster")  
+ 
+##########################
+# selectedBy
+##########################
+nodes <- data.frame(id = 1:15, label = paste("Label", 1:15),
+ group = sample(LETTERS[1:3], 15, replace = TRUE))
+
+edges <- data.frame(from = trunc(runif(15)*(15-1))+1,
+ to = trunc(runif(15)*(15-1))+1)
+ 
+visNetwork(nodes, edges) %>% 
+ visOptions(selectedBy = "group")
+ 
+# add a default value ?
+visNetwork(nodes, edges) %>% 
+ visOptions(selectedBy = list(variable = "group", selected = "A"))
+
+# subset on values ?
+visNetwork(nodes, edges) %>% 
+ visOptions(selectedBy = list(variable = "group", 
+   selected = "C",
+   values = c("A", "C")))
+ 
+# highlight also
+visNetwork(nodes, edges) %>% 
+ visOptions(selectedBy = list(variable = "group", 
+   highlight = TRUE), highlightNearest = TRUE) 
+     
+# add some style
+visNetwork(nodes, edges) %>% 
+ visOptions(selectedBy = list(variable = "group", style = 'width: 200px; height: 26px;
+   background: #f8f8f8;
+   color: darkblue;
+   border:none;
+   outline:none;'))
+     
+# can also be on new column
+nodes$sample <- sample(c("sample 1", "sample 2"), nrow(nodes), replace = TRUE)
+visNetwork(nodes, edges) %>% 
+ visOptions(selectedBy = "sample")
+
+# and with multiple groups ?
+nodes$group <- sample(c("group 1", "group 2", "group 1, group 2, group 3"), 
+ nrow(nodes), replace = TRUE)
+ 
+visNetwork(nodes, edges) %>% 
+ visOptions(selectedBy = list(variable = "group", multiple = TRUE))
+ 
+##########################
+# manipulation
+##########################
+ 
+visNetwork(nodes, edges) %>% 
+ visOptions(manipulation = TRUE)
+
+visNetwork(nodes, edges) %>% 
+ visOptions(manipulation = list(enabled = TRUE, addNode = FALSE, addEdge = FALSE))
+
+visNetwork(nodes, edges) %>% 
+ visOptions(manipulation = list(enabled = TRUE, deleteNode = FALSE, deleteEdge = FALSE))
+
+visNetwork(nodes, edges) %>% 
+ visOptions(manipulation = list(enabled = TRUE, editNode = FALSE, editEdge = FALSE))
+ 
+# choose columns to edit
+visNetwork(nodes, edges) %>% 
+  visOptions(manipulation = list(enabled = TRUE, 
+                                 editEdgeCols = c("label"), 
+                                 editNodeCols = c("id", "label", "title", "size"), 
+                                 addNodeCols = c("label", "group")))
+
+# choose columns to edit + input html type (text, number, ...)
+# https://www.w3schools.com/tags/att_input_type.asp
+visNetwork(nodes, edges) %>% 
+  visOptions(manipulation = list(enabled = TRUE, 
+                                 editEdgeCols = c("label"), 
+                                 editNodeCols = list(
+                                    "text" = c("id", "label", "title"),
+                                    "number" = c("size")
+                                 ), 
+                                 addNodeCols = c("label", "group")))
+visNetwork(nodes, edges)  %>% 
+ visOptions(manipulation = list(enabled = TRUE, 
+                                editEdge = htmlwidgets::JS("function(data, callback) {
+                                                           callback(data);
+                                                           console.info('edit edge')
+                                                           }")
+                                    )
+                                )
+##########################
+# collapse
+##########################
+visNetwork(nodes, edges) %>% 
+ visEdges(arrows = "to") %>% 
+ visOptions(collapse = list(enabled = TRUE, 
+   clusterOptions = list(shape = "square")))
+  
+
+
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>visNetwork</em> version 2.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

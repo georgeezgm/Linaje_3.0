@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Themes for Shiny</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for shinythemes {shinythemes}"><tr><td>shinythemes {shinythemes}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Themes for Shiny</h2>
+
+<h3>Description</h3>
+
+<p>This package contains Bootstrap themes from https://bootswatch.com/, which are
+packaged for use with Shiny applications. The themes included are:
+</p>
+
+
+<h3>Details</h3>
+
+
+<ul>
+<li> <p><a href="https://bootswatch.com/3/cerulean/">cerulean</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/cosmo/">cosmo</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/cyborg/">cyborg</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/darkly/">darkly</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/flatly/">flatly</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/journal/">journal</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/lumen/">lumen</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/paper/">paper</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/readable/">readable</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/sandstone/">sandstone</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/simplex/">simplex</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/slate/">slate</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/spacelab/">spacelab</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/superhero/">superhero</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/united/">united</a>
+</p>
+</li>
+<li> <p><a href="https://bootswatch.com/3/yeti/">yeti</a>
+</p>
+</li></ul>
+
+<p>To use the themes, use the <code>theme</code> argument to
+<code><a href="../../shiny/help/bootstrapPage.html">bootstrapPage</a></code>, <code><a href="../../shiny/help/fluidPage.html">fluidPage</a></code>,
+<code><a href="../../shiny/help/navbarPage.html">navbarPage</a></code>, or <code><a href="../../shiny/help/fixedPage.html">fixedPage</a></code>. The value
+should be <code>shinytheme("cerulean")</code>, where the theme name takes the place
+of <code>"cerulean"</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">## Not run: 
+##D library(shiny)
+##D library(shinythemes)
+##D 
+##D # A very basic navbar page with different themes
+##D shinyApp(
+##D   ui = navbarPage(&quot;Default theme&quot;,
+##D     tabPanel(&quot;Plot&quot;, &quot;Plot tab contents...&quot;),
+##D     navbarMenu(&quot;More&quot;,
+##D       tabPanel(&quot;Summary&quot;, &quot;Summary tab contents...&quot;),
+##D       tabPanel(&quot;Table&quot;, &quot;Table tab contents...&quot;)
+##D     )
+##D   ),
+##D   server = function(input, output) { }
+##D )
+##D 
+##D shinyApp(
+##D   ui = navbarPage(&quot;United&quot;,
+##D     theme = shinytheme(&quot;united&quot;),
+##D     tabPanel(&quot;Plot&quot;, &quot;Plot tab contents...&quot;),
+##D     navbarMenu(&quot;More&quot;,
+##D       tabPanel(&quot;Summary&quot;, &quot;Summary tab contents...&quot;),
+##D       tabPanel(&quot;Table&quot;, &quot;Table tab contents...&quot;)
+##D     )
+##D   ),
+##D   server = function(input, output) { }
+##D )
+##D 
+##D shinyApp(
+##D   ui = navbarPage(&quot;Cerulean&quot;,
+##D     theme = shinytheme(&quot;cerulean&quot;),
+##D     tabPanel(&quot;Plot&quot;, &quot;Plot tab contents...&quot;),
+##D     navbarMenu(&quot;More&quot;,
+##D       tabPanel(&quot;Summary&quot;, &quot;Summary tab contents...&quot;),
+##D       tabPanel(&quot;Table&quot;, &quot;Table tab contents...&quot;)
+##D     )
+##D   ),
+##D   server = function(input, output) { }
+##D )
+##D 
+##D 
+##D # A more complicated app with the flatly theme
+##D shinyApp(
+##D   ui = fluidPage(
+##D     theme = shinytheme(&quot;flatly&quot;),
+##D     titlePanel(&quot;Tabsets&quot;),
+##D     sidebarLayout(
+##D       sidebarPanel(
+##D         radioButtons(&quot;dist&quot;, &quot;Distribution type:&quot;,
+##D                      c(&quot;Normal&quot; = &quot;norm&quot;,
+##D                        &quot;Uniform&quot; = &quot;unif&quot;,
+##D                        &quot;Log-normal&quot; = &quot;lnorm&quot;,
+##D                        &quot;Exponential&quot; = &quot;exp&quot;)),
+##D         br(),
+##D         sliderInput(&quot;n&quot;, &quot;Number of observations:&quot;,
+##D                      value = 500, min = 1, max = 1000)
+##D       ),
+##D       mainPanel(
+##D         tabsetPanel(type = &quot;tabs&quot;,
+##D           tabPanel(&quot;Plot&quot;, plotOutput(&quot;plot&quot;)),
+##D           tabPanel(&quot;Summary&quot;, verbatimTextOutput(&quot;summary&quot;)),
+##D           tabPanel(&quot;Table&quot;, tableOutput(&quot;table&quot;))
+##D         )
+##D       )
+##D     )
+##D   ),
+##D   server = function(input, output) {
+##D     data &lt;- reactive({
+##D       dist &lt;- switch(input$dist,
+##D                      norm = rnorm,
+##D                      unif = runif,
+##D                      lnorm = rlnorm,
+##D                      exp = rexp,
+##D                      rnorm)
+##D       dist(input$n)
+##D     })
+##D 
+##D     output$plot &lt;- renderPlot({
+##D       dist &lt;- input$dist
+##D       n &lt;- input$n
+##D       hist(data(), main=paste(&#39;r&#39;, dist, &#39;(&#39;, n, &#39;)&#39;, sep=&#39;&#39;))
+##D     })
+##D 
+##D     output$summary &lt;- renderPrint({
+##D       summary(data())
+##D     })
+##D 
+##D     output$table &lt;- renderTable({
+##D       data.frame(x=data())
+##D     })
+##D   }
+##D )
+## End(Not run)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>shinythemes</em> version 1.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

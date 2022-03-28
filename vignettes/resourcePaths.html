@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Resource Publishing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for addResourcePath {shiny}"><tr><td>addResourcePath {shiny}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Resource Publishing</h2>
+
+<h3>Description</h3>
+
+<p>Add, remove, or list directory of static resources to Shiny's web server,
+with the given path prefix. Primarily intended for package authors to make
+supporting JavaScript/CSS files available to their components.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+addResourcePath(prefix, directoryPath)
+
+resourcePaths()
+
+removeResourcePath(prefix)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>prefix</code></td>
+<td>
+<p>The URL prefix (without slashes). Valid characters are a-z,
+A-Z, 0-9, hyphen, period, and underscore. For example, a value of 'foo'
+means that any request paths that begin with '/foo' will be mapped to the
+given directory.</p>
+</td></tr>
+<tr valign="top"><td><code>directoryPath</code></td>
+<td>
+<p>The directory that contains the static resources to be
+served.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Shiny provides two ways of serving static files (i.e., resources):
+</p>
+
+<ol>
+<li><p> Static files under the <code style="white-space: pre;">www/</code> directory are automatically made available
+under a request path that begins with <code>/</code>.
+</p>
+</li>
+<li> <p><code>addResourcePath()</code> makes static files in a <code>directoryPath</code> available
+under a request path that begins with <code>prefix</code>.
+</p>
+</li></ol>
+
+<p>The second approach is primarily intended for package authors to make
+supporting JavaScript/CSS files available to their components.
+</p>
+<p>Tools for managing static resources published by Shiny's web server:
+</p>
+
+<ul>
+<li> <p><code>addResourcePath()</code> adds a directory of static resources.
+</p>
+</li>
+<li> <p><code>resourcePaths()</code> lists the currently active resource mappings.
+</p>
+</li>
+<li> <p><code>removeResourcePath()</code> removes a directory of static resources.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../htmltools/html/singleton.html">singleton()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">addResourcePath(&#39;datasets&#39;, system.file(&#39;data&#39;, package=&#39;datasets&#39;))
+resourcePaths()
+</code></pre>
+
+<pre><code>##                                                                                                                                                       shinyjs 
+##       &quot;/Users/jorge/Library/Caches/org.R-project.R/R/renv/cache/v5/R-4.1/aarch64-apple-darwin20/shinyjs/2.0.0/9ddfc91d4280eaa34c2103951538976f/shinyjs/srcjs&quot; 
+##                                                                                                                                              shiny-sass-1.7.1 
+##                                                                  &quot;/private/var/folders/j0/t1m1vgbd6jx466y6thpnfmzc0000gn/T/RtmpW6uUT1/shiny-sass6a52453e36dc&quot; 
+##                                                                                                                                               bootstrap-4.6.0 
+##                                                                      &quot;/private/var/folders/j0/t1m1vgbd6jx466y6thpnfmzc0000gn/T/RtmpW6uUT1/bslib-6a522fd4f18c&quot; 
+##                                                                                                                                               bs3compat-0.3.1 
+##                                                                &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/bslib/bs3compat/js&quot; 
+##                                                                                                                                   bootstrap-colorpicker-3.1.2 
+##                                                          &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/bslib/lib/bs-colorpicker&quot; 
+##                                                                                                                                               bs_themer-0.3.1 
+##                                                                      &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/bslib/themer&quot; 
+##                                                                                                                                           bs-themer-css-0.3.1 
+##                                                               &quot;/private/var/folders/j0/t1m1vgbd6jx466y6thpnfmzc0000gn/T/RtmpW6uUT1/bs-themer-css6a527783c907&quot; 
+##                                                                                                                                             htmlwidgets-1.5.4 
+## &quot;/Users/jorge/Library/Caches/org.R-project.R/R/renv/cache/v5/R-4.1/aarch64-apple-darwin20/htmlwidgets/1.5.4/76147821cd3fcd8c4b04e1ef0498e7fb/htmlwidgets/www&quot; 
+##                                                                                                                                                     vis-9.1.0 
+##                                                    &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/visNetwork/htmlwidgets/lib/vis&quot; 
+##                                                                                                                                      visNetwork-binding-2.1.0 
+##                                                            &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/visNetwork/htmlwidgets&quot; 
+##                                                                                                                                            font-awesome-4.7.0 
+##                                      &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/visNetwork/htmlwidgets/lib/fontawesome_4.7.0&quot; 
+##                                                                                                                                           font-awesome-5.15.3 
+##                                                           &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/fontawesome/fontawesome&quot; 
+##                                                                                                                                                      datasets 
+##                                                                          &quot;/Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/datasets/data&quot;
+</code></pre>
+
+<pre><code class="r">removeResourcePath(&#39;datasets&#39;)
+resourcePaths()
+</code></pre>
+
+<pre><code>##                                                                                                                                                       shinyjs 
+##       &quot;/Users/jorge/Library/Caches/org.R-project.R/R/renv/cache/v5/R-4.1/aarch64-apple-darwin20/shinyjs/2.0.0/9ddfc91d4280eaa34c2103951538976f/shinyjs/srcjs&quot; 
+##                                                                                                                                              shiny-sass-1.7.1 
+##                                                                  &quot;/private/var/folders/j0/t1m1vgbd6jx466y6thpnfmzc0000gn/T/RtmpW6uUT1/shiny-sass6a52453e36dc&quot; 
+##                                                                                                                                               bootstrap-4.6.0 
+##                                                                      &quot;/private/var/folders/j0/t1m1vgbd6jx466y6thpnfmzc0000gn/T/RtmpW6uUT1/bslib-6a522fd4f18c&quot; 
+##                                                                                                                                               bs3compat-0.3.1 
+##                                                                &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/bslib/bs3compat/js&quot; 
+##                                                                                                                                   bootstrap-colorpicker-3.1.2 
+##                                                          &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/bslib/lib/bs-colorpicker&quot; 
+##                                                                                                                                               bs_themer-0.3.1 
+##                                                                      &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/bslib/themer&quot; 
+##                                                                                                                                           bs-themer-css-0.3.1 
+##                                                               &quot;/private/var/folders/j0/t1m1vgbd6jx466y6thpnfmzc0000gn/T/RtmpW6uUT1/bs-themer-css6a527783c907&quot; 
+##                                                                                                                                             htmlwidgets-1.5.4 
+## &quot;/Users/jorge/Library/Caches/org.R-project.R/R/renv/cache/v5/R-4.1/aarch64-apple-darwin20/htmlwidgets/1.5.4/76147821cd3fcd8c4b04e1ef0498e7fb/htmlwidgets/www&quot; 
+##                                                                                                                                                     vis-9.1.0 
+##                                                    &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/visNetwork/htmlwidgets/lib/vis&quot; 
+##                                                                                                                                      visNetwork-binding-2.1.0 
+##                                                            &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/visNetwork/htmlwidgets&quot; 
+##                                                                                                                                            font-awesome-4.7.0 
+##                                      &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/visNetwork/htmlwidgets/lib/fontawesome_4.7.0&quot; 
+##                                                                                                                                           font-awesome-5.15.3 
+##                                                           &quot;/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20/fontawesome/fontawesome&quot;
+</code></pre>
+
+<pre><code class="r"># make sure all resources are removed
+lapply(names(resourcePaths()), removeResourcePath)
+</code></pre>
+
+<pre><code>## [[1]]
+## [1] TRUE
+## 
+## [[2]]
+## [1] TRUE
+## 
+## [[3]]
+## [1] TRUE
+## 
+## [[4]]
+## [1] TRUE
+## 
+## [[5]]
+## [1] TRUE
+## 
+## [[6]]
+## [1] TRUE
+## 
+## [[7]]
+## [1] TRUE
+## 
+## [[8]]
+## [1] TRUE
+## 
+## [[9]]
+## [1] TRUE
+## 
+## [[10]]
+## [1] TRUE
+## 
+## [[11]]
+## [1] TRUE
+## 
+## [[12]]
+## [1] TRUE
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>shiny</em> version 1.7.1 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

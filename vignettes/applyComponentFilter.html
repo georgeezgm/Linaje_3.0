@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Filter out graph vertices not in component size range</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for applyComponentFilter {VOSONDash}"><tr><td>applyComponentFilter {VOSONDash}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Filter out graph vertices not in component size range</h2>
+
+<h3>Description</h3>
+
+<p>This function removes any graph vertices that are in components that fall outside of the specified 
+component size range.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+applyComponentFilter(g, component_type = "strong", component_range)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>g</code></td>
+<td>
+<p><span class="pkg">igraph</span> <code>graph</code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>component_type</code></td>
+<td>
+<p>Character string. Use strongly or weakly connected components by specifying <code>"strong"</code> or 
+<code>"weak"</code>. Ignored for undirected graphs. Default is <code>"strong"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>component_range</code></td>
+<td>
+<p>Numeric vector. Min and max values or size range of component.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An igraph graph object.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>VOSONDash</em> version 0.5.7 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Use fontAwesome icons in visNetwork 'graph'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for addFontAwesome {visNetwork}"><tr><td>addFontAwesome {visNetwork}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Use fontAwesome icons in visNetwork <code>graph</code></h2>
+
+<h3>Description</h3>
+
+<p>Add <a href="https://fontawesome.com">Font-Awesome</a> for styling
+our <code>graph</code> with beautiful, professional icons.  Please note
+that you'll already have these icons if using Shiny.
+Can also use <a href="../../visNetwork/help/addIonicons.html">addIonicons</a>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+addFontAwesome(graph, name = "font-awesome", version = c("4.7.0", "5.13.0"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>graph</code></td>
+<td>
+<p>: a visNetwork object</p>
+</td></tr>
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>: name of dependency</p>
+</td></tr>
+<tr valign="top"><td><code>version</code></td>
+<td>
+<p>: fontawesome version.  &quot;4.7.0&quot; (default) or &quot;5.13.0&quot;</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>graph</code> htmlwidget with Font-Awesome dependencies attached.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">
+
+
+# use fontAwesome icons using groups or nodes options 
+# font-awesome is not part of dependencies. use addFontAwesome() if needed.
+# Versions in package (and compatible with vis.js) : 4.7.0 & 5.13.0
+# https://fontawesome.com/v4.7.0/
+# https://fontawesome.com/
+# cheatsheet available in package: 
+# system.file("fontAwesome/Font_Awesome_Cheatsheet_4_7_0.pdf", package = "visNetwork")
+
+# definition in groups
+nodes <- data.frame(id = 1:3, group = c("B", "A", "B"))
+edges <- data.frame(from = c(1,2), to = c(2,3))
+
+visNetwork(nodes, edges) %>%
+  visGroups(groupname = "A", shape = "icon", icon = list(code = "f0c0", size = 75)) %>%
+  visGroups(groupname = "B", shape = "icon", icon = list(code = "f007", color = "red")) %>%
+  addFontAwesome(version = "4.7.0")
+
+# use 5.13.0
+# set face = "'Font Awesome 5 Free'"
+# weight is automatically set to "bold"
+nodes <- data.frame(id = 1:3, group = c("B", "A", "B"))
+edges <- data.frame(from = c(1,2), to = c(2,3))
+
+visNetwork(nodes, edges) %>%
+  visGroups(groupname = "A", shape = "icon", 
+      icon = list(face = "'Font Awesome 5 Free'", code = "f0c0", size = 75)) %>%
+  visGroups(groupname = "B", shape = "icon", 
+      icon = list(face = "'Font Awesome 5 Free'", code = "f007", color = "red")) %>%
+  addFontAwesome(version = "5.13.0")
+  
+# definition in nodes
+nodes <- data.frame(id = 1:3, shape = "icon", icon.face = 'FontAwesome', 
+   icon.code = "f0c0")
+edges <- data.frame(from = c(1,2), to = c(1,3))
+
+visNetwork(nodes, edges) %>%
+  addFontAwesome()
+
+# using shinydashboard : change name if needed
+visNetwork(nodes, edges) %>%
+  addFontAwesome(name = "font-awesome-visNetwork")
+  
+
+
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>visNetwork</em> version 2.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

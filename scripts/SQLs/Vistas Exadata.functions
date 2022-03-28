@@ -1,0 +1,89 @@
+
+
+EXTRACCION_VISTAS_EXADATA<-function(conexion){
+query<-DBI::dbGetQuery(conexion,
+"select B.CO_QUERY,LOWER(OWNER) as OWNER,LOWER(VIEW_NAME) as VIEW_NAME,
+'create table '||LOWER(B.TABLE_NAME)||' as ('||REGEXP_REPLACE(B.SQLTEXT2,'((--)(.*?)$)|(/\\*(.*)[^\\*/]\\*/)|(\")|(;)','',1,0,'m')||');' AS SQLVISTA from 
+(SELECT ROWNUM as CO_QUERY,OWNER,VIEW_NAME,
+OWNER||'.'||VIEW_NAME as TABLE_NAME,
+ REGEXP_REPLACE(LOWER(TO_CLOB(SQLTEXT)),'(\\s){1,}|(\\s){1,}$|$',' ',1,0,'m') as SQLTEXT2 
+from USBGODA.GDVIEWTO) B" )
+return(query)
+}
+ 
+
+
+FECHA_DESCARGA_TERADATA<-function(conexion,dia){
+  query<-DBI::dbGetQuery(conexion,paste0("select  (max(it_ini_consulta)(date))-",dia," as fx_maxima from dwgobdp0.god_parser_fin"))
+return(query)
+}
+
+EXTRACCION_TABLAS_TERADATA<-function(conexion,dia){
+  f<-FECHA_DESCARGA_TERADATA(conexion,dia)
+  query<-DBI::dbGetQuery(
+  conexion,
+  paste0("SELECT distinct  '",f,"'(date) as fecha_query,
+                                              trim(cast(co_query_amp as varchar(22))) as co_query,
+                                              trim(tabla) as tabla,
+                                              trim(tipo) as tipo,
+                                              trim(tabla_vista) as tabla_vista,
+                                              trim(cast(orden as varchar(3))) as orden
+                                              FROM dwgobdp0.god_parser_fin
+                                              where it_ini_consulta(date) = ('",dia,"'(date))
+                                              order by co_query asc, orden  asc "
+  ))
+return(query)
+}
+
+
+
+
+
+TABLA<-function(l){
+rp<-r_bg(function (V){
+  
+C  <-conexion_teradata()
+res<-EXTRACCION_TABLAS_TERADATA(C,V)
+DBI::dbDisconnect(C)
+      ;res},
+     args=list(V=l),
+    package = TRUE)
+  return(rp)
+}
+
+
+# FECHA MAXIMA ----                                                                              
+f<-DBI::dbGetQuery(C,paste0("select  (max(it_ini_consulta)(date))-",V," as fx_maxima from dwgobdp0.god_parser_fin"))
+print(paste0("Descargamos el dia ",f))
+
+# DATOS ----
+print(paste0("Descargamos el dia ",l))
+
+assign(x_arbol(1,"rp",l),res)
+if(l==0){
+  print(paste0("cargando nivel ",l))
+  print(paste0("Día ",f))
+  rp<-res
+  print(paste0("cargado nivel ",l))
+}
+if(l!=0){
+  print(paste0("cargando nivel ",l))
+  print(paste0("Día ",f))
+  rp<-rbind(rp,res)
+  print(paste0("cargado nivel ",l))
+  
+}
+
+# DESCONECTAR ----              
+DBI::dbDisconnect(C)
+
+ Select * from USBGODA.GD_V$SQL;
+  Select Max(FIRST_LOAD_TIME),MIN(FIRST_LOAD_TIME) from USBGODA.GD_V$SQL
+  
+  Select SQL_ID,  LOWER(TO_CLOB(SQL_FULLTEXT)) as CSQL_TEXT,
+   REGEXP_REPLACE(CSQL_TEXT(CLOB(20000)),'((--)(.*?)$)|(/\*(.*)[^\*/]\*/)|(\")|(;)','',1,0,'m')(CLOB(20000)) AS "SQL_TRATADO",
+        REGEXP_REPLACE(SQL_TRATADO(CLOB(20000)),'(\s){1,}|(\s){1,}$|$',' ',1,0,'m')(CLOB(20000)) AS "SQL_TRATADO2",
+        REGEXP_REPLACE(SQL_TRATADO2(CLOB(20000)),'VIEW','TABLE',1,0,'im')(CLOB(20000)) AS "TEXTO1",
+        REGEXP_REPLACE(TEXTO1(CLOB(20000)),'^((\s){1,})|((\s){1,})$','',1,0,'m')(CLOB(20000)) AS "TEXTO0"
+        from USBGODA.GD_V$SQL
+       

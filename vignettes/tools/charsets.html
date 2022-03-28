@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Conversion Tables between Character Sets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for charsets {tools}"><tr><td>charsets {tools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Conversion Tables between Character Sets</h2>
+
+<h3>Description</h3>
+
+<p><code>charset_to_Unicode</code> is a matrix of Unicode code points with
+columns for the common 8-bit encodings.
+</p>
+<p><code>Adobe_glyphs</code> is a data frame which gives Adobe glyph names for
+Unicode code points.  It has two character columns, <code>"adobe"</code> and
+<code>"unicode"</code> (a 4-digit hex representation).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+charset_to_Unicode
+
+Adobe_glyphs
+</pre>
+
+
+<h3>Details</h3>
+
+<p><code>charset_to_Unicode</code> is an integer matrix of class
+<code>c("<a href="../../base/html/noquote.html">noquote</a>", "<a href="../../base/html/hexmode.html">hexmode</a>")</code> so prints in hexadecimal.
+The mappings are those used by <code>libiconv</code>: there are differences
+in the way quotes and minus/hyphen are mapped between sources (and the
+postscript encoding files use a different mapping).
+</p>
+<p><code>Adobe_glyphs</code> includes all the Adobe glyph names which correspond
+to single Unicode characters.  It is sorted by Unicode code point and
+within a point alphabetically on the glyph (there can be more than one
+name for a Unicode code point).  The data are in the file
+&lsquo;<span class="file"><var><a href="../../base/html/Rhome.html">R_HOME</a></var>/share/encodings/Adobe_glyphlist</span>&rsquo;.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">## find Adobe names for ISOLatin2 chars.
+latin2 &lt;- charset_to_Unicode[, &quot;ISOLatin2&quot;]
+aUnicode &lt;- as.hexmode(paste0(&quot;0x&quot;, Adobe_glyphs$unicode))
+keep &lt;- aUnicode %in% latin2
+aUnicode &lt;- aUnicode[keep]
+aAdobe &lt;- Adobe_glyphs[keep, 1]
+## first match
+aLatin2 &lt;- aAdobe[match(latin2, aUnicode)]
+## all matches
+bLatin2 &lt;- lapply(1:256, function(x) aAdobe[aUnicode == latin2[x]])
+format(bLatin2, justify = &quot;none&quot;)
+</code></pre>
+
+<pre><code>##   [1] &quot;&quot;                          &quot;controlSTX&quot;                &quot;controlSOT&quot;               
+##   [4] &quot;controlETX&quot;                &quot;controlEOT&quot;                &quot;controlENQ&quot;               
+##   [7] &quot;controlACK&quot;                &quot;controlBEL&quot;                &quot;controlBS&quot;                
+##  [10] &quot;controlHT&quot;                 &quot;controlLF&quot;                 &quot;controlVT&quot;                
+##  [13] &quot;controlFF&quot;                 &quot;controlCR&quot;                 &quot;controlSO&quot;                
+##  [16] &quot;controlSI&quot;                 &quot;controlDLE&quot;                &quot;controlDC1&quot;               
+##  [19] &quot;controlDC2&quot;                &quot;controlDC3&quot;                &quot;controlDC4&quot;               
+##  [22] &quot;controlNAK&quot;                &quot;controlSYN&quot;                &quot;controlETB&quot;               
+##  [25] &quot;controlCAN&quot;                &quot;controlEM&quot;                 &quot;controlSUB&quot;               
+##  [28] &quot;controlESC&quot;                &quot;controlFS&quot;                 &quot;controlGS&quot;                
+##  [31] &quot;controlRS&quot;                 &quot;controlUS&quot;                 &quot;space, spacehackarabic&quot;   
+##  [34] &quot;exclam&quot;                    &quot;quotedbl&quot;                  &quot;numbersign&quot;               
+##  [37] &quot;dollar&quot;                    &quot;percent&quot;                   &quot;ampersand&quot;                
+##  [40] &quot;quotesingle&quot;               &quot;parenleft&quot;                 &quot;parenright&quot;               
+##  [43] &quot;asterisk&quot;                  &quot;plus&quot;                      &quot;comma&quot;                    
+##  [46] &quot;hyphen&quot;                    &quot;period&quot;                    &quot;slash&quot;                    
+##  [49] &quot;zero&quot;                      &quot;one&quot;                       &quot;two&quot;                      
+##  [52] &quot;three&quot;                     &quot;four&quot;                      &quot;five&quot;                     
+##  [55] &quot;six&quot;                       &quot;seven&quot;                     &quot;eight&quot;                    
+##  [58] &quot;nine&quot;                      &quot;colon&quot;                     &quot;semicolon&quot;                
+##  [61] &quot;less&quot;                      &quot;equal&quot;                     &quot;greater&quot;                  
+##  [64] &quot;question&quot;                  &quot;at&quot;                        &quot;A&quot;                        
+##  [67] &quot;B&quot;                         &quot;C&quot;                         &quot;D&quot;                        
+##  [70] &quot;E&quot;                         &quot;F&quot;                         &quot;G&quot;                        
+##  [73] &quot;H&quot;                         &quot;I&quot;                         &quot;J&quot;                        
+##  [76] &quot;K&quot;                         &quot;L&quot;                         &quot;M&quot;                        
+##  [79] &quot;N&quot;                         &quot;O&quot;                         &quot;P&quot;                        
+##  [82] &quot;Q&quot;                         &quot;R&quot;                         &quot;S&quot;                        
+##  [85] &quot;T&quot;                         &quot;U&quot;                         &quot;V&quot;                        
+##  [88] &quot;W&quot;                         &quot;X&quot;                         &quot;Y&quot;                        
+##  [91] &quot;Z&quot;                         &quot;bracketleft&quot;               &quot;backslash&quot;                
+##  [94] &quot;bracketright&quot;              &quot;asciicircum&quot;               &quot;underscore&quot;               
+##  [97] &quot;grave&quot;                     &quot;a&quot;                         &quot;b&quot;                        
+## [100] &quot;c&quot;                         &quot;d&quot;                         &quot;e&quot;                        
+## [103] &quot;f&quot;                         &quot;g&quot;                         &quot;h&quot;                        
+## [106] &quot;i&quot;                         &quot;j&quot;                         &quot;k&quot;                        
+## [109] &quot;l&quot;                         &quot;m&quot;                         &quot;n&quot;                        
+## [112] &quot;o&quot;                         &quot;p&quot;                         &quot;q&quot;                        
+## [115] &quot;r&quot;                         &quot;s&quot;                         &quot;t&quot;                        
+## [118] &quot;u&quot;                         &quot;v&quot;                         &quot;w&quot;                        
+## [121] &quot;x&quot;                         &quot;y&quot;                         &quot;z&quot;                        
+## [124] &quot;braceleft&quot;                 &quot;bar, verticalbar&quot;          &quot;braceright&quot;               
+## [127] &quot;asciitilde&quot;                &quot;controlDEL&quot;                &quot;&quot;                         
+## [130] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [133] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [136] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [139] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [142] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [145] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [148] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [151] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [154] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [157] &quot;&quot;                          &quot;&quot;                          &quot;&quot;                         
+## [160] &quot;&quot;                          &quot;nbspace, nonbreakingspace&quot; &quot;Aogonek&quot;                  
+## [163] &quot;breve&quot;                     &quot;Lslash&quot;                    &quot;currency&quot;                 
+## [166] &quot;Lcaron&quot;                    &quot;Sacute&quot;                    &quot;section&quot;                  
+## [169] &quot;dieresis&quot;                  &quot;Scaron&quot;                    &quot;Scedilla&quot;                 
+## [172] &quot;Tcaron&quot;                    &quot;Zacute&quot;                    &quot;sfthyphen, softhyphen&quot;    
+## [175] &quot;Zcaron&quot;                    &quot;Zdot, Zdotaccent&quot;          &quot;degree&quot;                   
+## [178] &quot;aogonek&quot;                   &quot;ogonek&quot;                    &quot;lslash&quot;                   
+## [181] &quot;acute&quot;                     &quot;lcaron&quot;                    &quot;sacute&quot;                   
+## [184] &quot;caron&quot;                     &quot;cedilla&quot;                   &quot;scaron&quot;                   
+## [187] &quot;scedilla&quot;                  &quot;tcaron&quot;                    &quot;zacute&quot;                   
+## [190] &quot;hungarumlaut&quot;              &quot;zcaron&quot;                    &quot;zdot, zdotaccent&quot;         
+## [193] &quot;Racute&quot;                    &quot;Aacute&quot;                    &quot;Acircumflex&quot;              
+## [196] &quot;Abreve&quot;                    &quot;Adieresis&quot;                 &quot;Lacute&quot;                   
+## [199] &quot;Cacute&quot;                    &quot;Ccedilla&quot;                  &quot;Ccaron&quot;                   
+## [202] &quot;Eacute&quot;                    &quot;Eogonek&quot;                   &quot;Edieresis&quot;                
+## [205] &quot;Ecaron&quot;                    &quot;Iacute&quot;                    &quot;Icircumflex&quot;              
+## [208] &quot;Dcaron&quot;                    &quot;Dcroat, Dslash&quot;            &quot;Nacute&quot;                   
+## [211] &quot;Ncaron&quot;                    &quot;Oacute&quot;                    &quot;Ocircumflex&quot;              
+## [214] &quot;Odblacute, Ohungarumlaut&quot;  &quot;Odieresis&quot;                 &quot;multiply&quot;                 
+## [217] &quot;Rcaron&quot;                    &quot;Uring&quot;                     &quot;Uacute&quot;                   
+## [220] &quot;Udblacute, Uhungarumlaut&quot;  &quot;Udieresis&quot;                 &quot;Yacute&quot;                   
+## [223] &quot;Tcedilla, Tcommaaccent&quot;    &quot;germandbls&quot;                &quot;racute&quot;                   
+## [226] &quot;aacute&quot;                    &quot;acircumflex&quot;               &quot;abreve&quot;                   
+## [229] &quot;adieresis&quot;                 &quot;lacute&quot;                    &quot;cacute&quot;                   
+## [232] &quot;ccedilla&quot;                  &quot;ccaron&quot;                    &quot;eacute&quot;                   
+## [235] &quot;eogonek&quot;                   &quot;edieresis&quot;                 &quot;ecaron&quot;                   
+## [238] &quot;iacute&quot;                    &quot;icircumflex&quot;               &quot;dcaron&quot;                   
+## [241] &quot;dcroat, dmacron&quot;           &quot;nacute&quot;                    &quot;ncaron&quot;                   
+## [244] &quot;oacute&quot;                    &quot;ocircumflex&quot;               &quot;odblacute, ohungarumlaut&quot; 
+## [247] &quot;odieresis&quot;                 &quot;divide&quot;                    &quot;rcaron&quot;                   
+## [250] &quot;uring&quot;                     &quot;uacute&quot;                    &quot;udblacute, uhungarumlaut&quot; 
+## [253] &quot;udieresis&quot;                 &quot;yacute&quot;                    &quot;tcedilla, tcommaaccent&quot;   
+## [256] &quot;dotaccent&quot;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>tools</em> version 4.1.2 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

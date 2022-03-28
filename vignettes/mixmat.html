@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a mixing matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for mixmat {VOSONDash}"><tr><td>mixmat {VOSONDash}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a mixing matrix</h2>
+
+<h3>Description</h3>
+
+<p>Function creates a mixing matrix by graph vertex attribute.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+mixmat(g, attrib, use_density = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>g</code></td>
+<td>
+<p><span class="pkg">igraph</span> graph object.</p>
+</td></tr>
+<tr valign="top"><td><code>attrib</code></td>
+<td>
+<p>Character string. Vertex attribute or category.</p>
+</td></tr>
+<tr valign="top"><td><code>use_density</code></td>
+<td>
+<p>Logical. Use edge density. Default is <code>TRUE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A mixing matrix.
+</p>
+
+
+<h3>Note</h3>
+
+<p>Mixing matrix original function written by Gary Weissman. See: https://gist.github.com/gweissman/2402741.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">## Not run: 
+##D # create a mixing matrix of the demonstration network based on vertex 
+##D # categorical attribute for political stance &quot;vosonCA_Stance&quot;
+##D g &lt;- loadPackageGraph(&quot;DividedTheyBlog_40Alist_release.graphml&quot;)
+##D 
+##D mm &lt;- mixmat(g, &quot;vosonCA_Stance&quot;, use_density = FALSE)
+## End(Not run)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>VOSONDash</em> version 0.5.7 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

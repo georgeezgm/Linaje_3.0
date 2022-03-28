@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<style type="text/css">
+body { font-family: "lucida grande",verdana,sans-serif; margin-left: 210px; margin-right: 18px; }
+table { border: 1px solid #8897be; border-spacing: 0px; font-size: 10pt; }
+td { border-bottom:1px solid #d9d9d9; border-left:1px solid #d9d9d9; border-spacing: 0px; padding: 3px 8px; }
+td.l { font-weight: bold; width: 10%; }
+tr.e { background-color: #eeeeee; border-spacing: 0px; }
+tr.o { background-color: #ffffff; border-spacing: 0px; }
+div a { text-decoration: none; color: white; }
+a:hover { color: #8897be; background: white; }
+tr:hover { background: #8897be; /* color: white;*/ }
+img.map { position: fixed; border: 0px; left: 50px; right: auto; top: 10px; }
+div.map { background: #8897be; font-weight: bold; color: white; position: fixed; bottom: 30px; height: auto; left: 15px; right: auto; top: 110px; width: 150px; padding: 0 13px; text-align: right; font-size: 12pt; }
+div.map p { font-size: 10pt; font-family: serif; font-style: italic; }
+div.h { font-size: 20pt; font-weight: bold; }
+hr {background-color: #cccccc; border: 0px; height: 1px; color: #000000;}
+</style>
+<title>Everything You Wanted To Know About Your R Session</title>
+</head>
+<body>
+<a name="Top"> </a>
+<a href="http://www.r-project.org/"><img class="map" alt="R Language Home Page" src="http://www.r-project.org/Rlogo.jpg"/></a>
+<div class="h">Everything You Wanted To Know About Your R Session</div>
+<div class="map">
+<p>jump to:</p>
+<a href="#Top">Top</a><br/><hr/>
+<a href="#R_version">R.version</a><br/>
+<a href="#search__">search()</a><br/>
+<a href="#_libPaths__">.libPaths()</a><br/>
+<a href="#options__">options()</a><br/>
+<a href="#Sys_getenv__">Sys.getenv()</a><br/>
+<a href="#Sys_info__">Sys.info()</a><br/>
+<a href="#_Machine">.Machine</a><br/>
+<a href="#_Platform">.Platform</a><br/><hr/>
+<a href="#Attached_Packages">Attached Packages</a><br/><hr/>
+<a href="#Installed_Packages">Installed Packages</a><br/><hr/>
+</div>
+<h2><a name="R_version"> </a>R.version</h2><table><tbody><tr class=" o "><td class="l"> platform </td><td>aarch64-apple-darwin20</td></tr>
+<tr class=" e "><td class="l"> arch </td><td>aarch64</td></tr>
+<tr class=" o "><td class="l"> os </td><td>darwin20</td></tr>
+<tr class=" e "><td class="l"> system </td><td>aarch64, darwin20</td></tr>
+<tr class=" o "><td class="l"> status </td><td>&nbsp;</td></tr>
+<tr class=" e "><td class="l"> major </td><td>4</td></tr>
+<tr class=" o "><td class="l"> minor </td><td>1.2</td></tr>
+<tr class=" e "><td class="l"> year </td><td>2021</td></tr>
+<tr class=" o "><td class="l"> month </td><td>11</td></tr>
+<tr class=" e "><td class="l"> day </td><td>01</td></tr>
+<tr class=" o "><td class="l"> svn rev </td><td>81115</td></tr>
+<tr class=" e "><td class="l"> language </td><td>R</td></tr>
+<tr class=" o "><td class="l"> version.string </td><td>R version 4.1.2 (2021-11-01)</td></tr>
+<tr class=" e "><td class="l"> nickname </td><td>Bird Hippie</td></tr>
+</tbody></table>
+<br/><hr/>
+<h2><a name="search__"> </a>search()</h2><table><tbody><tr class=" o "><td>.GlobalEnv</td></tr>
+<tr class=" e "><td>package:brew</td></tr>
+<tr class=" o "><td>package:blob</td></tr>
+<tr class=" e "><td>package:bitops</td></tr>
+<tr class=" o "><td>package:bit64</td></tr>
+<tr class=" e "><td>package:bit</td></tr>
+<tr class=" o "><td>package:BH</td></tr>
+<tr class=" e "><td>package:png</td></tr>
+<tr class=" o "><td>package:base64enc</td></tr>
+<tr class=" e "><td>package:backports</td></tr>
+<tr class=" o "><td>package:assertthat</td></tr>
+<tr class=" e "><td>package:askpass</td></tr>
+<tr class=" o "><td>package:Matrix</td></tr>
+<tr class=" e "><td>package:fresh</td></tr>
+<tr class=" o "><td>package:shinydashboardPlus</td></tr>
+<tr class=" e "><td>package:rlang</td></tr>
+<tr class=" o "><td>package:magrittr</td></tr>
+<tr class=" e "><td>package:renv</td></tr>
+<tr class=" o "><td>package:knitr</td></tr>
+<tr class=" e "><td>package:visNetwork</td></tr>
+<tr class=" o "><td>package:igraph</td></tr>
+<tr class=" e "><td>package:shinydashboard</td></tr>
+<tr class=" o "><td>package:stringr</td></tr>
+<tr class=" e "><td>package:VOSONDash</td></tr>
+<tr class=" o "><td>package:shinythemes</td></tr>
+<tr class=" e "><td>package:shinyjs</td></tr>
+<tr class=" o "><td>package:shiny</td></tr>
+<tr class=" e "><td>tools:rstudio</td></tr>
+<tr class=" o "><td>package:stats</td></tr>
+<tr class=" e "><td>package:graphics</td></tr>
+<tr class=" o "><td>package:grDevices</td></tr>
+<tr class=" e "><td>package:datasets</td></tr>
+<tr class=" o "><td>renv:shims</td></tr>
+<tr class=" e "><td>package:utils</td></tr>
+<tr class=" o "><td>package:methods</td></tr>
+<tr class=" e "><td>Autoloads</td></tr>
+<tr class=" o "><td>package:base</td></tr>
+</tbody></table>
+<br/><hr/>
+<h2><a name="_libPaths__"> </a>.libPaths()</h2><table><tbody><tr class=" e "><td>/Users/jorge/Documents/R/Linaje/renv/library/R-4.1/aarch64-apple-darwin20</td></tr>
+<tr class=" o "><td>/private/var/folders/j0/t1m1vgbd6jx466y6thpnfmzc0000gn/T/RtmpW6uUT1/renv-system-library</td></tr>
+</tbody></table>
+<br/><hr/>
+<h2><a name="options__"> </a>options()</h2><table><tbody><tr class=" e "><td class="l"> add.smooth </td><td>TRUE</td></tr>
+<tr class=" o "><td class="l"> ambiguousMethodSelection </td><td>function (cond) 
+NULL</td></tr>
+<tr class=" e "><td class="l"> askpass </td><td>function (prompt) 
+{
+    .rs.askForPassword(prompt)
+}</td></tr>
+<tr class=" o "><td class="l"> asksecret </td><td>function (name, title = name, prompt = paste(name, ":", sep = "")) 
+{
+    .rs.askForSecret(name, title, prompt)
+}</td></tr>
+<tr class=" e "><td class="l"> bitmapType </td><td>quartz</td></tr>
+<tr class=" o "><td class="l"> browser </td><td>function (url) 
+{
+    .Call("rs_browseURL", url, PACKAGE = "(embedding)")
+}</td></tr>
+<tr class=" e "><td class="l"> browserNLdisabled </td><td>FALSE</td></tr>
+<tr class=" o "><td class="l"> buildtools.check </td><td>function (action) 
+{
+    .rs.checkBuildTools(action)
+}</td></tr>
+<tr class=" e "><td class="l"> buildtools.with </td><td>function (code) 
+{
+    .rs.withBuildTools(code)
+}</td></tr>
+<tr class=" o "><td class="l"> callr.condition_handler_cli_message </td><td>function (msg) 
+{
+    custom_handler &lt;- getOption("cli.default_handler")
+    if (is.function(custom_handler)) {
+        custom_handler(msg)
+    }
+    else {
+        cli_server_default(msg)
+    }
+}</td></tr>
+<tr class=" e "><td class="l"> CBoundsCheck </td><td>FALSE</td></tr>
+<tr class=" o "><td class="l"> check.bounds </td><td>FALSE</td></tr>
+<tr class=" e "><td class="l"> citation.bibtex.max </td><td>1</td></tr>
+<tr class=" o "><td class="l"> connectionObserver </td><td><table><tbody><tr class=" e "><td class="l"> connectionOpened </td><td>function (type, host, displayName, icon = NULL, connectCode, 
+    disconnect, listObjectTypes, listObjects, listColumns, previewObject, 
+    connectionObject, actions = NULL) 
+{
+    tryCatch(.rs.connectionObserver.connectionOpenedImpl(type, 
+        host, displayName, icon, connectCode, disconnect, listObjectTypes, 
+        listObjects, listColumns, previewObject, connectionObject, 
+        actions), error = .rs.connectionObserver.connectionError)
+}</td></tr>
+<tr class=" o "><td class="l"> connectionClosed </td><td>function (type, host, ...) 
+{
+    tryCatch(.rs.connectionObserver.connectionClosedImpl(type, 
+        host, ...), error = .rs.connectionObserver.connectionError)
+}</td></tr>
+<tr class=" e "><td class="l"> connectionUpdated </td><td>function (type, host, hint, ...) 
+{
+    tryCatch(.rs.connectionObserver.connectionUpdatedImpl(type, 
+        host, hint, ...), error = .rs.connectionObserver.connectionError)
+}</td></tr>
+</tbody></table>
+</td></tr>
+<tr class=" o "><td class="l"> continue </td><td>+ </td></tr>
+<tr class=" e "><td class="l"> contrasts </td><td><table><tbody><tr class=" o "><td class="l"> unordered </td><td>contr.treatment</td></tr>
+<tr class=" e "><td class="l"> ordered </td><td>contr.poly</td></tr>
+</tbody></table>
+</td></tr>
+<tr class=" o "><td class="l"> cpp11_preserve_xptr </td><td>

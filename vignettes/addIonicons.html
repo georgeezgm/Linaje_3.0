@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Use Ionicons in visNetwork 'graph'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for addIonicons {visNetwork}"><tr><td>addIonicons {visNetwork}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Use Ionicons in visNetwork <code>graph</code></h2>
+
+<h3>Description</h3>
+
+<p>Add <a href="https://ionic.io/ionicons">Ionicons</a> for styling
+our <code>graph</code> with beautiful, professional icons.
+Can also use <a href="../../visNetwork/help/addFontAwesome.html">addFontAwesome</a>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+addIonicons(graph, name = "ionicons")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>graph</code></td>
+<td>
+<p>: a visNetwork object</p>
+</td></tr>
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>: name of dependency</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>graph</code> htmlwidget with Ionicons dependencies attached.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">
+
+
+nodes <- data.frame(id = 1:3, group = c("B", "A", "B"))
+edges <- data.frame(from = c(1,2), to = c(2,3))
+
+visNetwork(nodes, edges) %>%
+  visGroups(groupname = "A", shape = "icon", 
+   icon = list(face ='Ionicons', code = "f101", size = 75)) %>%
+  visGroups(groupname = "B", shape = "icon", 
+   icon = list(face ='Ionicons', code = "f100", color = "red")) %>%
+  addIonicons()
+
+
+
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>visNetwork</em> version 2.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

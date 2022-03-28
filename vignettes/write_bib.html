@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate BibTeX bibliography databases for R packages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for write_bib {knitr}"><tr><td>write_bib {knitr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate BibTeX bibliography databases for R packages</h2>
+
+<h3>Description</h3>
+
+<p>This function uses <code>utils::<a href="../../utils/html/citation.html">citation</a>()</code> and
+<code>utils::<a href="../../utils/html/toLatex.html">toBibtex</a>()</code> to create bib entries for R packages and
+write them in a file. It can facilitate the auto-generation of bibliography
+databases for R packages, and it is easy to regenerate all the citations
+after updating R packages.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+write_bib(
+  x = .packages(),
+  file = "",
+  tweak = TRUE,
+  width = NULL,
+  prefix = getOption("knitr.bib.prefix", "R-"),
+  lib.loc = NULL
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Package names. Packages which are not installed are ignored.</p>
+</td></tr>
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>The (&lsquo;<span class="file">.bib</span>&rsquo;) file to write. By default, or if <code>NULL</code>,
+output is written to the R console.</p>
+</td></tr>
+<tr valign="top"><td><code>tweak</code></td>
+<td>
+<p>Whether to fix some known problems in the citations, especially
+non-standard format of author names.</p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>Width of lines in bibliography entries. If <code>NULL</code>, lines
+will not be wrapped.</p>
+</td></tr>
+<tr valign="top"><td><code>prefix</code></td>
+<td>
+<p>Prefix string for keys in BibTeX entries; by default, it is
+<span class="samp">R-</span> unless <code><a href="../../base/html/options.html">option</a>('knitr.bib.prefix')</code> has been set to
+another string.</p>
+</td></tr>
+<tr valign="top"><td><code>lib.loc</code></td>
+<td>
+<p>A vector of path names of R libraries.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For a package, the keyword <span class="samp">R-pkgname</span> is used for its bib item, where
+<span class="samp">pkgname</span> is the name of the package. Citation entries specified in the
+&lsquo;<span class="file">CITATION</span>&rsquo; file of the package are also included. The main purpose of
+this function is to automate the generation of the package citation
+information because it often changes (e.g. author, year, package version,
+...).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the citations. Citations are also written to the
+<code>file</code> as a side effect.
+</p>
+
+
+<h3>Note</h3>
+
+<p>Some packages on CRAN do not have standard bib entries, which was once
+reported by Michael Friendly at
+<a href="https://stat.ethz.ch/pipermail/r-devel/2010-November/058977.html">https://stat.ethz.ch/pipermail/r-devel/2010-November/058977.html</a>. I
+find this a real pain, and there are no easy solutions except contacting
+package authors to modify their DESCRIPTION files. Anyway, the argument
+<code>tweak</code> has provided ugly hacks to deal with packages which are known
+to be non-standard in terms of the format of citations; <code>tweak = TRUE</code>
+is by no means intended to hide or modify the original citation
+information. It is just due to the loose requirements on package authors
+for the DESCRIPTION file. On one hand, I apologize if it really mangles the
+information about certain packages; on the other, I strongly recommend
+package authors to consider the <span class="samp">Authors@R</span> field (see the manual
+<em>Writing R Extensions</em>) to make it easier for other people to cite R
+packages. See <code>knitr:::.tweak.bib</code> for details of tweaks. Also note
+this is subject to future changes since R packages are being updated. If
+you want to contribute more tweaks, please edit the file
+&lsquo;<span class="file">inst/misc/tweak_bib.csv</span>&rsquo; in the source package.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Yihui Xie and Michael Friendly
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">write_bib(c(&quot;RGtk2&quot;, &quot;gWidgets&quot;), file = &quot;R-GUI-pkgs.bib&quot;)
+</code></pre>
+
+<pre><code>## Warning in write_bib(c(&quot;RGtk2&quot;, &quot;gWidgets&quot;), file = &quot;R-GUI-pkgs.bib&quot;): package(s) RGtk2, gWidgets not found
+</code></pre>
+
+<pre><code class="r">unlink(&quot;R-GUI-pkgs.bib&quot;)
+
+write_bib(c(&quot;animation&quot;, &quot;rgl&quot;, &quot;knitr&quot;, &quot;ggplot2&quot;))
+</code></pre>
+
+<pre><code>## Warning in write_bib(c(&quot;animation&quot;, &quot;rgl&quot;, &quot;knitr&quot;, &quot;ggplot2&quot;)): package(s) animation, rgl not found
+</code></pre>
+
+<pre><code>## @Manual{R-ggplot2,
+##   title = {ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics},
+##   author = {Hadley Wickham and Winston Chang and Lionel Henry and Thomas Lin Pedersen and Kohske Takahashi and Claus Wilke and Kara Woo and Hiroaki Yutani and Dewey Dunnington},
+##   year = {2021},
+##   note = {R package version 3.3.5},
+##   url = {https://CRAN.R-project.org/package=ggplot2},
+## }
+## 
+## @Manual{R-knitr,
+##   title = {knitr: A General-Purpose Package for Dynamic Report Generation in R},
+##   author = {Yihui Xie},
+##   year = {2021},
+##   note = {R package version 1.36},
+##   url = {https://yihui.org/knitr/},
+## }
+## 
+## @Book{ggplot22016,
+##   author = {Hadley Wickham},
+##   title = {ggplot2: Elegant Graphics for Data Analysis},
+##   publisher = {Springer-Verlag New York},
+##   year = {2016},
+##   isbn = {978-3-319-24277-4},
+##   url = {https://ggplot2.tidyverse.org},
+## }
+## 
+## @Book{knitr2015,
+##   title = {Dynamic Documents with {R} and knitr},
+##   author = {Yihui Xie},
+##   publisher = {Chapman and Hall/CRC},
+##   address = {Boca Raton, Florida},
+##   year = {2015},
+##   edition = {2nd},
+##   note = {ISBN 978-1498716963},
+##   url = {https://yihui.org/knitr/},
+## }
+## 
+## @InCollection{knitr2014,
+##   booktitle = {Implementing Reproducible Computational Research},
+##   editor = {Victoria Stodden and Friedrich Leisch and Roger D. Peng},
+##   title = {knitr: A Comprehensive Tool for Reproducible Research in {R}},
+##   author = {Yihui Xie},
+##   publisher = {Chapman and Hall/CRC},
+##   year = {2014},
+##   note = {ISBN 978-1466561595},
+##   url = {http://www.crcpress.com/product/isbn/9781466561595},
+## }
+</code></pre>
+
+<pre><code class="r">write_bib(c(&quot;base&quot;, &quot;parallel&quot;, &quot;MASS&quot;))  # base and parallel are identical
+</code></pre>
+
+<pre><code>## @Manual{R-base,
+##   title = {R: A Language and Environment for Statistical Computing},
+##   author = {{R Core Team}},
+##   organization = {R Foundation for Statistical Computing},
+##   address = {Vienna, Austria},
+##   year = {2021},
+##   url = {https://www.R-project.org/},
+## }
+## 
+## @Manual{R-MASS,
+##   title = {MASS: Support Functions and Datasets for Venables and Ripley&#39;s MASS},
+##   author = {Brian Ripley},
+##   year = {2021},
+##   note = {R package version 7.3-54},
+##   url = {http://www.stats.ox.ac.uk/pub/MASS4/},
+## }
+## 
+## @Book{MASS2002,
+##   title = {Modern Applied Statistics with S},
+##   author = {W. N. Venables and B. D. Ripley},
+##   publisher = {Springer},
+##   edition = {Fourth},
+##   address = {New York},
+##   year = {2002},
+##   note = {ISBN 0-387-95457-0},
+##   url = {https://www.stats.ox.ac.uk/pub/MASS4/},
+## }
+</code></pre>
+
+<pre><code class="r">write_bib(&quot;cluster&quot;, prefix = &quot;&quot;)  # a empty prefix
+</code></pre>
+
+<pre><code>## @Manual{cluster,
+##   title = {cluster: &quot;Finding Groups in Data&quot;: Cluster Analysis Extended Rousseeuw et
+## al.},
+##   author = {Martin Maechler and Peter Rousseeuw and Anja Struyf and Mia Hubert},
+##   year = {2021},
+##   note = {R package version 2.1.2},
+##   url = {https://svn.r-project.org/R-packages/trunk/cluster/},
+## }
+</code></pre>
+
+<pre><code class="r">write_bib(&quot;digest&quot;, prefix = &quot;R-pkg-&quot;)  # a new prefix
+</code></pre>
+
+<pre><code>## tweaking digest
+</code></pre>
+
+<pre><code>## @Manual{R-pkg-digest,
+##   title = {digest: Create Compact Hash Digests of R Objects},
+##   author = {Dirk Eddelbuettel},
+##   year = {2021},
+##   note = {R package version 0.6.29},
+##   url = {https://CRAN.R-project.org/package=digest},
+## }
+</code></pre>
+
+<pre><code class="r">write_bib(&quot;digest&quot;, tweak = FALSE)  # original version
+</code></pre>
+
+<pre><code>## @Manual{R-digest,
+##   title = {digest: Create Compact Hash Digests of R Objects},
+##   author = {Dirk Eddelbuettel with contributions by Antoine Lucas and Jarek Tuszynski and Henrik Bengtsson and Simon Urbanek and Mario Frasca and Bryan Lewis and Murray Stokely and Hannes Muehleisen and Duncan Murdoch and Jim Hester and Wush Wu and Qiang Kou and Thierry Onkelinx and Michel Lang and Viliam Simko and Kurt Hornik and Radford Neal and Kendon Bell and Matthew {de Queljoe} and Ion Suruceanu and Bill Denney and Dirk Schumacher and and Winston Chang.},
+##   year = {2021},
+##   note = {R package version 0.6.29},
+##   url = {https://CRAN.R-project.org/package=digest},
+## }
+</code></pre>
+
+<pre><code class="r"># what tweak=TRUE does
+str(knitr:::.tweak.bib)
+</code></pre>
+
+<pre><code>## List of 43
+##  $ ade4         : Named chr &quot;  author = {Stéphane Dray and Anne-Béatrice Dufour and Jean Thioulouse and Thibaut Jombart and Sandrine Pavoine&quot;| __truncated__
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ akima        : Named chr &quot;  author = {H. Akima and Albrecht Gebhardt and Thomas Petzoldt and Martin Maechler},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ ash          : Named chr &quot;  author = {David W. Scott and Albrecht Gebhardt and Stephen Kaluzny},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ bcpa         : Named chr &quot;  author = {Jose Claudio Faria and Clarice Garcia Borges Demetrio},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ BiplotGUI    : Named chr &quot;  author = {Anthony la Grange and  N. J. le Roux and P.J. Rousseeuw and I. Ruts and J. W. Tukey},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ bitops       : Named chr &quot;  author = {Steve Dutky and Martin Maechler},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ cacheSweave  : Named chr &quot;  author = {Roger D. Peng},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ cat          : Named chr &quot;  author = {Ted Harding and Fernando Tusell and Joseph L. Schafer},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ CircStats    : Named chr &quot;  author = {Ulric Lund and Claudio Agostinelli},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ contrast     : Named chr &quot;  author = {Max Kuhn and Steve Weston and Jed Wing and James Forester},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ date         : Named chr &quot;  author = {Terry Therneau and Thomas Lumley and Kjetil Halvorsen and Kurt Hornik},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ digest       : Named chr &quot;  author = {Dirk Eddelbuettel},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ ElemStatLearn: Named chr &quot;  author = {Kjetil Halvorsen},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ epiR         : Named chr &quot;  author = {Mark Stevenson and Telmo Nunes and Cord Heuer and Jonathon Marshall and Javier Sanchez and Ron Thor&quot;| __truncated__
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ Fahrmeir     : Named chr &quot;  author = {Kjetil Halvorsen},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ flashClust   : Named chr &quot;  author = {Fionn Murtagh and {R development team} and Peter Langfelder},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ foreach      : Named chr &quot;  author = {{Revolution Analytics} and Steve Weston}},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ fortunes     : Named chr &quot;  author = {Achim Zeileis and the R community},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ gee          : Named chr &quot;  author = {Vincent J Carey and Thomas Lumley and Brian Ripley},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ gmodels      : Named chr &quot;  author = {Gregory R. Warnes andBen Bolker and Thomas Lumley and Randall C Johnson and Randall C. Johnson},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ gWidgets     : Named chr &quot;  author = {John Verzani},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ hexbin       : Named chr &quot;  author = {Dan Carr and Nicholas Lewin-Koh and Martin Maechler},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ Hmisc        : Named chr &quot;  author = {Harrell, Jr., Frank E},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ Hmisc        : Named chr &quot;  author = {Frank E. {Harrell, Jr.}},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ leaps        : Named chr &quot;  author = {Thomas Lumley},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ mapproj      : Named chr &quot;  author = {Doug McIlroy and Ray Brownrigg and Thomas P Minka and Roger Bivand},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ maps         : Named chr &quot;  author = {Ray Brownrigg},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ mathgraph    : Named chr &quot;  author = {Patrick J. Burns and Nick Efthymiou and Claus Dethlefsen},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ oz           : Named chr &quot;  author = {Bill Venables and Kurt Hornik},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ pbivnorm     : Named chr &quot;  author = {Alan Genz and Brenton Kenkel},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ pscl         : Named chr &quot;  author = {Simon Jackman and Alex Tahk and Achim Zeileis and Christina Maimone and Jim Fearon},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ quadprog     : Named chr &quot;  author = {Berwin A. Turlach and Andreas Weingessel},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ R2SWF        : Named chr &quot;  author = {Yixuan Qiu and Yihui Xie and Cameron Bracken},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ R2WinBUGS    : Named chr &quot;  author = {Andrew Gelman and Sibylle Sturtz and Uwe Ligges and Gregor Gorjanc and Jouni Kerman},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ randomForest : Named chr &quot;  author = {Leo Breiman and Adele Cutler and Andy Liaw and Matthew Wiener},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ rgl          : Named chr &quot;  author = {Daniel Adler and Duncan Murdoch},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ RgoogleMaps  : Named chr &quot;  author = {Markus Loecher},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ rms          : Named chr &quot;  author = {Frank E. {Harrell, Jr.}},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ robustbase   : Named chr &quot;  author = {Valentin Todorov and Andreas Ruckstuhl and Matias Salibian-Barrera and Tobias Verbeke and Manuel Ko&quot;| __truncated__
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ RODBC        : Named chr &quot;  author = {Brian Ripley and Michael Lapsley},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ Sleuth2      : Named chr &quot;  author = {F. L. Ramsey and D. W. Schafer and Jeannie Sifneos and Berwin A. Turlach},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ sm           : Named chr &quot;  author = {Adrian Bowman and Adelchi Azzalini},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+##  $ tuneR        : Named chr &quot;  author = {Uwe Ligges},&quot;
+##   ..- attr(*, &quot;names&quot;)= chr &quot;author&quot;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>knitr</em> version 1.36 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Network visualization Hierarchical layout options</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for visHierarchicalLayout {visNetwork}"><tr><td>visHierarchicalLayout {visNetwork}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Network visualization Hierarchical layout options</h2>
+
+<h3>Description</h3>
+
+<p>Network visualization Hierarchical layout options. For full documentation, have a look at <a href="../../visNetwork/help/visDocumentation.html">visDocumentation</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+visHierarchicalLayout(
+  graph,
+  enabled = TRUE,
+  levelSeparation = NULL,
+  nodeSpacing = NULL,
+  treeSpacing = NULL,
+  blockShifting = NULL,
+  edgeMinimization = NULL,
+  parentCentralization = NULL,
+  direction = NULL,
+  sortMethod = NULL,
+  shakeTowards = NULL
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>graph</code></td>
+<td>
+<p>: a visNetwork object</p>
+</td></tr>
+<tr valign="top"><td><code>enabled</code></td>
+<td>
+<p>: Boolean. Default to TRUE when calling this function.    Enable or disable the hierarchical layout.</p>
+</td></tr>
+<tr valign="top"><td><code>levelSeparation</code></td>
+<td>
+<p>: Number. Default to 150.  The distance between the different levels.</p>
+</td></tr>
+<tr valign="top"><td><code>nodeSpacing</code></td>
+<td>
+<p>: Number. Default to 100. Minimum distance between nodes on the free axis. This is only for the initial layout. If you enable physics, the node distance there will be the effective node distance.</p>
+</td></tr>
+<tr valign="top"><td><code>treeSpacing</code></td>
+<td>
+<p>: Number. Default to 200. Distance between different trees (independent networks). This is only for the initial layout. If you enable physics, the repulsion model will denote the distance between the trees.</p>
+</td></tr>
+<tr valign="top"><td><code>blockShifting</code></td>
+<td>
+<p>: Boolean. Default to true. Method for reducing whitespace. Can be used alone or together with edge minimization. Each node will check for whitespace and will shift it's branch along with it for as far as it can, respecting the nodeSpacing on any level. This is mainly for the initial layout. If you enable physics, they layout will be determined by the physics. This will greatly speed up the stabilization time though!</p>
+</td></tr>
+<tr valign="top"><td><code>edgeMinimization</code></td>
+<td>
+<p>: Boolean. Default to true. Method for reducing whitespace. Can be used alone or together with block shifting. Enabling block shifting will usually speed up the layout process. Each node will try to move along its free axis to reduce the total length of it's edges. This is mainly for the initial layout. If you enable physics, they layout will be determined by the physics. This will greatly speed up the stabilization time though!</p>
+</td></tr>
+<tr valign="top"><td><code>parentCentralization</code></td>
+<td>
+<p>: Boolean. Default to true. When true, the parents nodes will be centered again after the the layout algorithm has been finished.</p>
+</td></tr>
+<tr valign="top"><td><code>direction</code></td>
+<td>
+<p>: String. Default to 'UD'. The direction of the hierarchical layout. The available options are: UD, DU, LR, RL. To simplify: up-down, down-up, left-right, right-left.</p>
+</td></tr>
+<tr valign="top"><td><code>sortMethod</code></td>
+<td>
+<p>: String. Default to 'hubsize'.  The algorithm used to ascertain the levels of the nodes based on the data. The possible options are: hubsize, directed.</p>
+</td></tr>
+<tr valign="top"><td><code>shakeTowards</code></td>
+<td>
+<p>: String. Default to 'roots'. Controls whether in directed layout should all the roots be lined up at the top and their child nodes as close to their roots as possible (roots) or all the leaves lined up at the bottom and their parents as close to their children as possible (leaves, default</p>
+</td></tr>
+</table>
+
+
+<h3>References</h3>
+
+<p>See online documentation <a href="http://datastorm-open.github.io/visNetwork/">http://datastorm-open.github.io/visNetwork/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../visNetwork/help/visNodes.html">visNodes</a> for nodes options, <a href="../../visNetwork/help/visEdges.html">visEdges</a> for edges options, <a href="../../visNetwork/help/visGroups.html">visGroups</a> for groups options, 
+<a href="../../visNetwork/help/visLegend.html">visLegend</a> for adding legend, <a href="../../visNetwork/help/visOptions.html">visOptions</a> for custom option, <a href="../../visNetwork/help/visLayout.html">visLayout</a> &amp; <a href="../../visNetwork/help/visHierarchicalLayout.html">visHierarchicalLayout</a> for layout, 
+<a href="../../visNetwork/help/visPhysics.html">visPhysics</a> for control physics, <a href="../../visNetwork/help/visInteraction.html">visInteraction</a> for interaction, <a href="../../visNetwork/help/visNetworkProxy.html">visNetworkProxy</a> &amp; <a href="../../visNetwork/help/visFocus.html">visFocus</a> &amp; <a href="../../visNetwork/help/visFit.html">visFit</a> for animation within shiny,
+<a href="../../visNetwork/help/visDocumentation.html">visDocumentation</a>, <a href="../../visNetwork/help/visEvents.html">visEvents</a>, <a href="../../visNetwork/help/visConfigure.html">visConfigure</a> ...
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">
+
+
+nodes <- data.frame(id = 1:10)
+edges <- data.frame(from = round(runif(8)*10), to = round(runif(8)*10))
+
+visNetwork(nodes, edges) %>%
+ visHierarchicalLayout()
+
+visNetwork(nodes, edges) %>%
+ visHierarchicalLayout(direction = "LR")
+ 
+
+
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>visNetwork</em> version 2.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

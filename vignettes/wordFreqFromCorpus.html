@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a word frequency dataframe</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for wordFreqFromCorpus {VOSONDash}"><tr><td>wordFreqFromCorpus {VOSONDash}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a word frequency dataframe</h2>
+
+<h3>Description</h3>
+
+<p>Create a word frequency dataframe from a text corpus.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+wordFreqFromCorpus(
+  corp,
+  rm_sparse = 0.99,
+  word_len = c(3, 26),
+  word_freq = c(1, Inf)
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>corp</code></td>
+<td>
+<p>a <span class="pkg">tm</span> text corpus object.</p>
+</td></tr>
+<tr valign="top"><td><code>rm_sparse</code></td>
+<td>
+<p>Logical. Remove proportion of sparse terms. Default is <code>0.99</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>word_len</code></td>
+<td>
+<p>Numeric vector. Min and max length of words to include. Default is <code>c(3, 26)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>word_freq</code></td>
+<td>
+<p>Numeric vector. Min and max frequency of words to include. Default is <code>c(1, Inf)</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A data.table of word frequencies.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>VOSONDash</em> version 0.5.7 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,36 @@
+gh_install_packages     Install Packages from GitHub
+gh_list_packages        Get Information of Packages on GitHub
+gh_search_packages      Search Packages from Titles by Regular
+                        Expressions
+gh_show_source          Find source code for functions in packages on
+                        GitHub
+gh_suggest              Suggest Github Repository from a Incomplete
+                        Name
+gh_suggest_username     Suggest Github Username from a Faint Memory
+gh_update_package_list
+                        Update the List of Packages on GitHub.
+recommend_dependencies
+                        The default "dependencies" is NA that means
+                        c("Depends", "Imports", "LinkingTo"). If
+                        "build_vignettes" is TRUE, the install needs
+                        "Suggests" dependency in many cases. So we
+                        recommend in such case to set "dependencies" to
+                        TRUE that means c("Depends", "Imports",
+                        "LinkingTo", "Suggests").
+remove_conflict_repos   We want to detect the two conflict cases as
+                        fllows: 1. The package is already installed
+                        from some repository like CRAN that is not
+                        GitHub. 2. The package is already installed
+                        from GtiHub but the username differs. In the
+                        above cases, we ask whether to overwrite it and
+                        remove from "repo" if the answer is no.
+select_repository       Suggest candidates from "package_name" and make
+                        user selected one of them.
+separate_into_package_and_reference
+                        The "repo" argument allows to contain "ref" as
+                        "package_name@ref", "package_name#pull" or
+                        "package_name[branch]". The function detects
+                        that "repo" contains "ref" and separates into
+                        pure repo and ref. If "repo" contains "ref" and
+                        "ref" argument is specified, the values in
+                        "repo" take precedence.

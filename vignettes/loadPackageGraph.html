@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Load package included network graph</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for loadPackageGraph {VOSONDash}"><tr><td>loadPackageGraph {VOSONDash}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Load package included network graph</h2>
+
+<h3>Description</h3>
+
+<p>This function loads a network graph included in the <code>extdata</code> directory of the 
+<code>VOSONDash</code> package by file name.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+loadPackageGraph(fname)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>fname</code></td>
+<td>
+<p>Character string. Name of demonstration <code>graphml</code> file.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An igraph graph object.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">## Not run: 
+##D # load the &quot;Divided They Blog&quot; package included network graph by file name
+##D g &lt;- loadPackageGraph(&quot;DividedTheyBlog_40Alist_release.graphml&quot;)
+## End(Not run)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>VOSONDash</em> version 0.5.7 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

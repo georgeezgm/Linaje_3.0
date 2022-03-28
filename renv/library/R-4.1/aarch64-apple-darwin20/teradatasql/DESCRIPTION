@@ -1,0 +1,19 @@
+Package: teradatasql
+Version: 17.10.0.8
+Title: Teradata SQL Driver for R
+Description: 
+    The Teradata SQL Driver for R enables R applications to connect to the Teradata Database.
+    Copyright 2022 by Teradata Corporation. All Rights Reserved.
+Author: Teradata Corporation
+Maintainer: Teradata Corporation <teradatasql@teradata.com>
+License: file LICENSE
+Depends: R (>= 3.4.3), bit64 (>= 4.0.5), digest (>= 0.6.25), hms (>=
+        0.5.3), DBI (>= 1.1.0)
+Imports: methods
+NeedsCompilation: no
+LazyData: true
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Packaged: 2022-03-18 17:36:32 UTC; tn180005
+Built: R 4.1.2; ; 2022-03-24 11:41:30 UTC; unix

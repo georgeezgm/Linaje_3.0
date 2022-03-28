@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Add a theme selector widget in a floating panel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for themeSelector {shinythemes}"><tr><td>themeSelector {shinythemes}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Add a theme selector widget in a floating panel</h2>
+
+<h3>Description</h3>
+
+<p>This adds a widget for selecting the theme, in a floating panel. It is meant
+for use during the development phase of a Shiny application.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+themeSelector()
+</pre>
+
+
+<h3>Details</h3>
+
+<p>This can be inserted anywhere inside of the application, although if it is
+put inside a tab, it will be visible only when that tab is showing. For it to
+show at all times, it must be used outside a tab.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">if (interactive()) {
+# themeSelector can be inserted anywhere in the app.
+shinyApp(
+  ui = fluidPage(
+    shinythemes::themeSelector(),
+    sidebarPanel(
+      textInput(&quot;txt&quot;, &quot;Text input:&quot;, &quot;text here&quot;),
+      sliderInput(&quot;slider&quot;, &quot;Slider input:&quot;, 1, 100, 30),
+      actionButton(&quot;action&quot;, &quot;Button&quot;),
+      actionButton(&quot;action2&quot;, &quot;Button2&quot;, class = &quot;btn-primary&quot;)
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel(&quot;Tab 1&quot;),
+        tabPanel(&quot;Tab 2&quot;)
+      )
+    )
+  ),
+  server = function(input, output) {}
+)
+
+
+# If this is used with a navbarPage() or other type of page where there is not a
+# good place to put it where it is outside of all tabs, you can wrap the entire
+# page in tagList() and make the themeSelector a sibling of the page.
+shinyApp(
+  ui = tagList(
+    shinythemes::themeSelector(),
+    navbarPage(
+      &quot;Theme test&quot;,
+      tabPanel(&quot;Navbar 1&quot;,
+        sidebarPanel(
+          textInput(&quot;txt&quot;, &quot;Text input:&quot;, &quot;text here&quot;),
+          sliderInput(&quot;slider&quot;, &quot;Slider input:&quot;, 1, 100, 30),
+          actionButton(&quot;action&quot;, &quot;Button&quot;),
+          actionButton(&quot;action2&quot;, &quot;Button2&quot;, class = &quot;btn-primary&quot;)
+        ),
+        mainPanel(
+          tabsetPanel(
+            tabPanel(&quot;Tab 1&quot;),
+            tabPanel(&quot;Tab 2&quot;)
+          )
+        )
+      ),
+      tabPanel(&quot;Navbar 2&quot;)
+    )
+  ),
+  server = function(input, output) {}
+)
+}
+</code></pre>
+
+<pre><code>## Error in loadNamespace(name): there is no package called &#39;webshot&#39;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>shinythemes</em> version 1.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

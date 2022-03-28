@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: All built-in patterns</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for all_patterns {knitr}"><tr><td>all_patterns {knitr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>All built-in patterns</h2>
+
+<h3>Description</h3>
+
+<p>This object is a named list of all built-in patterns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+all_patterns
+</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>list</code> of length 8.
+</p>
+
+
+<h3>References</h3>
+
+<p>Usage: <a href="https://yihui.org/knitr/patterns/">https://yihui.org/knitr/patterns/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../knitr/help/knit_patterns.html">knit_patterns</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">all_patterns$rnw
+</code></pre>
+
+<pre><code>## $chunk.begin
+## [1] &quot;^\\s*&lt;&lt;(.*)&gt;&gt;=.*$&quot;
+## 
+## $chunk.end
+## [1] &quot;^\\s*@\\s*(%+.*|)$&quot;
+## 
+## $inline.code
+## [1] &quot;\\\\Sexpr\\{([^}]+)\\}&quot;
+## 
+## $inline.comment
+## [1] &quot;^\\s*%.*&quot;
+## 
+## $ref.chunk
+## [1] &quot;^\\s*&lt;&lt;(.+)&gt;&gt;\\s*$&quot;
+## 
+## $header.begin
+## [1] &quot;(^|\n)\\s*\\\\documentclass[^}]+\\}&quot;
+## 
+## $document.begin
+## [1] &quot;\\s*\\\\begin\\{document\\}&quot;
+</code></pre>
+
+<pre><code class="r">all_patterns$html
+</code></pre>
+
+<pre><code>## $chunk.begin
+## [1] &quot;^\\s*&lt;!--\\s*begin.rcode\\s*(.*)&quot;
+## 
+## $chunk.end
+## [1] &quot;^\\s*end.rcode\\s*--&gt;&quot;
+## 
+## $ref.chunk
+## [1] &quot;^\\s*&lt;&lt;(.+)&gt;&gt;\\s*$&quot;
+## 
+## $inline.code
+## [1] &quot;&lt;!--\\s*rinline(.+?)--&gt;&quot;
+## 
+## $header.begin
+## [1] &quot;\\s*&lt;head&gt;&quot;
+</code></pre>
+
+<pre><code class="r">str(all_patterns)
+</code></pre>
+
+<pre><code>## List of 8
+##  $ rnw     :List of 7
+##   ..$ chunk.begin   : chr &quot;^\\s*&lt;&lt;(.*)&gt;&gt;=.*$&quot;
+##   ..$ chunk.end     : chr &quot;^\\s*@\\s*(%+.*|)$&quot;
+##   ..$ inline.code   : chr &quot;\\\\Sexpr\\{([^}]+)\\}&quot;
+##   ..$ inline.comment: chr &quot;^\\s*%.*&quot;
+##   ..$ ref.chunk     : chr &quot;^\\s*&lt;&lt;(.+)&gt;&gt;\\s*$&quot;
+##   ..$ header.begin  : chr &quot;(^|\n)\\s*\\\\documentclass[^}]+\\}&quot;
+##   ..$ document.begin: chr &quot;\\s*\\\\begin\\{document\\}&quot;
+##  $ brew    :List of 1
+##   ..$ inline.code: chr &quot;&lt;%[=]{0,1}\\s+([^%]+)\\s+[-]*%&gt;&quot;
+##  $ tex     :List of 8
+##   ..$ chunk.begin   : chr &quot;^\\s*%+\\s*begin.rcode\\s*(.*)&quot;
+##   ..$ chunk.end     : chr &quot;^\\s*%+\\s*end.rcode&quot;
+##   ..$ chunk.code    : chr &quot;^\\s*%+&quot;
+##   ..$ ref.chunk     : chr &quot;^%+\\s*&lt;&lt;(.+)&gt;&gt;\\s*$&quot;
+##   ..$ inline.comment: chr &quot;^\\s*%.*&quot;
+##   ..$ inline.code   : chr &quot;\\\\rinline\\{([^}]+)\\}&quot;
+##   ..$ header.begin  : chr &quot;(^|\n)\\s*\\\\documentclass[^}]+\\}&quot;
+##   ..$ document.begin: chr &quot;\\s*\\\\begin\\{document\\}&quot;
+##  $ html    :List of 5
+##   ..$ chunk.begin : chr &quot;^\\s*&lt;!--\\s*begin.rcode\\s*(.*)&quot;
+##   ..$ chunk.end   : chr &quot;^\\s*end.rcode\\s*--&gt;&quot;
+##   ..$ ref.chunk   : chr &quot;^\\s*&lt;&lt;(.+)&gt;&gt;\\s*$&quot;
+##   ..$ inline.code : chr &quot;&lt;!--\\s*rinline(.+?)--&gt;&quot;
+##   ..$ header.begin: chr &quot;\\s*&lt;head&gt;&quot;
+##  $ md      :List of 4
+##   ..$ chunk.begin: chr &quot;^[\t &gt;]*```+\\s*\\{([a-zA-Z0-9_]+( *[ ,].*)?)\\}\\s*$&quot;
+##   ..$ chunk.end  : chr &quot;^[\t &gt;]*```+\\s*$&quot;
+##   ..$ ref.chunk  : chr &quot;^\\s*&lt;&lt;(.+)&gt;&gt;\\s*$&quot;
+##   ..$ inline.code: chr &quot;(?&lt;!(^|\n)``)`r[ #]([^`]+)\\s*`&quot;
+##  $ rst     :List of 5
+##   ..$ chunk.begin: chr &quot;^\\s*[.][.]\\s+\\{r(.*)\\}\\s*$&quot;
+##   ..$ chunk.end  : chr &quot;^\\s*[.][.]\\s+[.][.]\\s*$&quot;
+##   ..$ chunk.code : chr &quot;^\\s*[.][.]&quot;
+##   ..$ ref.chunk  : chr &quot;^\\.*\\s*&lt;&lt;(.+)&gt;&gt;\\s*$&quot;
+##   ..$ inline.code: chr &quot;:r:`([^`]+)`&quot;
+##  $ asciidoc:List of 6
+##   ..$ chunk.begin   : chr &quot;^//\\s*begin[.]rcode(.*)$&quot;
+##   ..$ chunk.end     : chr &quot;^//\\s*end[.]rcode\\s*$&quot;
+##   ..$ chunk.code    : chr &quot;^//+&quot;
+##   ..$ ref.chunk     : chr &quot;^\\s*&lt;&lt;(.+)&gt;&gt;\\s*$&quot;
+##   ..$ inline.code   : chr &quot;`r +([^`]+)\\s*`|[+]r +([^+]+)\\s*[+]&quot;
+##   ..$ inline.comment: chr &quot;^//.*&quot;
+##  $ textile :List of 5
+##   ..$ chunk.begin   : chr &quot;^###[.]\\s+begin[.]rcode(.*)$&quot;
+##   ..$ chunk.end     : chr &quot;^###[.]\\s+end[.]rcode\\s*$&quot;
+##   ..$ ref.chunk     : chr &quot;^\\s*&lt;&lt;(.+)&gt;&gt;\\s*$&quot;
+##   ..$ inline.code   : chr &quot;@r +([^@]+)\\s*@&quot;
+##   ..$ inline.comment: chr &quot;^###[.].*&quot;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>knitr</em> version 1.36 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

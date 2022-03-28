@@ -1,0 +1,14 @@
+blob_to_string	blob_to_string
+bool_to_int	bool_to_int
+count_if	count_if
+dbConnect	dbConnect-TeradataOdbcDriver-method
+dbConnect,TeradataOdbcDriver-method	dbConnect-TeradataOdbcDriver-method
+db_list_tables_with_pattern	db_list_tables_with_pattern
+like	like
+mod	mod
+n_if	n_if
+show,TeradataOdbcDriver-method	TeradataOdbcDriver
+TeradataOdbcDriver	TeradataOdbcDriver
+TeradataOdbcDriver-class	TeradataOdbcDriver
+todbc	todbc
+to_timestamp	to_timestamp

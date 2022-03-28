@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Syntax highlighting themes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for knit_theme {knitr}"><tr><td>knit_theme {knitr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Syntax highlighting themes</h2>
+
+<h3>Description</h3>
+
+<p>This object can be used to set or get themes in <span class="pkg">knitr</span> for syntax
+highlighting.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+knit_theme
+</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>list</code> of length 2.
+</p>
+
+
+<h3>Details</h3>
+
+<p>We can use <code>knit_theme$set(theme)</code> to set the theme, and
+<code>knit_theme$get(theme)</code> to get a theme. The <code>theme</code> is a character
+string for both methods (either the name of the theme, or the path to the CSS
+file of a theme), and for the <code>set()</code> method, it can also be a list
+returned by the <code>get()</code> method. See examples below.
+</p>
+
+
+<h3>Note</h3>
+
+<p>The syntax highlighting here only applies to &lsquo;<span class="file">.Rnw</span>&rsquo; (LaTeX) and
+&lsquo;<span class="file">.Rhtml</span>&rsquo; (HTML) documents, and it does not work for other types of
+documents, such as &lsquo;<span class="file">.Rmd</span>&rsquo; (R Markdown, which has its own syntax
+highlighting themes; see <a href="https://rmarkdown.rstudio.com">https://rmarkdown.rstudio.com</a>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ramnath Vaidyanathan and Yihui Xie
+</p>
+
+
+<h3>References</h3>
+
+<p>For a preview of all themes, see
+<a href="https://gist.github.com/yihui/3422133">https://gist.github.com/yihui/3422133</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">opts_knit$set(out.format = &quot;latex&quot;)
+knit_theme$set(&quot;edit-vim&quot;)
+
+knit_theme$get()  # names of all available themes
+</code></pre>
+
+<pre><code>##  [1] &quot;acid&quot;              &quot;aiseered&quot;          &quot;andes&quot;             &quot;anotherdark&quot;       &quot;autumn&quot;           
+##  [6] &quot;baycomb&quot;           &quot;bclear&quot;            &quot;biogoo&quot;            &quot;bipolar&quot;           &quot;blacknblue&quot;       
+## [11] &quot;bluegreen&quot;         &quot;breeze&quot;            &quot;bright&quot;            &quot;camo&quot;              &quot;candy&quot;            
+## [16] &quot;clarity&quot;           &quot;dante&quot;             &quot;darkblue&quot;          &quot;darkbone&quot;          &quot;darkness&quot;         
+## [21] &quot;darkslategray&quot;     &quot;darkspectrum&quot;      &quot;default&quot;           &quot;denim&quot;             &quot;dusk&quot;             
+## [26] &quot;earendel&quot;          &quot;easter&quot;            &quot;edit-anjuta&quot;       &quot;edit-eclipse&quot;      &quot;edit-emacs&quot;       
+## [31] &quot;edit-flashdevelop&quot; &quot;edit-gedit&quot;        &quot;edit-jedit&quot;        &quot;edit-kwrite&quot;       &quot;edit-matlab&quot;      
+## [36] &quot;edit-msvs2008&quot;     &quot;edit-nedit&quot;        &quot;edit-vim-dark&quot;     &quot;edit-vim&quot;          &quot;edit-xcode&quot;       
+## [41] &quot;ekvoli&quot;            &quot;fine_blue&quot;         &quot;freya&quot;             &quot;fruit&quot;             &quot;golden&quot;           
+## [46] &quot;greenlcd&quot;          &quot;greyscale0&quot;        &quot;greyscale1&quot;        &quot;greyscale2&quot;        &quot;kellys&quot;           
+## [51] &quot;leo&quot;               &quot;lucretia&quot;          &quot;manxome&quot;           &quot;maroloccio&quot;        &quot;matrix&quot;           
+## [56] &quot;moe&quot;               &quot;molokai&quot;           &quot;moria&quot;             &quot;navajo-night&quot;      &quot;navy&quot;             
+## [61] &quot;neon&quot;              &quot;night&quot;             &quot;nightshimmer&quot;      &quot;nuvola&quot;            &quot;olive&quot;            
+## [66] &quot;orion&quot;             &quot;oxygenated&quot;        &quot;pablo&quot;             &quot;peaksea&quot;           &quot;print&quot;            
+## [71] &quot;rand01&quot;            &quot;rdark&quot;             &quot;relaxedgreen&quot;      &quot;rootwater&quot;         &quot;seashell&quot;         
+## [76] &quot;solarized-dark&quot;    &quot;solarized-light&quot;   &quot;tabula&quot;            &quot;tcsoft&quot;            &quot;vampire&quot;          
+## [81] &quot;whitengrey&quot;        &quot;xoria256&quot;          &quot;zellner&quot;           &quot;zenburn&quot;           &quot;zmrok&quot;
+</code></pre>
+
+<pre><code class="r">thm = knit_theme$get(&quot;acid&quot;)  # parse the theme to a list
+knit_theme$set(thm)
+
+opts_knit$set(out.format = NULL)  # restore option
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>knitr</em> version 1.36 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

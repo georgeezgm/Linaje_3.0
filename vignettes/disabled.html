@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Initialize a Shiny input as disabled</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for disabled {shinyjs}"><tr><td>disabled {shinyjs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Initialize a Shiny input as disabled</h2>
+
+<h3>Description</h3>
+
+<p>Create a Shiny input that is disabled when the Shiny app starts. The input can
+be enabled later with <code>shinyjs::toggleState</code> or <code>shinyjs::enable</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+disabled(...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Shiny input (or tagList or list of of tags that include inputs) to
+disable.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The tag (or tags) that was given as an argument in a disabled state.
+</p>
+
+
+<h3>Note</h3>
+
+<p><code>shinyjs</code> must be initialized with a call to <code>useShinyjs()</code>
+in the app's ui.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../help/useShinyjs.html">useShinyjs</a></code>,
+<code><a href="../help/toggleState.html">toggleState</a></code>,
+<code><a href="../help/enable.html">enable</a></code>,
+<code><a href="../help/disable.html">disable</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">if (interactive()) {
+  library(shiny)
+  shinyApp(
+    ui = fluidPage(
+      useShinyjs(),  # Set up shinyjs
+      actionButton(&quot;btn&quot;, &quot;Click me&quot;),
+      disabled(
+        textInput(&quot;element&quot;, NULL, &quot;I was born disabled&quot;)
+      )
+    ),
+    server = function(input, output) {
+      observeEvent(input$btn, {
+        enable(&quot;element&quot;)
+      })
+    }
+  )
+}
+</code></pre>
+
+<pre><code>## Error in loadNamespace(name): there is no package called &#39;webshot&#39;
+</code></pre>
+
+<pre><code class="r">library(shiny)
+disabled(numericInput(&quot;num&quot;, NULL, 5), dateInput(&quot;date&quot;, NULL))
+</code></pre>
+
+<pre><code>## [[1]]
+## &lt;div class=&quot;form-group shiny-input-container shinyjs-disabled&quot;&gt;
+##   &lt;label class=&quot;control-label shiny-label-null&quot; for=&quot;num&quot; id=&quot;num-label&quot;&gt;&lt;/label&gt;
+##   &lt;input id=&quot;num&quot; type=&quot;number&quot; class=&quot;form-control&quot; value=&quot;5&quot;/&gt;
+## &lt;/div&gt;
+## 
+## [[2]]
+## &lt;div class=&quot;shiny-date-input form-group shiny-input-container shinyjs-disabled&quot; id=&quot;date&quot;&gt;
+##   &lt;label class=&quot;control-label shiny-label-null&quot; for=&quot;date&quot; id=&quot;date-label&quot;&gt;&lt;/label&gt;
+##   &lt;input type=&quot;text&quot; class=&quot;form-control&quot; aria-labelledby=&quot;date-label&quot; title=&quot;Date format: yyyy-mm-dd&quot; data-date-language=&quot;en&quot; data-date-week-start=&quot;0&quot; data-date-format=&quot;yyyy-mm-dd&quot; data-date-start-view=&quot;month&quot; data-date-autoclose=&quot;true&quot; data-date-dates-disabled=&quot;null&quot; data-date-days-of-week-disabled=&quot;null&quot;/&gt;
+## &lt;/div&gt;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>shinyjs</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

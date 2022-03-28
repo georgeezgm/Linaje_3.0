@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a wordcloud plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for wordCloudPlot {VOSONDash}"><tr><td>wordCloudPlot {VOSONDash}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a wordcloud plot</h2>
+
+<h3>Description</h3>
+
+<p>This function creates a wordcloud plot from word frequencies.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+wordCloudPlot(
+  word_freqs,
+  seed = NULL,
+  min_freq = 1,
+  max_words = 50,
+  pcolors = NULL,
+  family = NULL,
+  ...
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>word_freqs</code></td>
+<td>
+<p>Table. Table of word frequencies.</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+<p>Numeric. Seed value can be supplied to reproduce a word cloud layout.</p>
+</td></tr>
+<tr valign="top"><td><code>min_freq</code></td>
+<td>
+<p>Numeric. Minimum word frequency to include a word in the word cloud. Default is <code>1</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>max_words</code></td>
+<td>
+<p>Numeric. Maximum number of words to render in the word cloud. Default is <code>50</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>pcolors</code></td>
+<td>
+<p>List. Colors to assign categorical variable in the plot or palette to use if <code>random.color</code>.
+Default is <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>family</code></td>
+<td>
+<p>Character. Set a font family for plot labels. Default is <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed on to <code><a href="../../wordcloud/help/wordcloud.html">wordcloud::wordcloud</a></code>
+</p>
+
+<dl>
+<dt><code>random.order</code></dt><dd><p>plot words in random order. If false, they will be plotted in decreasing frequency</p>
+</dd>
+<dt><code>random.color</code></dt><dd><p>choose colors randomly from the colors. If false, the color is chosen based on the frequency</p>
+</dd>
+<dt><code>rot.per</code></dt><dd><p>proportion words with 90 degree rotation</p>
+</dd>
+</dl>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A wordcloud plot.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>VOSONDash</em> version 0.5.7 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Network visualization clustering options - by color</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for visClusteringByColor {visNetwork}"><tr><td>visClusteringByColor {visNetwork}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Network visualization clustering options - by color</h2>
+
+<h3>Description</h3>
+
+<p>Network visualization clustering options - by color.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+visClusteringByColor(
+  graph,
+  colors,
+  label = "Cluster on color : ",
+  shape = "database",
+  force = FALSE
+)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>graph</code></td>
+<td>
+<p>: a visNetwork object</p>
+</td></tr>
+<tr valign="top"><td><code>colors</code></td>
+<td>
+<p>: Character/vector. colors we want to cluster</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>: Character. Label put before value(s). See example</p>
+</td></tr>
+<tr valign="top"><td><code>shape</code></td>
+<td>
+<p>: Character. Shape of cluster(s) if different shapes between nodes or <code>force = T</code>. &quot;database&quot; per default</p>
+</td></tr>
+<tr valign="top"><td><code>force</code></td>
+<td>
+<p>: If <code>force = FALSE</code>, Set shape of nodes if all equal, else directly default shape</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">
+
+
+set.seed(124)
+nodes <- data.frame(id = 1:10, color = c(rep("blue", 6), rep("red", 3), rep("green", 1)))
+edges <- data.frame(from = round(runif(6)*10), to = round(runif(6)*10))
+
+visNetwork(nodes, edges) %>%
+ visClusteringByColor(colors = c("blue"))
+ 
+ nodes <- data.frame(id = 1:10, label = paste("Label", 1:10), 
+   group = sample(c("A", "B"), 10, replace = TRUE))
+ edges <- data.frame(from = c(2,5,10), to = c(1,2,10))
+
+ visNetwork(nodes, edges) %>%
+   visGroups(groupname = "A", color = "red", shape = "square") %>%
+   visGroups(groupname = "B", color = "yellow", shape = "triangle") %>%
+   visClusteringByColor(colors = c("red"), label = "With color ") %>%
+   visClusteringByGroup(groups = c("B"), label = "Group : ") %>%
+   visLegend()
+   
+ visNetwork(nodes, edges) %>%
+   visGroups(groupname = "A", color = "red", shape = "triangle") %>%
+   visGroups(groupname = "B", color = "yellow", shape = "triangle") %>%
+   visClusteringByGroup(groups = c("A","B")) %>%
+   visLegend()
+
+
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>visNetwork</em> version 2.1.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

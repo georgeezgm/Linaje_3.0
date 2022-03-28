@@ -1,0 +1,17 @@
+TeradataOdbcDriver      Teradata Odbc Driver Methods
+blob_to_string          Convert blob to character.
+bool_to_int             Translatable function to convert boolean to
+                        integer
+count_if                Translatable function to count rows satisfied a
+                        condition
+dbConnect,TeradataOdbcDriver-method
+                        Connect to a Teradata ODBC compatible database
+db_list_tables_with_pattern
+                        List tables with specified pattern
+like                    Translatable function for 'LIKE' operator
+mod                     Translatable Function for '%%' operator
+n_if                    Translatable function to count rows satisfied a
+                        condition
+to_timestamp            Translatable function to convert UNIX time to
+                        time-stamp
+todbc                   Teradata Odbc driver

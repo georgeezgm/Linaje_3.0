@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Return the URL for a Shiny theme</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for shinytheme {shinythemes}"><tr><td>shinytheme {shinythemes}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Return the URL for a Shiny theme</h2>
+
+<h3>Description</h3>
+
+<p>The result of this function should be used as the <code>theme</code> argument for
+<code><a href="../../shiny/help/bootstrapPage.html">bootstrapPage</a></code>, <code><a href="../../shiny/help/fluidPage.html">fluidPage</a></code>,
+<code><a href="../../shiny/help/navbarPage.html">navbarPage</a></code>, or <code><a href="../../shiny/help/fixedPage.html">fixedPage</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+shinytheme(theme = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>theme</code></td>
+<td>
+<p>Name of a theme.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>The main <a href="../../shinythemes/help/shinythemes.html">shinythemes</a> page for information about available
+themes and more detailed examples.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">## Not run: 
+##D shinyApp(
+##D   ui = fluidPage(theme = shinytheme(&quot;united&quot;),
+##D     ...
+##D   ),
+##D   server = function(input, output) { }
+##D )
+## End(Not run)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>shinythemes</em> version 1.2.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

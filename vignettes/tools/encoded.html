@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Translate non-ASCII Text to LaTeX Escapes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for encoded_text_to_latex {tools}"><tr><td>encoded_text_to_latex {tools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Translate non-ASCII Text to LaTeX Escapes</h2>
+
+<h3>Description</h3>
+
+<p>Translate non-ASCII characters in text to LaTeX escape sequences.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+encoded_text_to_latex(x,
+                      encoding = c("latin1", "latin2", "latin9",
+                                   "UTF-8", "utf8"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a character vector.</p>
+</td></tr>
+<tr valign="top"><td><code>encoding</code></td>
+<td>
+<p>the encoding to be assumed.  <code>"latin9"</code> is
+officially ISO-8859-15 or Latin-9, but known as latin9 to LaTeX's
+<code>inputenc</code> package.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Non-ASCII characters in <code>x</code> are replaced by an appropriate LaTeX
+escape sequence, or <span class="samp">?</span> if there is no appropriate sequence.
+</p>
+<p>Even if there is an appropriate sequence, it may not be supported by
+the font in use.  Hyphen is mapped to <span class="samp">\-</span>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character vector of the same length as <code>x</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/iconv.html">iconv</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">x &lt;- &quot;fa\xE7ile&quot;
+encoded_text_to_latex(x, &quot;latin1&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;fa{\\c c}ile&quot;
+</code></pre>
+
+<pre><code class="r">## Not run: 
+##D ## create a tex file to show the upper half of 8-bit charsets
+##D x &lt;- rawToChar(as.raw(160:255), multiple = TRUE)
+##D (x &lt;- matrix(x, ncol = 16, byrow = TRUE))
+##D xx &lt;- x
+##D xx[] &lt;- encoded_text_to_latex(x, &quot;latin1&quot;) # or latin2 or latin9
+##D xx &lt;- apply(xx, 1, paste, collapse = &quot;&amp;&quot;)
+##D con &lt;- file(&quot;test-encoding.tex&quot;, &quot;w&quot;)
+##D header &lt;- c(
+##D &quot;\\documentclass{article}&quot;,
+##D &quot;\\usepackage[T1]{fontenc}&quot;,
+##D &quot;\\usepackage{Rd}&quot;,
+##D &quot;\\begin{document}&quot;,
+##D &quot;\\HeaderA{test}{}{test}&quot;,
+##D &quot;\\begin{Details}\relax&quot;,
+##D &quot;\\Tabular{cccccccccccccccc}{&quot;)
+##D trailer &lt;- c(&quot;}&quot;, &quot;\\end{Details}&quot;, &quot;\\end{document}&quot;)
+##D writeLines(header, con)
+##D writeLines(paste0(xx, &quot;\\&quot;), con)
+##D writeLines(trailer, con)
+##D close(con)
+##D ## and some UTF_8 chars
+##D x &lt;- intToUtf8(as.integer(
+##D     c(160:383,0x0192,0x02C6,0x02C7,0x02CA,0x02D8,
+##D       0x02D9, 0x02DD, 0x200C, 0x2018, 0x2019, 0x201C,
+##D       0x201D, 0x2020, 0x2022, 0x2026, 0x20AC)),
+##D                multiple = TRUE)
+##D x &lt;- matrix(x, ncol = 16, byrow = TRUE)
+##D xx &lt;- x
+##D xx[] &lt;- encoded_text_to_latex(x, &quot;UTF-8&quot;)
+##D xx &lt;- apply(xx, 1, paste, collapse = &quot;&amp;&quot;)
+##D con &lt;- file(&quot;test-utf8.tex&quot;, &quot;w&quot;)
+##D writeLines(header, con)
+##D writeLines(paste(xx, &quot;\\&quot;, sep = &quot;&quot;), con)
+##D writeLines(trailer, con)
+##D close(con)
+## End(Not run)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>tools</em> version 4.1.2 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

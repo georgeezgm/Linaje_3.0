@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Are two vertices adjacent?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for are_adjacent {igraph}"><tr><td>are_adjacent {igraph}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Are two vertices adjacent?</h2>
+
+<h3>Description</h3>
+
+<p>The order of the vertices only matters in directed graphs,
+where the existence of a directed <code>(v1, v2)</code> edge is queried.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+are_adjacent(graph, v1, v2)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>graph</code></td>
+<td>
+<p>The graph.</p>
+</td></tr>
+<tr valign="top"><td><code>v1</code></td>
+<td>
+<p>The first vertex, tail in directed graphs.</p>
+</td></tr>
+<tr valign="top"><td><code>v2</code></td>
+<td>
+<p>The second vertex, head in directed graphs.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A logical scalar, <code>TRUE</code> is a <code>(v1, v2)</code> exists in the
+graph.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other structural queries: 
+<code><a href="../../igraph/help/+5B.igraph.html">[.igraph</a>()</code>,
+<code><a href="../../igraph/help/+5B+5B.igraph.html">[[.igraph</a>()</code>,
+<code><a href="../../igraph/help/adjacent_vertices.html">adjacent_vertices</a>()</code>,
+<code><a href="../../igraph/help/ends.html">ends</a>()</code>,
+<code><a href="../../igraph/help/get.edge.ids.html">get.edge.ids</a>()</code>,
+<code><a href="../../igraph/help/gorder.html">gorder</a>()</code>,
+<code><a href="../../igraph/help/gsize.html">gsize</a>()</code>,
+<code><a href="../../igraph/help/head_of.html">head_of</a>()</code>,
+<code><a href="../../igraph/help/incident_edges.html">incident_edges</a>()</code>,
+<code><a href="../../igraph/help/incident.html">incident</a>()</code>,
+<code><a href="../../igraph/help/is_directed.html">is_directed</a>()</code>,
+<code><a href="../../igraph/help/neighbors.html">neighbors</a>()</code>,
+<code><a href="../../igraph/help/tail_of.html">tail_of</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">ug &lt;- make_ring(10)
+ug
+</code></pre>
+
+<pre><code>## IGRAPH 0bb90bf U--- 10 10 -- Ring graph
+## + attr: name (g/c), mutual (g/l), circular (g/l)
+## + edges from 0bb90bf:
+##  [1] 1-- 2 2-- 3 3-- 4 4-- 5 5-- 6 6-- 7 7-- 8 8-- 9 9--10 1--10
+</code></pre>
+
+<pre><code class="r">are_adjacent(ug, 1, 2)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">are_adjacent(ug, 2, 1)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">dg &lt;- make_ring(10, directed = TRUE)
+dg
+</code></pre>
+
+<pre><code>## IGRAPH c0d00b8 D--- 10 10 -- Ring graph
+## + attr: name (g/c), mutual (g/l), circular (g/l)
+## + edges from c0d00b8:
+##  [1]  1-&gt; 2  2-&gt; 3  3-&gt; 4  4-&gt; 5  5-&gt; 6  6-&gt; 7  7-&gt; 8  8-&gt; 9  9-&gt;10 10-&gt; 1
+</code></pre>
+
+<pre><code class="r">are_adjacent(ug, 1, 2)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">are_adjacent(ug, 2, 1)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>igraph</em> version 1.2.9 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

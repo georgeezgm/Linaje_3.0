@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Refresh the page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for refresh {shinyjs}"><tr><td>refresh {shinyjs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Refresh the page</h2>
+
+<h3>Description</h3>
+
+<p>Refresh the page
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+refresh()
+</pre>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">if (interactive()) {
+  library(shiny)
+  ui &lt;- fluidPage(
+    useShinyjs(),
+    textInput(&quot;text&quot;, &quot;Text&quot;, &quot;text&quot;),
+    actionButton(&quot;refresh&quot;, &quot;Refresh&quot;)
+  )
+
+  server &lt;- function(input, output, session) {
+    observeEvent(input$refresh, {
+      refresh()
+    })
+  }
+
+ shinyApp(ui, server)
+}
+</code></pre>
+
+<pre><code>## Error in loadNamespace(name): there is no package called &#39;webshot&#39;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>shinyjs</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

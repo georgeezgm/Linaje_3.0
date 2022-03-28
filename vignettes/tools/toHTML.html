@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Display an Object in HTML</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for toHTML {tools}"><tr><td>toHTML {tools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Display an Object in HTML</h2>
+
+<h3>Description</h3>
+
+<p>This generic function generates a complete HTML page from an object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+toHTML(x, ...)
+## S3 method for class 'packageIQR'
+toHTML(x, ...)
+## S3 method for class 'news_db'
+toHTML(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> An object to display. </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> Optional parameters for methods; the <code>"packageIQR"</code> and
+<code>"news_db"</code> methods pass these to <code><a href="../../tools/help/HTMLheader.html">HTMLheader</a></code>. </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A character vector to display the object <code>x</code>.  The <code>"packageIQR"</code> method
+is designed to display lists in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> help system.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../tools/help/HTMLheader.html">HTMLheader</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">cat(toHTML(demo(package = &quot;base&quot;)), sep = &quot;\n&quot;)
+</code></pre>
+
+<pre><code>## &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+## &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+## &lt;head&gt;&lt;title&gt;R: R&lt;/title&gt;
+## &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+## &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=yes&quot; /&gt;
+## &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/doc/html/R.css&quot; /&gt;
+## &lt;/head&gt;&lt;body&gt;&lt;div class=&quot;container&quot;&gt;
+## &lt;h1&gt; R
+## &lt;img class=&quot;toplogo&quot; src=&quot;/doc/html/Rlogo.svg&quot; alt=&quot;[R logo]&quot; /&gt;
+## &lt;/h1&gt;
+## &lt;hr/&gt;
+## &lt;div style=&quot;text-align: center;&quot;&gt;
+## &lt;a href=&quot;/doc/html/index.html&quot;&gt;&lt;img class=&quot;arrow&quot; src=&quot;/doc/html/up.jpg&quot; alt=&quot;[Top]&quot; /&gt;&lt;/a&gt;
+## &lt;/div&gt;
+## &lt;h2&gt;Demos in package &amp;lsquo;base&amp;rsquo;&lt;/h2&gt;
+## &lt;table cols=&quot;2&quot; width=&quot;100%&quot;&gt;
+## &lt;tr&gt;
+##  &lt;td style=&quot;text-align: left; vertical-align: top; width: 10%;&quot;&gt;
+## error.catching
+##  &lt;/td&gt;
+##  &lt;td style=&quot;text-align: left; vertical-align: top; width: 90%;&quot;&gt;
+## More examples on catching and handling errors
+##  &lt;/td&gt;
+## &lt;/tr&gt;
+## 
+## &lt;tr&gt;
+##  &lt;td style=&quot;text-align: left; vertical-align: top; width: 10%;&quot;&gt;
+## is.things
+##  &lt;/td&gt;
+##  &lt;td style=&quot;text-align: left; vertical-align: top; width: 90%;&quot;&gt;
+## Explore some properties of R objects and is.FOO() functions. Not for newbies!
+##  &lt;/td&gt;
+## &lt;/tr&gt;
+## 
+## &lt;tr&gt;
+##  &lt;td style=&quot;text-align: left; vertical-align: top; width: 10%;&quot;&gt;
+## recursion
+##  &lt;/td&gt;
+##  &lt;td style=&quot;text-align: left; vertical-align: top; width: 90%;&quot;&gt;
+## Using recursion for adaptive integration
+##  &lt;/td&gt;
+## &lt;/tr&gt;
+## 
+## &lt;tr&gt;
+##  &lt;td style=&quot;text-align: left; vertical-align: top; width: 10%;&quot;&gt;
+## scoping
+##  &lt;/td&gt;
+##  &lt;td style=&quot;text-align: left; vertical-align: top; width: 90%;&quot;&gt;
+## An illustration of lexical scoping.
+##  &lt;/td&gt;
+## &lt;/tr&gt;
+## 
+## &lt;/table&gt;
+## &lt;p&gt;
+## &lt;/p&gt;
+## &lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>tools</em> version 4.1.2 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Read source code from R-Forge</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for read_rforge {knitr}"><tr><td>read_rforge {knitr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read source code from R-Forge</h2>
+
+<h3>Description</h3>
+
+<p>This function reads source code from the SVN repositories on R-Forge.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read_rforge(path, project, extra = "")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>path</code></td>
+<td>
+<p>Relative path to the source script on R-Forge.</p>
+</td></tr>
+<tr valign="top"><td><code>project</code></td>
+<td>
+<p>Name of the R-Forge project.</p>
+</td></tr>
+<tr valign="top"><td><code>extra</code></td>
+<td>
+<p>Extra parameters to be passed to the URL (e.g. <code>extra =
+'&amp;revision=48'</code> to check out the source of revision 48).</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A character vector of the source code.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Yihui Xie and Peter Ruckdeschel
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">library(knitr)
+## No test: 
+# relies on r-forge.r-project.org being accessible
+read_rforge(&quot;rgl/R/axes.R&quot;, project = &quot;rgl&quot;)
+</code></pre>
+
+<pre><code>##   [1] &quot;# This internal function returns a list with the following components:&quot;                                                 
+##   [2] &quot;# xlim, ylim, zlim:  the bounding box expanded so no coordinate has zero or negative extent&quot;                            
+##   [3] &quot;# strut:  a boolean indicating whether an expansion was done above&quot;                                                     
+##   [4] &quot;# x, y, z:  the box above expanded by a factor of expand&quot;                                                               
+##   [5] &quot;&quot;                                                                                                                       
+##   [6] &quot;.getRanges &lt;- function(expand = 1.03, ranges=par3d(&#39;bbox&#39;)) {&quot;                                                          
+##   [7] &quot;    ranges &lt;- list(xlim=ranges[1:2], ylim=ranges[3:4], zlim=ranges[5:6])&quot;                                               
+##   [8] &quot;&quot;                                                                                                                       
+##   [9] &quot;    strut &lt;- FALSE&quot;                                                                                                     
+##  [10] &quot;    &quot;                                                                                                                   
+##  [11] &quot;    ranges &lt;- lapply(ranges, function(r) {&quot;                                                                             
+##  [12] &quot;                       d &lt;- diff(r)&quot;                                                                                    
+##  [13] &quot;                       if (d &gt; 0) return(r)&quot;                                                                            
+##  [14] &quot;                       strut &lt;&lt;- TRUE&quot;                                                                                  
+##  [15] &quot;                       if (d &lt; 0) return(c(0,1))&quot;                                                                       
+##  [16] &quot;                       else if (r[1] == 0) return(c(-1, 1))&quot;                                                            
+##  [17] &quot;                       else return(r[1] + 0.4*abs(r[1])*c(-1,1))&quot;                                                       
+##  [18] &quot;                     })&quot;                                                                                                
+##  [19] &quot;                     &quot;                                                                                                  
+##  [20] &quot;    ranges$strut &lt;- strut&quot;                                                                                              
+##  [21] &quot;    &quot;                                                                                                                   
+##  [22] &quot;    ranges$x &lt;- (ranges$xlim - mean(ranges$xlim))*expand + mean(ranges$xlim)&quot;                                           
+##  [23] &quot;    ranges$y &lt;- (ranges$ylim - mean(ranges$ylim))*expand + mean(ranges$ylim)&quot;                                           
+##  [24] &quot;    ranges$z &lt;- (ranges$zlim - mean(ranges$zlim))*expand + mean(ranges$zlim)&quot;                                           
+##  [25] &quot;   &quot;                                                                                                                    
+##  [26] &quot;    ranges&quot;                                                                                                             
+##  [27] &quot;}&quot;                                                                                                                      
+##  [28] &quot;&quot;                                                                                                                       
+##  [29] &quot;axis3d &lt;- function(edge, at = NULL, labels = TRUE, tick = TRUE, line = 0,&quot;                                              
+##  [30] &quot;    pos = NULL, nticks = 5, ...) {&quot;                                                                                     
+##  [31] &quot;        save &lt;- par3d(skipRedraw = TRUE, ignoreExtent = TRUE)&quot;                                                          
+##  [32] &quot;        on.exit(par3d(save))&quot;                                                                                           
+##  [33] &quot;        &quot;                                                                                                               
+##  [34] &quot;\tranges &lt;- .getRanges()&quot;                                                                                               
+##  [35] &quot;&quot;                                                                                                                       
+##  [36] &quot;\tedge &lt;- c(strsplit(edge, &#39;&#39;)[[1]], &#39;-&#39;, &#39;-&#39;)[1:3]&quot;                                                                    
+##  [37] &quot;\tcoord &lt;- match(toupper(edge[1]), c(&#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;)) &quot;                                                                  
+##  [38] &quot;\t&quot;                                                                                                                     
+##  [39] &quot;\t# Put the sign in the appropriate entry of edge&quot;                                                                      
+##  [40] &quot;\tif (coord == 2) edge[1] &lt;- edge[2]&quot;                                                                                   
+##  [41] &quot;\telse if (coord == 3) edge[1:2] &lt;- edge[2:3]&quot;                                                                          
+##  [42] &quot;\t&quot;                                                                                                                     
+##  [43] &quot;        range &lt;- ranges[[coord]]&quot;                                                                                       
+##  [44] &quot;&quot;                                                                                                                       
+##  [45] &quot;        if (is.null(at)) {&quot;                                                                                             
+##  [46] &quot;                at &lt;- pretty(range, nticks)&quot;                                                                            
+##  [47] &quot;                at &lt;- at[at &gt;= range[1] &amp; at &lt;= range[2]]&quot;                                                              
+##  [48] &quot;        }&quot;                                                                                                              
+##  [49] &quot;&quot;                                                                                                                       
+##  [50] &quot;        if (is.logical(labels)) {&quot;                                                                                      
+##  [51] &quot;                if (labels) labels &lt;- format(at)&quot;                                                                       
+##  [52] &quot;                else labels &lt;- NA&quot;                                                                                      
+##  [53] &quot;        }&quot;                                                                                                              
+##  [54] &quot;&quot;                                                                                                                       
+##  [55] &quot;\tmpos &lt;- matrix(NA,3,length(at))&quot;                                                                                      
+##  [56] &quot;\tif (edge[1] == &#39;+&#39;) mpos[1,] &lt;- ranges$x[2]&quot;                                                                          
+##  [57] &quot;\telse mpos[1,] &lt;- ranges$x[1]&quot;                                                                                         
+##  [58] &quot;\tif (edge[2] == &#39;+&#39;) mpos[2,] &lt;- ranges$y[2]&quot;                                                                          
+##  [59] &quot;\telse mpos[2,] &lt;- ranges$y[1]&quot;                                                                                         
+##  [60] &quot;\tif (edge[3] == &#39;+&#39;) mpos[3,] &lt;- ranges$z[2]&quot;                                                                          
+##  [61] &quot;\telse mpos[3,] &lt;- ranges$z[1]&quot;                                                                                         
+##  [62] &quot;                &quot;                                                                                                       
+##  [63] &quot;        ticksize &lt;- 0.05*(mpos[,1]-c(mean(ranges$x),mean(ranges$y),mean(ranges$z)))&quot;                                    
+##  [64] &quot;        ticksize[coord] &lt;- 0&quot;                                                                                           
+##  [65] &quot;               &quot;                                                                                                        
+##  [66] &quot;        if (!is.null(pos)) mpos &lt;- matrix(pos,3,length(at))&quot;                                                            
+##  [67] &quot;        mpos[coord,] &lt;- at&quot;                                                                                             
+##  [68] &quot;&quot;                                                                                                                       
+##  [69] &quot;        x &lt;- c(mpos[1,1],mpos[1,length(at)])&quot;                                                                           
+##  [70] &quot;        y &lt;- c(mpos[2,1],mpos[2,length(at)])&quot;                                                                           
+##  [71] &quot;        z &lt;- c(mpos[3,1],mpos[3,length(at)])&quot;                                                                           
+##  [72] &quot;        if (tick) {&quot;                                                                                                    
+##  [73] &quot;                x &lt;- c(x,as.double(rbind(mpos[1,],mpos[1,]+ticksize[1])))&quot;                                              
+##  [74] &quot;                y &lt;- c(y,as.double(rbind(mpos[2,],mpos[2,]+ticksize[2])))&quot;                                              
+##  [75] &quot;                z &lt;- c(z,as.double(rbind(mpos[3,],mpos[3,]+ticksize[3])))&quot;                                              
+##  [76] &quot;        }&quot;                                                                                                              
+##  [77] &quot;        result &lt;- c(ticks=segments3d(x,y,z,...))&quot;                                                                       
+##  [78] &quot;&quot;                                                                                                                       
+##  [79] &quot;        if (!all(is.na(labels)))&quot;                                                                                       
+##  [80] &quot;                result &lt;- c(result, labels=text3d(mpos[1,]+3*ticksize[1],&quot;                                              
+##  [81] &quot;                       mpos[2,]+3*ticksize[2],&quot;                                                                         
+##  [82] &quot;                       mpos[3,]+3*ticksize[3],&quot;                                                                         
+##  [83] &quot;                       labels, ...))&quot;                                                                                   
+##  [84] &quot;\tlowlevel(result)&quot;                                                                                                     
+##  [85] &quot;}&quot;                                                                                                                      
+##  [86] &quot;&quot;                                                                                                                       
+##  [87] &quot;axes3d &lt;- function(edges=&#39;bbox&#39;, labels=TRUE,&quot;                                                                          
+##  [88] &quot;                   tick=TRUE, nticks = 5, box = FALSE, expand = 1.03, ...) {&quot;                                           
+##  [89] &quot;    save &lt;- par3d(skipRedraw = TRUE, ignoreExtent = TRUE)&quot;                                                              
+##  [90] &quot;    on.exit(par3d(save))&quot;                                                                                               
+##  [91] &quot;    if (identical(edges, &#39;bbox&#39;)) {&quot;                                                                                    
+##  [92] &quot;    \tbboxargs &lt;- names(formals(rgl.bbox))&quot;                                                                             
+##  [93] &quot;    \tbboxargs &lt;- intersect(bboxargs, names(list(...)))&quot;                                                                
+##  [94] &quot;    \totherargs &lt;- setdiff(names(list(...)), bboxargs)&quot;                                                                 
+##  [95] &quot;    \tbboxargs &lt;- list(...)[bboxargs]&quot;                                                                                  
+##  [96] &quot;    \totherargs &lt;- list(...)[otherargs]&quot;                                                                                
+##  [97] &quot;        result &lt;- do.call(&#39;bbox3d&#39;, c(list(draw_front=box, expand=expand), bboxargs, &quot;                                  
+##  [98] &quot;                          do.call(&#39;.fixMaterialArgs&#39;, c(otherargs, list(Params = list(front=&#39;lines&#39;, back=&#39;lines&#39;))))))&quot;
+##  [99] &quot;    } else {&quot;                                                                                                           
+## [100] &quot;        result &lt;- numeric(0)&quot;                                                                                           
+## [101] &quot;    \tfor (e in edges)&quot;                                                                                                 
+## [102] &quot;            result &lt;- c(result, axis3d(e,labels=labels,tick=tick,nticks=nticks, ...))&quot;                                  
+## [103] &quot;\tnames(result) &lt;- e&quot;                                                                                                   
+## [104] &quot;    }\t&quot;                                                                                                                
+## [105] &quot;    lowlevel(result)  &quot;                                                                                                 
+## [106] &quot;}&quot;                                                                                                                      
+## [107] &quot;&quot;                                                                                                                       
+## [108] &quot;box3d &lt;- function(...) {&quot;                                                                                               
+## [109] &quot;        save &lt;- par3d(ignoreExtent = TRUE)        &quot;                                                                     
+## [110] &quot;        on.exit(par3d(save))&quot;                                                                                           
+## [111] &quot;        &quot;                                                                                                               
+## [112] &quot;        result &lt;- numeric(0)&quot;                                                                                           
+## [113] &quot;        &quot;                                                                                                               
+## [114] &quot;        ranges &lt;- .getRanges()          &quot;                                                                               
+## [115] &quot;        if (ranges$strut) {&quot;                                                                                            
+## [116] &quot;            par3d(ignoreExtent = FALSE)&quot;                                                                                
+## [117] &quot;            result &lt;- c(result, strut=segments3d(rep(ranges$xlim, c(2,2)),&quot;                                             
+## [118] &quot;                       rep(ranges$ylim, c(2,2)),&quot;                                                                       
+## [119] &quot;                       rep(ranges$zlim, c(2,2))))&quot;                                                                      
+## [120] &quot;            par3d(ignoreExtent = TRUE)&quot;                                                                                 
+## [121] &quot;        }&quot;                                                                                                              
+## [122] &quot;                       &quot;                                                                                                
+## [123] &quot;        x &lt;- c(rep(ranges$x[1],8),rep(ranges$x,4),rep(ranges$x[2],8))&quot;                                                  
+## [124] &quot;        y &lt;- c(rep(ranges$y,2),rep(ranges$y,c(2,2)),rep(ranges$y,c(4,4)),&quot;                                              
+## [125] &quot;               rep(ranges$y,2),rep(ranges$y,c(2,2)))&quot;                                                                   
+## [126] &quot;        z &lt;- c(rep(ranges$z,c(2,2)),rep(ranges$z,2),rep(rep(ranges$z,c(2,2)),2),&quot;                                       
+## [127] &quot;               rep(ranges$z,c(2,2)),rep(ranges$z,2))&quot;                                                                   
+## [128] &quot;        lowlevel(c(result, lines=segments3d(x,y,z,...)))&quot;                                                               
+## [129] &quot;}&quot;                                                                                                                      
+## [130] &quot;&quot;                                                                                                                       
+## [131] &quot;mtext3d &lt;- function(text, edge, line = 0, at = NULL, pos = NA, ...) {&quot;                                                  
+## [132] &quot;        save &lt;- par3d(ignoreExtent = TRUE)&quot;                                                                             
+## [133] &quot;        on.exit(par3d(save))&quot;                                                                                           
+## [134] &quot;&quot;                                                                                                                       
+## [135] &quot;        ranges &lt;- .getRanges()&quot;                                                                                         
+## [136] &quot;        &quot;                                                                                                               
+## [137] &quot;\tedge &lt;- c(strsplit(edge, &#39;&#39;)[[1]], &#39;-&#39;, &#39;-&#39;)[1:3]&quot;                                                                    
+## [138] &quot;\tcoord &lt;- match(toupper(edge[1]), c(&#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;)) &quot;                                                                  
+## [139] &quot;\t&quot;                                                                                                                     
+## [140] &quot;\t# Put the sign in the appropriate entry of edge&quot;                                                                      
+## [141] &quot;\tif (coord == 2) edge[1] &lt;- edge[2]&quot;                                                                                   
+## [142] &quot;\telse if (coord == 3) edge[1:2] &lt;- edge[2:3]&quot;                                                                          
+## [143] &quot;&quot;                                                                                                                       
+## [144] &quot;        range &lt;- ranges[[coord]]&quot;                                                                                       
+## [145] &quot;&quot;                                                                                                                       
+## [146] &quot;        if (is.null(at)) at &lt;- mean(range)&quot;                                                                             
+## [147] &quot;&quot;                                                                                                                       
+## [148] &quot;        newlen &lt;- max(length(text),length(line),length(at))&quot;                                                            
+## [149] &quot;        text &lt;- rep(text, len = newlen)&quot;                                                                                
+## [150] &quot;        line &lt;- rep(line, len = newlen)&quot;                                                                                
+## [151] &quot;        at &lt;- rep(at, len = newlen)&quot;                                                                                    
+## [152] &quot;&quot;                                                                                                                       
+## [153] &quot;        if (all(is.na(pos))) {&quot;                                                                                         
+## [154] &quot;                pos &lt;- matrix(NA,3,length(at))&quot;                                                                         
+## [155] &quot;                if (edge[1] == &#39;+&#39;) pos[1,] &lt;- ranges$x[2]&quot;                                                             
+## [156] &quot;                else pos[1,] &lt;- ranges$x[1]&quot;                                                                            
+## [157] &quot;                if (edge[2] == &#39;+&#39;) pos[2,] &lt;- ranges$y[2]&quot;                                                             
+## [158] &quot;                else pos[2,] &lt;- ranges$y[1]&quot;                                                                            
+## [159] &quot;                if (edge[3] == &#39;+&#39;) pos[3,] &lt;- ranges$z[2]&quot;                                                             
+## [160] &quot;                else pos[3,] &lt;- ranges$z[1]&quot;                                                                            
+## [161] &quot;        }&quot;                                                                                                              
+## [162] &quot;        else pos &lt;- matrix(pos,3,length(at))&quot;                                                                           
+## [163] &quot;        pos[coord,] &lt;- at&quot;                                                                                              
+## [164] &quot;        ticksize &lt;- 0.05*(pos[,1]-c(mean(ranges$x),mean(ranges$y),mean(ranges$z)))&quot;                                     
+## [165] &quot;        ticksize[coord] &lt;- 0&quot;                                                                                           
+## [166] &quot;&quot;                                                                                                                       
+## [167] &quot;        text3d(pos[1,]+3*ticksize[1]*line,&quot;                                                                             
+## [168] &quot;               pos[2,]+3*ticksize[2]*line,&quot;                                                                             
+## [169] &quot;               pos[3,]+3*ticksize[3]*line,&quot;                                                                             
+## [170] &quot;               text, ...)&quot;                                                                                              
+## [171] &quot;}   &quot;                                                                                                                   
+## [172] &quot;&quot;                                                                                                                       
+## [173] &quot;title3d &lt;- function(main = NULL, sub = NULL, xlab = NULL, ylab = NULL, &quot;                                                
+## [174] &quot;    zlab = NULL, line = NA, ...) {&quot;                                                                                     
+## [175] &quot;        save &lt;- par3d(skipRedraw = TRUE, ignoreExtent = TRUE)&quot;                                                          
+## [176] &quot;        on.exit(par3d(save))&quot;                                                                                           
+## [177] &quot;\tresult &lt;- numeric(0)&quot;                                                                                                 
+## [178] &quot;        if (!is.null(main)) {&quot;                                                                                          
+## [179] &quot;            aline &lt;- ifelse(is.na(line), 2, line)&quot;                                                                      
+## [180] &quot;            result &lt;- c(result, main=mtext3d(main, &#39;x++&#39;, line = aline, ...))&quot;                                          
+## [181] &quot;        }&quot;                                                                                                              
+## [182] &quot;        if (!is.null(sub)) {&quot;                                                                                           
+## [183] &quot;            aline &lt;- ifelse(is.na(line), 3, line)&quot;                                                                      
+## [184] &quot;            result &lt;- c(result, sub=mtext3d(sub, &#39;x&#39;, line = aline, ...))&quot;                                              
+## [185] &quot;        }&quot;                                                                                                              
+## [186] &quot;        if (!is.null(xlab)) {&quot;                                                                                          
+## [187] &quot;            aline &lt;- ifelse(is.na(line), 2, line)&quot;                                                                      
+## [188] &quot;            result &lt;- c(result, xlab=mtext3d(xlab, &#39;x&#39;, line = aline, ...))&quot;                                            
+## [189] &quot;        }&quot;                                                                                                              
+## [190] &quot;        if (!is.null(ylab)) {&quot;                                                                                          
+## [191] &quot;            aline &lt;- ifelse(is.na(line), 2, line)&quot;                                                                      
+## [192] &quot;            result &lt;- c(result, ylab=mtext3d(ylab, &#39;y&#39;, line = aline, ...))&quot;                                            
+## [193] &quot;        }&quot;                                                                                                              
+## [194] &quot;        if (!is.null(zlab)) {&quot;                                                                                          
+## [195] &quot;            aline &lt;- ifelse(is.na(line), 2, line)&quot;                                                                      
+## [196] &quot;            result &lt;- c(result, zlab=mtext3d(zlab, &#39;z&#39;, line = aline, ...))&quot;                                            
+## [197] &quot;        }                  &quot;                                                                                            
+## [198] &quot;        lowlevel(result)&quot;                                                                                               
+## [199] &quot;}&quot;
+</code></pre>
+
+<pre><code class="r">read_rforge(&quot;rgl/R/axes.R&quot;, project = &quot;rgl&quot;, extra = &quot;&amp;revision=519&quot;)
+</code></pre>
+
+<pre><code>##   [1] &quot;# This internal function returns a list with the following components:&quot;                                
+##   [2] &quot;# xlim, ylim, zlim:  the bounding box expanded so no coordinate has zero or negative extent&quot;           
+##   [3] &quot;# strut:  a boolean indicating whether an expansion was done above&quot;                                    
+##   [4] &quot;# x, y, z:  the box above expanded by a factor of expand&quot;                                              
+##   [5] &quot;&quot;                                                                                                      
+##   [6] &quot;.getRanges &lt;- function(expand = 1.03) {&quot;                                                               
+##   [7] &quot;    ranges &lt;- par3d(&#39;bbox&#39;)&quot;                                                                           
+##   [8] &quot;    ranges &lt;- list(xlim=ranges[1:2], ylim=ranges[3:4], zlim=ranges[5:6])&quot;                              
+##   [9] &quot;&quot;                                                                                                      
+##  [10] &quot;    strut &lt;- FALSE&quot;                                                                                    
+##  [11] &quot;    &quot;                                                                                                  
+##  [12] &quot;    ranges &lt;- lapply(ranges, function(r) {&quot;                                                            
+##  [13] &quot;                       d &lt;- diff(r)&quot;                                                                   
+##  [14] &quot;                       if (d &gt; 0) return(r)&quot;                                                           
+##  [15] &quot;                       strut &lt;&lt;- TRUE&quot;                                                                 
+##  [16] &quot;                       if (d &lt; 0) return(c(0,1))&quot;                                                      
+##  [17] &quot;                       else if (r[1] == 0) return(c(-1, 1))&quot;                                           
+##  [18] &quot;                       else return(r[1] + 0.4*abs(r[1])*c(-1,1))&quot;                                      
+##  [19] &quot;                     })&quot;                                                                               
+##  [20] &quot;                     &quot;                                                                                 
+##  [21] &quot;    ranges$strut &lt;- strut&quot;                                                                             
+##  [22] &quot;    &quot;                                                                                                  
+##  [23] &quot;    ranges$x &lt;- (ranges$xlim - mean(ranges$xlim))*expand + mean(ranges$xlim)&quot;                          
+##  [24] &quot;    ranges$y &lt;- (ranges$ylim - mean(ranges$ylim))*expand + mean(ranges$ylim)&quot;                          
+##  [25] &quot;    ranges$z &lt;- (ranges$zlim - mean(ranges$zlim))*expand + mean(ranges$zlim)&quot;                          
+##  [26] &quot;   &quot;                                                                                                   
+##  [27] &quot;    ranges&quot;                                                                                            
+##  [28] &quot;}&quot;                                                                                                     
+##  [29] &quot;&quot;                                                                                                      
+##  [30] &quot;axis3d &lt;- function (edge, at = NULL, labels = TRUE, tick = TRUE, line = 0,&quot;                            
+##  [31] &quot;    pos = NULL, ...)&quot;                                                                                  
+##  [32] &quot;{&quot;                                                                                                     
+##  [33] &quot;        save &lt;- par3d(skipRedraw = TRUE, ignoreExtent = TRUE)&quot;                                         
+##  [34] &quot;        on.exit(par3d(save))&quot;                                                                          
+##  [35] &quot;        &quot;                                                                                              
+##  [36] &quot;\tranges &lt;- .getRanges()&quot;                                                                              
+##  [37] &quot;&quot;                                                                                                      
+##  [38] &quot;\tedge &lt;- c(strsplit(edge, &#39;&#39;)[[1]], &#39;-&#39;, &#39;-&#39;)[1:3]&quot;                                                   
+##  [39] &quot;\tcoord &lt;- match(toupper(edge[1]), c(&#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;)) &quot;                                                 
+##  [40] &quot;\t&quot;                                                                                                    
+##  [41] &quot;\t# Put the sign in the appropriate entry of edge&quot;                                                     
+##  [42] &quot;\tif (coord == 2) edge[1] &lt;- edge[2]&quot;                                                                  
+##  [43] &quot;\telse if (coord == 3) edge[1:2] &lt;- edge[2:3]&quot;                                                         
+##  [44] &quot;\t&quot;                                                                                                    
+##  [45] &quot;        range &lt;- ranges[[coord]]&quot;                                                                      
+##  [46] &quot;&quot;                                                                                                      
+##  [47] &quot;        if (is.null(at)) {&quot;                                                                            
+##  [48] &quot;                at &lt;- pretty(range)&quot;                                                                   
+##  [49] &quot;                at &lt;- at[at &gt;= range[1] &amp; at &lt;= range[2]]&quot;                                             
+##  [50] &quot;        }&quot;                                                                                             
+##  [51] &quot;&quot;                                                                                                      
+##  [52] &quot;        if (is.logical(labels)) {&quot;                                                                     
+##  [53] &quot;                if (labels) labels &lt;- as.character(at)&quot;                                                
+##  [54] &quot;                else labels &lt;- NA&quot;                                                                     
+##  [55] &quot;        }&quot;                                                                                             
+##  [56] &quot;&quot;                                                                                                      
+##  [57] &quot;\tmpos &lt;- matrix(NA,3,length(at))&quot;                                                                     
+##  [58] &quot;\tif (edge[1] == &#39;+&#39;) mpos[1,] &lt;- ranges$x[2]&quot;                                                         
+##  [59] &quot;\telse mpos[1,] &lt;- ranges$x[1]&quot;                                                                        
+##  [60] &quot;\tif (edge[2] == &#39;+&#39;) mpos[2,] &lt;- ranges$y[2]&quot;                                                         
+##  [61] &quot;\telse mpos[2,] &lt;- ranges$y[1]&quot;                                                                        
+##  [62] &quot;\tif (edge[3] == &#39;+&#39;) mpos[3,] &lt;- ranges$z[2]&quot;                                                         
+##  [63] &quot;\telse mpos[3,] &lt;- ranges$z[1]&quot;                                                                        
+##  [64] &quot;                &quot;                                                                                      
+##  [65] &quot;        ticksize &lt;- 0.05*(mpos[,1]-c(mean(ranges$x),mean(ranges$y),mean(ranges$z)))&quot;                   
+##  [66] &quot;        ticksize[coord] &lt;- 0&quot;                                                                          
+##  [67] &quot;               &quot;                                                                                       
+##  [68] &quot;        if (!is.null(pos)) mpos &lt;- matrix(pos,3,length(at))&quot;                                           
+##  [69] &quot;        mpos[coord,] &lt;- at&quot;                                                                            
+##  [70] &quot;&quot;                                                                                                      
+##  [71] &quot;        x &lt;- c(mpos[1,1],mpos[1,length(at)])&quot;                                                          
+##  [72] &quot;        y &lt;- c(mpos[2,1],mpos[2,length(at)])&quot;                                                          
+##  [73] &quot;        z &lt;- c(mpos[3,1],mpos[3,length(at)])&quot;                                                          
+##  [74] &quot;        if (tick) {&quot;                                                                                   
+##  [75] &quot;                x &lt;- c(x,as.double(rbind(mpos[1,],mpos[1,]+ticksize[1])))&quot;                             
+##  [76] &quot;                y &lt;- c(y,as.double(rbind(mpos[2,],mpos[2,]+ticksize[2])))&quot;                             
+##  [77] &quot;                z &lt;- c(z,as.double(rbind(mpos[3,],mpos[3,]+ticksize[3])))&quot;                             
+##  [78] &quot;        }&quot;                                                                                             
+##  [79] &quot;        result &lt;- c(ticks=segments3d(x,y,z,...))&quot;                                                      
+##  [80] &quot;&quot;                                                                                                      
+##  [81] &quot;        if (!all(is.na(labels)))&quot;                                                                      
+##  [82] &quot;                result &lt;- c(result, labels=text3d(mpos[1,]+3*ticksize[1],&quot;                             
+##  [83] &quot;                       mpos[2,]+3*ticksize[2],&quot;                                                        
+##  [84] &quot;                       mpos[3,]+3*ticksize[3],&quot;                                                        
+##  [85] &quot;                       labels, ...))&quot;                                                                  
+##  [86] &quot;\tinvisible(result)&quot;                                                                                   
+##  [87] &quot;}&quot;                                                                                                     
+##  [88] &quot;&quot;                                                                                                      
+##  [89] &quot;axes3d &lt;- function(edges=&#39;bbox&#39;, labels=TRUE,&quot;                                                         
+##  [90] &quot;                   tick=TRUE, ...)&quot;                                                                    
+##  [91] &quot;{&quot;                                                                                                     
+##  [92] &quot;    save &lt;- par3d(skipRedraw = TRUE, ignoreExtent = TRUE)&quot;                                             
+##  [93] &quot;    on.exit(par3d(save))&quot;                                                                              
+##  [94] &quot;    if (identical(edges, &#39;bbox&#39;)) {&quot;                                                                   
+##  [95] &quot;        result &lt;- do.call(&#39;bbox3d&#39;, .fixMaterialArgs(..., Params = list(front=&#39;lines&#39;, back=&#39;lines&#39;)))&quot;
+##  [96] &quot;    } else {&quot;                                                                                          
+##  [97] &quot;        result &lt;- numeric(0)&quot;                                                                          
+##  [98] &quot;    \tfor (e in edges)&quot;                                                                                
+##  [99] &quot;            result &lt;- c(result, axis3d(e,labels=labels,tick=tick, ...))&quot;                               
+## [100] &quot;\tnames(result) &lt;- e&quot;                                                                                  
+## [101] &quot;    }\t&quot;                                                                                               
+## [102] &quot;    invisible(result)  &quot;                                                                               
+## [103] &quot;}&quot;                                                                                                     
+## [104] &quot;&quot;                                                                                                      
+## [105] &quot;box3d &lt;- function(...)&quot;                                                                                
+## [106] &quot;{&quot;                                                                                                     
+## [107] &quot;        save &lt;- par3d(ignoreExtent = TRUE)        &quot;                                                    
+## [108] &quot;        on.exit(par3d(save))&quot;                                                                          
+## [109] &quot;        &quot;                                                                                              
+## [110] &quot;        result &lt;- numeric(0)&quot;                                                                          
+## [111] &quot;        &quot;                                                                                              
+## [112] &quot;        ranges &lt;- .getRanges()          &quot;                                                              
+## [113] &quot;        if (ranges$strut) {&quot;                                                                           
+## [114] &quot;            par3d(ignoreExtent = FALSE)&quot;                                                               
+## [115] &quot;            result &lt;- c(result, strut=segments3d(rep(ranges$xlim, c(2,2)),&quot;                            
+## [116] &quot;                       rep(ranges$ylim, c(2,2)),&quot;                                                      
+## [117] &quot;                       rep(ranges$zlim, c(2,2))))&quot;                                                     
+## [118] &quot;            par3d(ignoreExtent = TRUE)&quot;                                                                
+## [119] &quot;        }&quot;                                                                                             
+## [120] &quot;                       &quot;                                                                               
+## [121] &quot;        x &lt;- c(rep(ranges$x[1],8),rep(ranges$x,4),rep(ranges$x[2],8))&quot;                                 
+## [122] &quot;        y &lt;- c(rep(ranges$y,2),rep(ranges$y,c(2,2)),rep(ranges$y,c(4,4)),&quot;                             
+## [123] &quot;               rep(ranges$y,2),rep(ranges$y,c(2,2)))&quot;                                                  
+## [124] &quot;        z &lt;- c(rep(ranges$z,c(2,2)),rep(ranges$z,2),rep(rep(ranges$z,c(2,2)),2),&quot;                      
+## [125] &quot;               rep(ranges$z,c(2,2)),rep(ranges$z,2))&quot;                                                  
+## [126] &quot;        invisible(c(result, lines=segments3d(x,y,z,...)))&quot;                                             
+## [127] &quot;}&quot;                                                                                                     
+## [128] &quot;&quot;                                                                                                      
+## [129] &quot;mtext3d &lt;- function(text, edge, line = 0, at = NULL, pos = NA, ...)&quot;                                   
+## [130] &quot;{&quot;                                                                                                     
+## [131] &quot;        save &lt;- par3d(ignoreExtent = TRUE)&quot;                                                            
+## [132] &quot;        on.exit(par3d(save))&quot;                                                                          
+## [133] &quot;&quot;                                                                                                      
+## [134] &quot;        ranges &lt;- .getRanges()&quot;                                                                        
+## [135] &quot;        &quot;                                                                                              
+## [136] &quot;\tedge &lt;- c(strsplit(edge, &#39;&#39;)[[1]], &#39;-&#39;, &#39;-&#39;)[1:3]&quot;                                                   
+## [137] &quot;\tcoord &lt;- match(toupper(edge[1]), c(&#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;)) &quot;                                                 
+## [138] &quot;\t&quot;                                                                                                    
+## [139] &quot;\t# Put the sign in the appropriate entry of edge&quot;                                                     
+## [140] &quot;\tif (coord == 2) edge[1] &lt;- edge[2]&quot;                                                                  
+## [141] &quot;\telse if (coord == 3) edge[1:2] &lt;- edge[2:3]&quot;                                                         
+## [142] &quot;&quot;                                                                                                      
+## [143] &quot;        range &lt;- ranges[[coord]]&quot;                                                                      
+## [144] &quot;&quot;                                                                                                      
+## [145] &quot;        if (is.null(at)) at &lt;- mean(range)&quot;                                                            
+## [146] &quot;&quot;                                                                                                      
+## [147] &quot;        newlen &lt;- max(length(text),length(line),length(at))&quot;                                           
+## [148] &quot;        text &lt;- rep(text, len = newlen)&quot;                                                               
+## [149] &quot;        line &lt;- rep(line, len = newlen)&quot;                                                               
+## [150] &quot;        at &lt;- rep(at, len = newlen)&quot;                                                                   
+## [151] &quot;&quot;                                                                                                      
+## [152] &quot;        if (all(is.na(pos))) {&quot;                                                                        
+## [153] &quot;                pos &lt;- matrix(NA,3,length(at))&quot;                                                        
+## [154] &quot;                if (edge[1] == &#39;+&#39;) pos[1,] &lt;- ranges$x[2]&quot;                                            
+## [155] &quot;                else pos[1,] &lt;- ranges$x[1]&quot;                                                           
+## [156] &quot;                if (edge[2] == &#39;+&#39;) pos[2,] &lt;- ranges$y[2]&quot;                                            
+## [157] &quot;                else pos[2,] &lt;- ranges$y[1]&quot;                                                           
+## [158] &quot;                if (edge[3] == &#39;+&#39;) pos[3,] &lt;- ranges$z[2]&quot;                                            
+## [159] &quot;                else pos[3,] &lt;- ranges$z[1]&quot;                                                           
+## [160] &quot;        }&quot;                                                                                             
+## [161] &quot;        else pos &lt;- matrix(pos,3,length(at))&quot;                                                          
+## [162] &quot;        pos[coord,] &lt;- at&quot;                                                                             
+## [163] &quot;        ticksize &lt;- 0.05*(pos[,1]-c(mean(ranges$x),mean(ranges$y),mean(ranges$z)))&quot;                    
+## [164] &quot;        ticksize[coord] &lt;- 0&quot;                                                                          
+## [165] &quot;&quot;                                                                                                      
+## [166] &quot;        invisible(text3d(pos[1,]+3*ticksize[1]*line,&quot;                                                  
+## [167] &quot;               pos[2,]+3*ticksize[2]*line,&quot;                                                            
+## [168] &quot;               pos[3,]+3*ticksize[3]*line,&quot;                                                            
+## [169] &quot;               text, ...))&quot;                                                                            
+## [170] &quot;}   &quot;                                                                                                  
+## [171] &quot;&quot;                                                                                                      
+## [172] &quot;title3d &lt;- function (main = NULL, sub = NULL, xlab = NULL, ylab = NULL, &quot;                              
+## [173] &quot;    zlab = NULL, line = NA, ...) &quot;                                                                     
+## [174] &quot;{&quot;                                                                                                     
+## [175] &quot;        save &lt;- par3d(skipRedraw = TRUE, ignoreExtent = TRUE)&quot;                                         
+## [176] &quot;        on.exit(par3d(save))&quot;                                                                          
+## [177] &quot;\tresult &lt;- numeric(0)&quot;                                                                                
+## [178] &quot;        if (!is.null(main)) {&quot;                                                                         
+## [179] &quot;            aline &lt;- ifelse(is.na(line), 2, line)&quot;                                                     
+## [180] &quot;            result &lt;- c(result, main=mtext3d(main, &#39;x++&#39;, line = aline, ...))&quot;                         
+## [181] &quot;        }&quot;                                                                                             
+## [182] &quot;        if (!is.null(sub)) {&quot;                                                                          
+## [183] &quot;            aline &lt;- ifelse(is.na(line), 3, line)&quot;                                                     
+## [184] &quot;            result &lt;- c(result, sub=mtext3d(sub, &#39;x&#39;, line = aline, ...))&quot;                             
+## [185] &quot;        }&quot;                                                                                             
+## [186] &quot;        if (!is.null(xlab)) {&quot;                                                                         
+## [187] &quot;            aline &lt;- ifelse(is.na(line), 2, line)&quot;                                                     
+## [188] &quot;            result &lt;- c(result, xlab=mtext3d(xlab, &#39;x&#39;, line = aline, ...))&quot;                           
+## [189] &quot;        }&quot;                                                                                             
+## [190] &quot;        if (!is.null(ylab)) {&quot;                                                                         
+## [191] &quot;            aline &lt;- ifelse(is.na(line), 2, line)&quot;                                                     
+## [192] &quot;            result &lt;- c(result, ylab=mtext3d(ylab, &#39;y&#39;, line = aline, ...))&quot;                           
+## [193] &quot;        }&quot;                                                                                             
+## [194] &quot;        if (!is.null(zlab)) {&quot;                                                                         
+## [195] &quot;            aline &lt;- ifelse(is.na(line), 2, line)&quot;                                                     
+## [196] &quot;            result &lt;- c(result, zlab=mtext3d(zlab, &#39;z&#39;, line = aline, ...))&quot;                           
+## [197] &quot;        }                  &quot;                                                                           
+## [198] &quot;        invisible(result)&quot;                                                                             
+## [199] &quot;}&quot;
+</code></pre>
+
+<pre><code class="r">## End(No test)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>knitr</em> version 1.36 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

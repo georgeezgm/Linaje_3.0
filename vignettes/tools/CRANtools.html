@@ -1,0 +1,788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: CRAN Package Repository Tools</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for CRANtools {tools}"><tr><td>CRANtools {tools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>CRAN Package Repository Tools</h2>
+
+<h3>Description</h3>
+
+<p>Tools for obtaining information about current packages in the
+<acronym><span class="acronym">CRAN</span></acronym> package repository, and their check status.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+CRAN_package_db()
+
+CRAN_check_results(flavors = NULL)
+CRAN_check_details(flavors = NULL)
+CRAN_check_issues()
+summarize_CRAN_check_status(packages,
+                            results = NULL,
+                            details = NULL,
+                            issues = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>packages</code></td>
+<td>
+<p>a character vector of package names.</p>
+</td></tr>
+<tr valign="top"><td><code>flavors</code></td>
+<td>
+<p>a character vector of <acronym><span class="acronym">CRAN</span></acronym> check flavor names, or
+<code>NULL</code> (default), corresponding to all available flavors.</p>
+</td></tr>
+<tr valign="top"><td><code>results</code></td>
+<td>
+<p>the return value of <code>CRAN_check_results()</code>
+(default), or a subset of this.</p>
+</td></tr>
+<tr valign="top"><td><code>details</code></td>
+<td>
+<p>the return value of <code>CRAN_check_details()</code>
+(default), or a subset of this.</p>
+</td></tr>
+<tr valign="top"><td><code>issues</code></td>
+<td>
+<p>the return value of <code>CRAN_check_issues()</code>
+(default), or a subset of this.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>CRAN_package_db()</code> returns a character data frame with most
+&lsquo;<span class="file">DESCRIPTION</span>&rsquo; metadata for the current packages in the CRAN
+package repository, including in particular the Description and
+Maintainer information not provided by
+<code>utils::<a href="../../utils/html/available.packages.html">available.packages</a>()</code>.
+</p>
+<p><code>CRAN_check_results()</code> returns a data frame with the basic
+<acronym><span class="acronym">CRAN</span></acronym> package check results including timings, with columns
+<code>Package</code>, <code>Flavor</code> and <code>Status</code> giving the package
+name, check flavor, and overall check status, respectively.
+</p>
+<p><code>CRAN_check_details()</code> returns a data frame inheriting from class
+<code>"check_details"</code> (which has useful <code>print</code> and
+<code>format</code> methods) with details on the check results, providing
+check name, status and output for every non-OK check (<em>via</em>
+columns <code>Check</code>, <code>Status</code> and <code>Output</code>, respectively).
+Packages with all-OK checks are indicated via a <code>*</code> <code>Check</code>
+wildcard name and OK <code>Status</code>.
+</p>
+<p><code>CRAN_check_issues()</code> returns a character frame with additional
+check issues (including the memory-access check results made available
+from <a href="https://www.stats.ox.ac.uk/pub/bdr/memtests/">https://www.stats.ox.ac.uk/pub/bdr/memtests/</a> and the
+without-long-double check results from
+<a href="https://www.stats.ox.ac.uk/pub/bdr/noLD/">https://www.stats.ox.ac.uk/pub/bdr/noLD/</a>), as a character frame
+with variables <code>Package</code>, <code>Version</code>, <code>kind</code> (an
+identifier for the issue) and <code>href</code> (a URL with information on
+the issue).
+</p>
+<p><code>CRAN_memtest_notes()</code> is now deprecated, with its functionality
+integrated into that of <code>CRAN_check_issues()</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>See &lsquo;Details&rsquo;.  Note that the results are collated on
+<acronym><span class="acronym">CRAN</span></acronym>: currently this is done in a locale which sorts
+<code>aAbB</code> ....
+</p>
+
+
+<h3>Which CRAN?</h3>
+
+<p>The main functions access a <acronym><span class="acronym">CRAN</span></acronym> mirror specified by the
+environment variable <span class="env">R_CRAN_WEB</span>, defaulting to one specified in
+the &lsquo;<span class="file">repositories</span>&rsquo; file (see <code><a href="../../utils/html/setRepositories.html">setRepositories</a></code>): if
+that specifies <code>@CRAN@</code> (the default) then
+<a href="https://CRAN.R-project.org">https://CRAN.R-project.org</a> is used.  (Note that
+<code><a href="../../base/html/options.html">options</a>("repos")</code> is not consulted.)
+</p>
+<p>Note that these access parts of <acronym><span class="acronym">CRAN</span></acronym> under
+&lsquo;<span class="file">web/contrib</span>&rsquo; and &lsquo;<span class="file">web/packages</span>&rsquo; so if you have specified a
+mirror of just &lsquo;<span class="file">src/contrib</span>&rsquo; for installing packages you will
+need to set <span class="env">R_CRAN_WEB</span> to point to a full mirror.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">## No test: 
+## This can be rather slow, especially with a non-local CRAN mirror
+## and would fail (slowly) without Internet access in that case.
+
+set.seed(11)  # but the packages chosen will change as soon as CRAN does.
+pdb &lt;- CRAN_package_db()
+dim(pdb)
+</code></pre>
+
+<pre><code>## [1] 18608    66
+</code></pre>
+
+<pre><code class="r">## DESCRIPTION fields included:
+colnames(pdb)
+</code></pre>
+
+<pre><code>##  [1] &quot;Package&quot;                 &quot;Version&quot;                 &quot;Priority&quot;                &quot;Depends&quot;                
+##  [5] &quot;Imports&quot;                 &quot;LinkingTo&quot;               &quot;Suggests&quot;                &quot;Enhances&quot;               
+##  [9] &quot;License&quot;                 &quot;License_is_FOSS&quot;         &quot;License_restricts_use&quot;   &quot;OS_type&quot;                
+## [13] &quot;Archs&quot;                   &quot;MD5sum&quot;                  &quot;NeedsCompilation&quot;        &quot;Additional_repositories&quot;
+## [17] &quot;Author&quot;                  &quot;Authors@R&quot;               &quot;Biarch&quot;                  &quot;BugReports&quot;             
+## [21] &quot;BuildKeepEmpty&quot;          &quot;BuildManual&quot;             &quot;BuildResaveData&quot;         &quot;BuildVignettes&quot;         
+## [25] &quot;Built&quot;                   &quot;ByteCompile&quot;             &quot;Classification/ACM&quot;      &quot;Classification/ACM-2012&quot;
+## [29] &quot;Classification/JEL&quot;      &quot;Classification/MSC&quot;      &quot;Classification/MSC-2010&quot; &quot;Collate&quot;                
+## [33] &quot;Collate.unix&quot;            &quot;Collate.windows&quot;         &quot;Contact&quot;                 &quot;Copyright&quot;              
+## [37] &quot;Date&quot;                    &quot;Description&quot;             &quot;Encoding&quot;                &quot;KeepSource&quot;             
+## [41] &quot;Language&quot;                &quot;LazyData&quot;                &quot;LazyDataCompression&quot;     &quot;LazyLoad&quot;               
+## [45] &quot;MailingList&quot;             &quot;Maintainer&quot;              &quot;Note&quot;                    &quot;Packaged&quot;               
+## [49] &quot;RdMacros&quot;                &quot;StagedInstall&quot;           &quot;SysDataCompression&quot;      &quot;SystemRequirements&quot;     
+## [53] &quot;Title&quot;                   &quot;Type&quot;                    &quot;URL&quot;                     &quot;UseLTO&quot;                 
+## [57] &quot;VignetteBuilder&quot;         &quot;ZipData&quot;                 &quot;Published&quot;               &quot;Path&quot;                   
+## [61] &quot;X-CRAN-Comment&quot;          &quot;Reverse depends&quot;         &quot;Reverse imports&quot;         &quot;Reverse linking to&quot;     
+## [65] &quot;Reverse suggests&quot;        &quot;Reverse enhances&quot;
+</code></pre>
+
+<pre><code class="r">## Summarize publication dates:
+summary(as.Date(pdb$Published))
+</code></pre>
+
+<pre><code>##         Min.      1st Qu.       Median         Mean      3rd Qu.         Max. 
+## &quot;2006-03-15&quot; &quot;2018-05-22&quot; &quot;2020-06-22&quot; &quot;2019-08-07&quot; &quot;2021-06-07&quot; &quot;2021-12-12&quot;
+</code></pre>
+
+<pre><code class="r">## Summarize numbers of packages according to maintainer:
+summary(lengths(split(pdb$Package, pdb$Maintainer)))
+</code></pre>
+
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    1.00    1.00    1.72    2.00   66.00
+</code></pre>
+
+<pre><code class="r">## Packages with &#39;LASSO&#39; in their Description:
+pdb$Package[grepl(&quot;LASSO&quot;, pdb$Description)]
+</code></pre>
+
+<pre><code>##  [1] &quot;BBSSL&quot;             &quot;CARlasso&quot;          &quot;CovSelHigh&quot;        &quot;crrp&quot;              &quot;expandFunctions&quot;  
+##  [6] &quot;extlasso&quot;          &quot;fastcmprsk&quot;        &quot;FeaLect&quot;           &quot;FindIt&quot;            &quot;fsMTS&quot;            
+## [11] &quot;gcdnet&quot;            &quot;glassoFast&quot;        &quot;glmnetSE&quot;          &quot;glmvsd&quot;            &quot;higlasso&quot;         
+## [16] &quot;HTLR&quot;              &quot;ISBF&quot;              &quot;MetabolicSurv&quot;     &quot;midasml&quot;           &quot;milr&quot;             
+## [21] &quot;miselect&quot;          &quot;MTE&quot;               &quot;MVB&quot;               &quot;ncpen&quot;             &quot;nets&quot;             
+## [26] &quot;onlineVAR&quot;         &quot;pgee.mixed&quot;        &quot;polywog&quot;           &quot;predhy&quot;            &quot;rbridge&quot;          
+## [31] &quot;rqPen&quot;             &quot;rrat&quot;              &quot;SentimentAnalysis&quot; &quot;slasso&quot;            &quot;SparseBiplots&quot;    
+## [36] &quot;SSLASSO&quot;           &quot;stR&quot;               &quot;SurvHiDim&quot;
+</code></pre>
+
+<pre><code class="r">results &lt;- CRAN_check_results()
+## Available variables:
+names(results)
+</code></pre>
+
+<pre><code>##  [1] &quot;Flavor&quot;     &quot;Package&quot;    &quot;Version&quot;    &quot;Priority&quot;   &quot;Maintainer&quot; &quot;Status&quot;     &quot;Flags&quot;      &quot;T_install&quot; 
+##  [9] &quot;T_check&quot;    &quot;T_total&quot;
+</code></pre>
+
+<pre><code class="r">## Tabulate overall check status according to flavor:
+with(results, table(Flavor, Status))
+</code></pre>
+
+<pre><code>##                                    Status
+## Flavor                                 OK  NOTE WARNING ERROR FAILURE
+##   r-devel-linux-x86_64-debian-clang 13095  5281      87   100       0
+##   r-devel-linux-x86_64-debian-gcc   12880  5215     378    78      26
+##   r-devel-linux-x86_64-fedora-clang 10296  8144      63    49       0
+##   r-devel-linux-x86_64-fedora-gcc   11448  7008      57    47       0
+##   r-devel-windows-x86_64-new-TK     11776  6549     112    81       3
+##   r-devel-windows-x86_64-new-UL     12924  5473      38    95       8
+##   r-devel-windows-x86_64-old        13028  5401      30    81       4
+##   r-oldrel-macos-x86_64             13610  4559     185   181       3
+##   r-oldrel-windows-ix86+x86_64      15947  2402      38   138       3
+##   r-patched-linux-x86_64            13163  5292      88    12       1
+##   r-release-linux-x86_64            13188  5287      85    16       1
+##   r-release-macos-arm64             10846  7615      26    88      10
+##   r-release-macos-x86_64            10954  7337     183    99       0
+##   r-release-windows-ix86+x86_64     12848  5597      24    81       4
+</code></pre>
+
+<pre><code class="r">details &lt;- CRAN_check_details()
+## Available variables:
+names(details)
+</code></pre>
+
+<pre><code>## [1] &quot;Package&quot;    &quot;Version&quot;    &quot;Flavor&quot;     &quot;Check&quot;      &quot;Status&quot;     &quot;Output&quot;     &quot;Flags&quot;      &quot;Maintainer&quot;
+</code></pre>
+
+<pre><code class="r">## Tabulate checks according to their status:
+tab &lt;- with(details, table(Check, Status))
+## Inspect some installation problems:
+bad &lt;- subset(details,
+              ((Check == &quot;whether package can be installed&quot;) &amp;
+               (Status != &quot;OK&quot;)))
+## Show a random sample of up to 6
+head(bad[sample(seq_len(NROW(bad)), NROW(bad)), ])
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left"></th>
+<th align="left">Package</th>
+<th align="left">Version</th>
+<th align="left">Flavor</th>
+<th align="left">Check</th>
+<th align="left">Status</th>
+<th align="left">Output</th>
+<th align="left">Flags</th>
+<th align="left">Maintainer</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">238615</td>
+<td align="left">specmine.datasets</td>
+<td align="left">0.0.2</td>
+<td align="left">r-release-windows-ix86+x86_64</td>
+<td align="left">whether package can be installed</td>
+<td align="left">WARNING</td>
+<td align="left">Found the following significant warnings:</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<p>Warning: namespace &#39;xcms&#39; is not available and has been replaced
+See &#39;d:/Rcompile/CRANpkg/local/4.1/specmine.datasets.Rcheck/00install.out&#39; for details.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |      |Miguel Rocha <a href="mailto:mrocha@di.uminho.pt">mrocha@di.uminho.pt</a>                      |
+|60376  |WSGeometry        |1.2       |r-devel-linux-x86_64-fedora-clang |whether package can be installed |WARNING |Found the following significant warnings:
+  maaipm.cpp:303:22: warning: result of &#39;10<sup>-4&#39;</sup> is -10; did you mean &#39;1e-4&#39;? [-Wxor-used-as-pow]
+  maaipm.cpp:346:22: warning: result of &#39;10<sup>-4&#39;</sup> is -10; did you mean &#39;1e-4&#39;? [-Wxor-used-as-pow]
+  maaipm.cpp:534:24: warning: result of &#39;10<sup>-4&#39;</sup> is -10; did you mean &#39;1e-4&#39;? [-Wxor-used-as-pow]
+  maaipm.cpp:577:24: warning: result of &#39;10<sup>-4&#39;</sup> is -10; did you mean &#39;1e-4&#39;? [-Wxor-used-as-pow]
+  umaaipm.cpp:234:24: warning: result of &#39;10<sup>-3&#39;</sup> is -9; did you mean &#39;1e-3&#39;? [-Wxor-used-as-pow]
+  umaaipm.cpp:274:24: warning: result of &#39;10<sup>-3&#39;</sup> is -9; did you mean &#39;1e-3&#39;? [-Wxor-used-as-pow]
+  umaaipm.cpp:476:24: warning: result of &#39;10<sup>-3&#39;</sup> is -9; did you mean &#39;1e-3&#39;? [-Wxor-used-as-pow]
+  umaaipm.cpp:515:24: warning: result of &#39;10<sup>-3&#39;</sup> is -9; did you mean &#39;1e-3&#39;? [-Wxor-used-as-pow]
+See ‘/data/gannet/ripley/R/packages/tests-clang/WSGeometry.Rcheck/00install.out’ for details.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |      |Florian Heinemann <a href="mailto:florian.heinemann@uni-goettingen.de">florian.heinemann@uni-goettingen.de</a> |
+|215683 |RcppMLPACK        |1.0.10-7  |r-release-macos-x86_64            |whether package can be installed |WARNING |Found the following significant warnings:
+  WARNING: shared objects/dynamic libraries with hard-coded temporary installation paths
+See ‘/Volumes/Builds/packages/high-sierra-x86_64/results/4.1/RcppMLPACK.Rcheck/00install.out’ for details.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |      |Qiang Kou <a href="mailto:qkou@umail.iu.edu">qkou@umail.iu.edu</a>                           |
+|194568 |Rcplex            |0.3-5     |r-release-macos-arm64             |whether package can be installed |ERROR   |Installation failed.
+See ‘/Volumes/Builds/packages/big-sur-arm64/results/4.1/Rcplex.Rcheck/00install.out’ for details.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |      |Stefan Theussl <a href="mailto:Stefan.Theussl@R-project.org">Stefan.Theussl@R-project.org</a>           |
+|135145 |RGtk2             |2.20.36.2 |r-devel-windows-x86_64-old        |whether package can be installed |WARNING |Found the following significant warnings:
+  atkClasses.c:1054:25: warning: assignment to &#39;void (<em>)(AtkObject *, guint,  void *)&#39; {aka &#39;void (</em>)(struct _AtkObject <em>, unsigned int,  void *)&#39;} from incompatible pointer type &#39;void (</em>)(AtkObject <em>, guint,  AtkObject *)&#39; {aka &#39;void (</em>)(struct _AtkObject <em>, unsigned int,  struct _AtkObject *)&#39;} [-Wincompatible-pointer-types]
+  atkClasses.c:1062:34: warning: assignment to &#39;void (</em>)(AtkObject <em>, void *</em>)&#39; {aka &#39;void (<em>)(struct _AtkObject *, void *</em>)&#39;} from incompatible pointer type &#39;void (<em>)(AtkObject *, AtkObject *)&#39; {aka &#39;void (</em>)(struct _AtkObject <em>, struct _AtkObject *)&#39;} [-Wincompatible-pointer-types]
+  atkClasses.c:1401:51: warning: passing argument 2 of &#39;object_class-&gt;active_descendant_changed&#39; from incompatible pointer type [-Wincompatible-pointer-types]
+  atkConversion.c:97:36: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  atkConversion.c:136:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  cairoConversion.c:54:35: warning: the address of &#39;pathNames&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  cairoConversion.c:149:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  cairoConversion.c:171:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  cairoConversion.c:196:36: warning: the address of &#39;listNames&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  cairoConversion.c:228:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  cairoConversion.c:267:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkConversion.c:249:37: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkConversion.c:267:36: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkConversion.c:302:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkConversion.c:335:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkConversion.c:389:34: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkConversion.c:419:36: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkConversion.c:454:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkConversion.c:496:36: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkConversion.c:663:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gdkFuncs.c:6000:36: warning: passing argument 2 of &#39;gdk_window_get_user_data&#39; from incompatible pointer type [-Wincompatible-pointer-types]
+  gioClasses.c:1974:17: warning: assignment to &#39;gssize (</em>)(GOutputStream <em>, const void *, gsize,  GCancellable *, GError *</em>)&#39; {aka &#39;long long int (<em>)(struct _GOutputStream *, const void *, long long unsigned int,  struct _GCancellable *, struct _GError *</em>)&#39;} from incompatible pointer type &#39;gssize (<em>)(GOutputStream *, const guchar *, gsize,  GCancellable *, GError *</em>)&#39; {aka &#39;long long int (<em>)(struct _GOutputStream *, const unsigned char *, long long unsigned int,  struct _GCancellable *, struct _GError *</em>)&#39;} [-Wincompatible-pointer-types]
+  gioClasses.c:1990:20: warning: assignment to &#39;void (<em>)(GOutputStream *, const void *, gsize,  int,  GCancellable *, void (</em>)(GObject <em>, GAsyncResult *, void *), void *)&#39; {aka &#39;void (</em>)(struct _GOutputStream <em>, const void *, long long unsigned int,  int,  struct _GCancellable *, void (</em>)(struct _GObject <em>, struct _GAsyncResult *, void *), void *)&#39;} from incompatible pointer type &#39;void (</em>)(GOutputStream <em>, const guchar *, gsize,  int,  GCancellable *, void (</em>)(GObject <em>, GAsyncResult *, void *), void *)&#39; {aka &#39;void (</em>)(struct _GOutputStream <em>, const unsigned char *, long long unsigned int,  int,  struct _GCancellable *, void (</em>)(struct _GObject <em>, struct _GAsyncResult *, void *), void *)&#39;} [-Wincompatible-pointer-types]
+  gioConversion.c:16:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  glib.c:265:39: warning: the address of &#39;classes&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkAccessors.c:1232:43: warning: the address of &#39;val&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkClasses.c:8831:28: warning: assignment to &#39;gboolean (</em>)(GtkNotebook <em>, gint)&#39; {aka &#39;int (</em>)(struct _GtkNotebook <em>, int)&#39;} from incompatible pointer type &#39;void (</em>)(GtkNotebook <em>, gint)&#39; {aka &#39;void (</em>)(struct _GtkNotebook <em>, int)&#39;} [-Wincompatible-pointer-types]
+  gtkClasses.c:11314:21: warning: assignment to &#39;gboolean (</em>)(GtkScrolledWindow <em>, GtkScrollType,  gboolean)&#39; {aka &#39;int (</em>)(struct _GtkScrolledWindow <em>, enum <anonymous>,  int)&#39;} from incompatible pointer type &#39;void (</em>)(GtkScrolledWindow <em>, GtkScrollType,  gboolean)&#39; {aka &#39;void (</em>)(struct _GtkScrolledWindow *, enum <anonymous>,  int)&#39;} [-Wincompatible-pointer-types]
+  gtkClasses.c:24141:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkClasses.c:24219:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkClasses.c:24276:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkClasses.c:24298:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkConversion.c:25:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkConversion.c:58:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkConversion.c:102:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkConversion.c:167:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkConversion.c:209:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkConversion.c:256:35: warning: the address of &#39;names&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:3904:100: warning: the address of &#39;requisition&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:6593:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:18182:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:18202:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:18222:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:18256:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27313:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27334:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27354:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27374:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27393:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27412:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27432:88: warning: the address of &#39;start&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27432:226: warning: the address of &#39;end&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27453:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27473:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27604:88: warning: the address of &#39;start&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:27604:226: warning: the address of &#39;end&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:29152:100: warning: the address of &#39;match_start&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:29152:256: warning: the address of &#39;match_end&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:29178:100: warning: the address of &#39;match_start&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:29178:256: warning: the address of &#39;match_end&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:29894:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:29916:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:29960:100: warning: the address of &#39;target_iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:32492:106: warning: the address of &#39;selection_data&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33140:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33162:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33201:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33222:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33300:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33357:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33379:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33625:100: warning: the address of &#39;filter_iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33645:98: warning: the address of &#39;child_iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33792:96: warning: the address of &#39;sort_iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33829:98: warning: the address of &#39;child_iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:33991:146: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:34406:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:34427:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:34448:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:34468:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:34488:86: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:37680:100: warning: the address of &#39;requisition&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:37714:100: warning: the address of &#39;requisition&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkFuncs.c:58643:100: warning: the address of &#39;requisition&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkManuals.c:748:25: warning: the address of &#39;value&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkManuals.c:1056:25: warning: the address of &#39;value&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkManuals.c:1090:25: warning: the address of &#39;value&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkManuals.c:1318:298: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  gtkManuals.c:1347:298: warning: the address of &#39;iter&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  pangoAccessors.c:658:43: warning: the address of &#39;val&#39; will always evaluate as &#39;true&#39; [-Waddress]
+  pangoConversion.c:85:35: warning: the address of &#39;classes&#39; will always evaluate as &#39;true&#39; [-Waddress]
+See &#39;d:/Rcompile/CRANpkg/local/4.2/RGtk2.Rcheck/00install.out&#39; for details. |      |ORPHANED                                                |
+|75107  |Rblpapi           |0.3.12    |r-devel-linux-x86_64-fedora-gcc   |whether package can be installed |NOTE    |Found the following notes/warnings:
+  Non-staged installation was used
+See ‘/data/gannet/ripley/R/packages/tests-devel/Rblpapi.Rcheck/00install.out’ for details.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |      |Dirk Eddelbuettel <a href="mailto:edd@debian.org">edd@debian.org</a>                      |</p>
+
+<pre><code class="r">issues &lt;- CRAN_check_issues()
+head(issues)
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left"></th>
+<th align="left">Package</th>
+<th align="left">Version</th>
+<th align="left">kind</th>
+<th align="left">href</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">3</td>
+<td align="left">ISwR</td>
+<td align="left">2.0-8</td>
+<td align="left">ATLAS</td>
+<td align="left"><a href="https://www.stats.ox.ac.uk/pub/bdr/Rblas/ATLAS/ISwR.out">https://www.stats.ox.ac.uk/pub/bdr/Rblas/ATLAS/ISwR.out</a></td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">laGP</td>
+<td align="left">1.5-5</td>
+<td align="left">ATLAS</td>
+<td align="left"><a href="https://www.stats.ox.ac.uk/pub/bdr/Rblas/ATLAS/laGP.out">https://www.stats.ox.ac.uk/pub/bdr/Rblas/ATLAS/laGP.out</a></td>
+</tr>
+<tr>
+<td align="left">48</td>
+<td align="left">AGread</td>
+<td align="left">1.1.1</td>
+<td align="left">clang-UBSAN</td>
+<td align="left"><a href="https://www.stats.ox.ac.uk/pub/bdr/memtests/clang-UBSAN/AGread">https://www.stats.ox.ac.uk/pub/bdr/memtests/clang-UBSAN/AGread</a></td>
+</tr>
+<tr>
+<td align="left">49</td>
+<td align="left">BASIX</td>
+<td align="left">1.1</td>
+<td align="left">clang-UBSAN</td>
+<td align="left"><a href="https://www.stats.ox.ac.uk/pub/bdr/memtests/clang-UBSAN/BASIX">https://www.stats.ox.ac.uk/pub/bdr/memtests/clang-UBSAN/BASIX</a></td>
+</tr>
+<tr>
+<td align="left">51</td>
+<td align="left">BayesSenMC</td>
+<td align="left">0.1.4</td>
+<td align="left">clang-UBSAN</td>
+<td align="left"><a href="https://www.stats.ox.ac.uk/pub/bdr/memtests/clang-UBSAN/BayesSenMC">https://www.stats.ox.ac.uk/pub/bdr/memtests/clang-UBSAN/BayesSenMC</a></td>
+</tr>
+<tr>
+<td align="left">53</td>
+<td align="left">BoolNet</td>
+<td align="left">2.1.5</td>
+<td align="left">clang-UBSAN</td>
+<td align="left"><a href="https://www.stats.ox.ac.uk/pub/bdr/memtests/clang-UBSAN/BoolNet">https://www.stats.ox.ac.uk/pub/bdr/memtests/clang-UBSAN/BoolNet</a></td>
+</tr>
+</tbody></table>
+
+<pre><code class="r">## Show counts of issues according to kind:
+table(issues[, &quot;kind&quot;])
+</code></pre>
+
+<pre><code>## 
+##       ATLAS clang-UBSAN    donttest    gcc-ASAN   gcc-UBSAN       gcc11         LTO       M1mac         MKL 
+##           2          39          51           1          16           3           1          50           5 
+##        noLD       noOMP  noSuggests    OpenBLAS        rchk      rlibro    valgrind 
+##           6           2          11           7          83           2           6
+</code></pre>
+
+<pre><code class="r">## Summarize CRAN check status for 10 randomly-selected packages
+## (reusing the information already read in):
+pos &lt;- sample(seq_len(NROW(pdb)), 10L)
+summarize_CRAN_check_status(pdb[pos, &quot;Package&quot;],
+                            results, details, issues)
+</code></pre>
+
+<pre><code>## Package: bvenn
+## **************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 6, OK: 8
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_bvenn.html&gt;
+## 
+## Version: 0.1
+## Check: Rd line widths, Result: NOTE
+##   Rd file &#39;bvenn.Rd&#39;:
+##     \examples lines wider than 100 characters:
+##                        bvenn(list(Set1 = sample(letters, 16), Set2 = sample(letters, 3+ 3*j), Set3 = sample(letters, 7)), add = TRUE, fontsize ... [TRUNCATED]
+##   
+##   These lines will be truncated in the PDF manual.
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-clang/bvenn-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-gcc/bvenn-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-clang/bvenn-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-gcc/bvenn-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-patched-linux-x86_64/bvenn-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-linux-x86_64/bvenn-00check.html&gt;
+## 
+## Package: MCPModGeneral
+## **********************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 11, OK: 2
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_MCPModGeneral.html&gt;
+## 
+## Version: 0.1-1
+## Check: LazyData, Result: NOTE
+##     &#39;LazyData&#39; is specified without a &#39;data&#39; directory
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-clang/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-gcc/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-clang/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-gcc/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-new-UL/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-new-TK/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-old/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-patched-linux-x86_64/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-linux-x86_64/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-macos-x86_64/MCPModGeneral-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-windows-ix86+x86_64/MCPModGeneral-00check.html&gt;
+## 
+## Version: 0.1-1
+## Check: re-building of vignette outputs, Result: WARNING
+##   Error(s) in re-building vignettes:
+##     ...
+##   --- re-building ‘MCPModGeneral-Vignette.Rmd’ using rmarkdown
+##   ! You can&#39;t use `macro parameter character #&#39; in math mode.
+##   l.353 migraine\(ntrtmigraine#
+##                                &gt; dose painfree ntrt pfrat #&gt; 1 0.0 13 133 0.09...
+##   
+##   Error: processing vignette ‘MCPModGeneral-Vignette.Rmd’ failed with diagnostics:
+##   LaTeX failed to compile /home/hornik/tmp/R.check/r-devel-gcc/Work/PKGS/MCPModGeneral.Rcheck/vign_test/MCPModGeneral/vignettes/MCPModGeneral-Vignette.tex. See https://yihui.org/tinytex/r/#debugging for debugging tips. See MCPModGeneral-Vignette.log for more info.
+##   --- failed re-building ‘MCPModGeneral-Vignette.Rmd’
+##   
+##   SUMMARY: processing the following file failed:
+##     ‘MCPModGeneral-Vignette.Rmd’
+##   
+##   Error: Vignette re-building failed.
+##   Execution halted
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-gcc/MCPModGeneral-00check.html&gt;
+## 
+## Package: BAwiR
+## **************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 0, OK: 14
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_BAwiR.html&gt;
+## 
+## Package: MixtureInf
+## *******************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 0, OK: 14
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_MixtureInf.html&gt;
+## 
+## Package: mstknnclust
+## ********************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 0, OK: 14
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_mstknnclust.html&gt;
+## 
+## Package: ICAMS
+## **************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 3, OK: 11
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_ICAMS.html&gt;
+## 
+## Version: 2.3.10
+## Check: package dependencies, Result: NOTE
+##   Package suggested but not available for checking: ‘BSgenome.Mmusculus.UCSC.mm10’
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/ICAMS-00check.html&gt;
+## 
+## Version: 2.3.10
+## Check: package dependencies, Result: NOTE
+##   Packages suggested but not available for checking:
+##     &#39;BSgenome.Hsapiens.1000genomes.hs37d5&#39;,
+##     &#39;BSgenome.Hsapiens.UCSC.hg38&#39;, &#39;BSgenome.Mmusculus.UCSC.mm10&#39;
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-release-macos-x86_64/ICAMS-00check.html&gt;
+## 
+## Version: 2.3.10
+## Check: package dependencies, Result: NOTE
+##   Packages suggested but not available for checking:
+##     &#39;BSgenome.Hsapiens.1000genomes.hs37d5&#39;,
+##     &#39;BSgenome.Mmusculus.UCSC.mm10&#39;
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-oldrel-macos-x86_64/ICAMS-00check.html&gt;
+## 
+## Package: tramnet
+## ****************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 0, OK: 12
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_tramnet.html&gt;
+## 
+## Version: 0.0-6
+## Check: re-building of vignette outputs, Result: WARNING
+##   Error(s) in re-building vignettes:
+##     ...
+##   --- re-building ‘tramnet.Rnw’ using knitr
+##   Loading required package: tram
+##   Loading required package: mlt
+##   Loading required package: basefun
+##   Loading required package: variables
+##   Loading required package: CVXR
+##   
+##   Attaching package: &#39;CVXR&#39;
+##   
+##   The following object is masked from &#39;package:stats&#39;:
+##   
+##       power
+##   
+##   Loading required package: mlrMBO
+##   Loading required package: mlr
+##   Loading required package: ParamHelpers
+##   Warning message: &#39;mlr&#39; is in &#39;maintenance-only&#39; mode since July
+##   2019. Future development will only happen in &#39;mlr3&#39;
+##   (&lt;https://mlr3.mlr-org.com&gt;). Due to the focus on &#39;mlr3&#39; there
+##   might be uncaught bugs meanwhile in {mlr} - please consider
+##   switching.
+##   Loading required package: smoof
+##   Loading required package: checkmate
+##   Loading required package: survival
+##   Welcome to penalized. For extended examples, see vignette(&quot;penalized&quot;).
+##   Loading required package: Matrix
+##   Loaded glmnet 4.1-3
+##   
+##   Attaching package: &#39;coin&#39;
+##   
+##   The following object is masked from &#39;package:CVXR&#39;:
+##   
+##       size
+##   
+##   The following object is masked from &#39;package:variables&#39;:
+##   
+##       support
+##   
+##   
+##   warning: solve(): system is singular (rcond: 1.91008e-17); attempting approx solution
+##   
+##   warning: solve(): system is singular; attempting approx solution
+##   
+##   warning: solve(): system is singular (rcond: 1.92453e-17); attempting approx solution
+##   
+##   warning: solve(): system is singular; attempting approx solution
+##   
+##   warning: solve(): system is singular (rcond: 1.92453e-17); attempting approx solution
+##   
+##   warning: solve(): system is singular; attempting approx solution
+##   
+##   warning: solve(): system is singular (rcond: 1.92453e-17); attempting approx solution
+##   Error: processing vignette ‘tramnet.Rnw’ failed with diagnostics:
+##   Running ‘texi2dvi’ on ‘tramnet.tex’ failed.
+##   LaTeX errors:
+##   ! Missing $ inserted.
+##   &lt;inserted text&gt; 
+##                   $
+##   l.772 x &lt;- model.matrix(~ 0 + x, ...)x_
+##                                          scaled &lt;- scale(x)mt &lt;- tramnet(model...
+##   ! Emergency stop.
+##   &lt;inserted text&gt; 
+##                   $
+##   l.772 x &lt;- model.matrix(~ 0 + x, ...)x_
+##                                          scaled &lt;- scale(x)mt &lt;- tramnet(model...
+##   !  ==&gt; Fatal error occurred, no output PDF file produced!
+##   --- failed re-building ‘tramnet.Rnw’
+##   
+##   SUMMARY: processing the following file failed:
+##     ‘tramnet.Rnw’
+##   
+##   Error: Vignette re-building failed.
+##   Execution halted
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-gcc/tramnet-00check.html&gt;
+## 
+## Version: 0.0-6
+## Check: re-building of vignette outputs, Result: WARNING
+##   Error(s) in re-building vignettes:
+##   --- re-building &#39;tramnet.Rnw&#39; using knitr
+##   Loading required package: tram
+##   Loading required package: mlt
+##   Loading required package: basefun
+##   Loading required package: variables
+##   Loading required package: CVXR
+##   
+##   Attaching package: &#39;CVXR&#39;
+##   
+##   The following object is masked from &#39;package:stats&#39;:
+##   
+##       power
+##   
+##   Loading required package: mlrMBO
+##   Loading required package: mlr
+##   Loading required package: ParamHelpers
+##   Warning message: &#39;mlr&#39; is in &#39;maintenance-only&#39; mode since July
+##   2019. Future development will only happen in &#39;mlr3&#39;
+##   (&lt;https://mlr3.mlr-org.com&gt;). Due to the focus on &#39;mlr3&#39; there
+##   might be uncaught bugs meanwhile in {mlr} - please consider
+##   switching.
+##   Loading required package: smoof
+##   Loading required package: checkmate
+##   Loading required package: survival
+##   Welcome to penalized. For extended examples, see vignette(&quot;penalized&quot;).
+##   Loading required package: Matrix
+##   Loaded glmnet 4.1-3
+##   
+##   Attaching package: &#39;coin&#39;
+##   
+##   The following object is masked from &#39;package:CVXR&#39;:
+##   
+##       size
+##   
+##   The following object is masked from &#39;package:variables&#39;:
+##   
+##       support
+##   
+##   
+##   warning: solve(): system is singular (rcond: 1.91008e-17); attempting approx solution
+##   
+##   warning: solve(): system is singular; attempting approx solution
+##   
+##   warning: solve(): system is singular (rcond: 1.92453e-17); attempting approx solution
+##   
+##   warning: solve(): system is singular; attempting approx solution
+##   
+##   warning: solve(): system is singular (rcond: 1.92453e-17); attempting approx solution
+##   
+##   warning: solve(): system is singular; attempting approx solution
+##   
+##   warning: solve(): system is singular (rcond: 1.92453e-17); attempting approx solution
+##   Warning in system(paste(shQuote(texi2dvi), if (quiet) &quot;--quiet&quot; else &quot;&quot;,  :
+##     running command &#39;&quot;C:\PROGRA~1\MiKTeX\miktex\bin\x64\texify.exe&quot; --quiet --pdf &quot;tramnet.tex&quot; --max-iterations=20 -I &quot;C:/r_packages/rinst/share/texmf/tex/latex&quot; -I &quot;C:/r_packages/rinst/share/texmf/bibtex/bst&quot;&#39; had status 1
+##   Error: processing vignette &#39;tramnet.Rnw&#39; failed with diagnostics:
+##   running &#39;texi2dvi&#39; on &#39;tramnet.tex&#39; failed
+##   
+##   LaTeX errors:
+##   ! LaTeX Error: File `tabu.sty&#39; not found.
+##   
+##   Type X to quit or &lt;RETURN&gt; to proceed,
+##   or enter new name. (Default extension: sty)
+##   
+##   
+##   --- failed re-building &#39;tramnet.Rnw&#39;
+##   
+##   SUMMARY: processing the following file failed:
+##     &#39;tramnet.Rnw&#39;
+##   
+##   Error: Vignette re-building failed.
+##   Execution halted
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-new-TK/tramnet-00check.html&gt;
+## 
+## Package: intsurvbin
+## *******************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 13, OK: 1
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_intsurvbin.html&gt;
+## 
+## Version: 0.0.4
+## Check: LazyData, Result: NOTE
+##     &#39;LazyData&#39; is specified without a &#39;data&#39; directory
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-clang/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-gcc/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-clang/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-gcc/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-new-UL/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-new-TK/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-old/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-patched-linux-x86_64/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-linux-x86_64/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-macos-x86_64/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-windows-ix86+x86_64/intsurvbin-00check.html&gt;
+## 
+## Version: 0.0.4
+## Check: dependencies in R code, Result: NOTE
+##   Namespace in Imports field not imported from: ‘mgcv’
+##     All declared Imports should be used.
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-clang/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-gcc/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-new-TK/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-macos-arm64/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-macos-x86_64/intsurvbin-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-oldrel-macos-x86_64/intsurvbin-00check.html&gt;
+## 
+## Package: SILM
+## *************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 0, OK: 14
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_SILM.html&gt;
+## 
+## Package: crossrun
+## *****************
+## 
+## Current CRAN status: ERROR: 0, NOTE: 8, OK: 6
+## See: &lt;https://CRAN.R-project.org/web/checks/check_results_crossrun.html&gt;
+## 
+## Version: 0.1.0
+## Check: package vignettes, Result: NOTE
+##   Package vignette with placeholder title &#39;Vignette Title&#39;:
+##     &#39;vignettecrossrun.Rmd&#39;
+## See: &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-clang/crossrun-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-debian-gcc/crossrun-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-new-UL/crossrun-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-devel-windows-x86_64-old/crossrun-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-patched-linux-x86_64/crossrun-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-linux-x86_64/crossrun-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-release-windows-ix86+x86_64/crossrun-00check.html&gt;,
+##      &lt;https://www.r-project.org/nosvn/R.check/r-oldrel-windows-ix86+x86_64/crossrun-00check.html&gt;
+</code></pre>
+
+<pre><code class="r">## End(No test)
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>tools</em> version 4.1.2 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

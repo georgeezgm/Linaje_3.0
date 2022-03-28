@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Engines of other languages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for knit_engines {knitr}"><tr><td>knit_engines {knitr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Engines of other languages</h2>
+
+<h3>Description</h3>
+
+<p>This object controls how to execute the code from languages other than R
+(when the chunk option <code>engine</code> is not <code>'R'</code>). Each component in
+this object is a function that takes a list of current chunk options
+(including the source code) and returns a character string to be written into
+the output.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+knit_engines
+</pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>list</code> of length 6.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The engine function has one argument <code>options</code>: the source code of the
+current chunk is in <code>options$code</code>. Usually we can call external
+programs to run the code via <code><a href="../../base/html/system2.html">system2</a></code>. Other chunk options are
+also contained in this argument, e.g. <code>options$echo</code> and
+<code>options$eval</code>, etc.
+</p>
+<p>In most cases, <code>options$engine</code> can be directly used in command line to
+execute the code, e.g. <code>python</code> or <code>ruby</code>, but sometimes we may
+want to specify the path of the engine program, in which case we can pass it
+through the <code>engine.path</code> option. For example, <code>engine='ruby',
+engine.path='/usr/bin/ruby1.9.1'</code>. Additional command line arguments can be
+passed through <code>options$engine.opts</code>, e.g. <code>engine='ruby',
+engine.opts='-v'</code>.
+</p>
+<p>See <code>str(knitr::knit_engines$get())</code> for a list of built-in language
+engines.
+</p>
+
+
+<h3>Note</h3>
+
+<p>The Leiningen engine <code>lein</code> requires lein-exec plugin; see
+<a href="https://github.com/yihui/knitr/issues/1176">https://github.com/yihui/knitr/issues/1176</a> for details.
+</p>
+
+
+<h3>References</h3>
+
+<p>Usage: <a href="https://yihui.org/knitr/objects/">https://yihui.org/knitr/objects/</a>; examples:
+<a href="https://yihui.org/knitr/demo/engines/">https://yihui.org/knitr/demo/engines/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">knit_engines$get(&quot;python&quot;)
+</code></pre>
+
+<pre><code>## function (options) 
+## {
+##     if (isFALSE(options$python.reticulate)) {
+##         eng_interpreted(options)
+##     }
+##     else {
+##         if (!loadable(&quot;reticulate&quot;)) 
+##             warning2(&quot;The &#39;python&#39; engine in knitr requires the reticulate package. &quot;, 
+##                 &quot;If you do not want to use the reticulate package, set the chunk option &quot;, 
+##                 &quot;python.reticulate = FALSE.&quot;)
+##         reticulate::eng_python(options)
+##     }
+## }
+## &lt;environment: namespace:knitr&gt;
+</code></pre>
+
+<pre><code class="r">knit_engines$get(&quot;awk&quot;)
+</code></pre>
+
+<pre><code>## function (options) 
+## {
+##     engine = options$engine
+##     code = if (engine %in% c(&quot;highlight&quot;, &quot;Rscript&quot;, &quot;sas&quot;, &quot;haskell&quot;, 
+##         &quot;stata&quot;)) {
+##         f = wd_tempfile(engine, switch(engine, sas = &quot;.sas&quot;, 
+##             Rscript = &quot;.R&quot;, stata = &quot;.do&quot;, &quot;.txt&quot;))
+##         write_utf8(c(switch(engine, sas = &quot;OPTIONS NONUMBER NODATE PAGESIZE = MAX FORMCHAR = &#39;|----|+|---+=|-/&lt;&gt;*&#39; FORMDLIM=&#39; &#39;;title;&quot;, 
+##             NULL), options$code), f)
+##         on.exit(unlink(f), add = TRUE)
+##         switch(engine, haskell = paste(&quot;-e&quot;, shQuote(paste(&quot;:script&quot;, 
+##             f))), sas = {
+##             logf = sub(&quot;[.]sas$&quot;, &quot;.lst&quot;, f)
+##             on.exit(unlink(c(logf, sub(&quot;[.]sas$&quot;, &quot;.log&quot;, f))), 
+##                 add = TRUE)
+##             f
+##         }, stata = {
+##             logf = sub(&quot;[.]do$&quot;, &quot;.log&quot;, f)
+##             on.exit(unlink(c(logf)), add = TRUE)
+##             sprintf(switch(Sys.info()[[&quot;sysname&quot;]], Windows = &quot;/q /e do %s&quot;, 
+##                 Darwin = paste(&quot;-q &lt; %s &gt;&quot;, shQuote(xfun::normalize_path(logf))), 
+##                 Linux = &quot;-q -e do %s&quot;, &quot;-q -b do %s&quot;), shQuote(normalizePath(f)))
+##         }, f)
+##     }
+##     else paste(switch(engine, bash = &quot;-c&quot;, coffee = &quot;-e&quot;, groovy = &quot;-e&quot;, 
+##         lein = &quot;exec -ep&quot;, mysql = &quot;-e&quot;, node = &quot;-e&quot;, octave = &quot;--eval&quot;, 
+##         perl = &quot;-E&quot;, psql = &quot;-c&quot;, python = &quot;-c&quot;, ruby = &quot;-e&quot;, 
+##         scala = &quot;-e&quot;, sh = &quot;-c&quot;, zsh = &quot;-c&quot;, NULL), shQuote(one_string(options$code)))
+##     opts = get_engine_opts(options$engine.opts, engine)
+##     code = if (engine %in% c(&quot;awk&quot;, &quot;gawk&quot;, &quot;sed&quot;, &quot;sas&quot;)) 
+##         paste(code, opts)
+##     else paste(opts, code)
+##     cmd = get_engine_path(options$engine.path, engine)
+##     out = if (options$eval) {
+##         if (options$message) 
+##             message(&quot;running: &quot;, cmd, &quot; &quot;, code)
+##         tryCatch(system2(cmd, code, stdout = TRUE, stderr = TRUE, 
+##             env = options$engine.env), error = function(e) {
+##             if (!options$error) 
+##                 stop(e)
+##             paste(&quot;Error in running command&quot;, cmd)
+##         })
+##     }
+##     else &quot;&quot;
+##     if (!options$error &amp;&amp; !is.null(attr(out, &quot;status&quot;))) 
+##         stop(one_string(out))
+##     if (options$eval &amp;&amp; engine %in% c(&quot;sas&quot;, &quot;stata&quot;) &amp;&amp; file.exists(logf)) 
+##         out = c(read_utf8(logf), out)
+##     engine_output(options, options$code, out)
+## }
+## &lt;environment: namespace:knitr&gt;
+</code></pre>
+
+<pre><code class="r">names(knit_engines$get())
+</code></pre>
+
+<pre><code>##  [1] &quot;awk&quot;       &quot;bash&quot;      &quot;coffee&quot;    &quot;gawk&quot;      &quot;groovy&quot;    &quot;haskell&quot;   &quot;lein&quot;      &quot;mysql&quot;    
+##  [9] &quot;node&quot;      &quot;octave&quot;    &quot;perl&quot;      &quot;psql&quot;      &quot;Rscript&quot;   &quot;ruby&quot;      &quot;sas&quot;       &quot;scala&quot;    
+## [17] &quot;sed&quot;       &quot;sh&quot;        &quot;stata&quot;     &quot;zsh&quot;       &quot;highlight&quot; &quot;Rcpp&quot;      &quot;tikz&quot;      &quot;dot&quot;      
+## [25] &quot;c&quot;         &quot;cc&quot;        &quot;fortran&quot;   &quot;fortran95&quot; &quot;asy&quot;       &quot;cat&quot;       &quot;asis&quot;      &quot;stan&quot;     
+## [33] &quot;block&quot;     &quot;block2&quot;    &quot;js&quot;        &quot;css&quot;       &quot;sql&quot;       &quot;go&quot;        &quot;python&quot;    &quot;julia&quot;    
+## [41] &quot;sass&quot;      &quot;scss&quot;      &quot;R&quot;         &quot;bslib&quot;     &quot;targets&quot;   &quot;glue&quot;      &quot;glue_sql&quot;  &quot;gluesql&quot;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>knitr</em> version 1.36 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

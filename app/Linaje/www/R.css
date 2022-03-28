@@ -1,0 +1,18 @@
+/* Get a fancy font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
+body {
+  background-color: black;
+  color: white; /* text color */
+}
+progressBox {
+  font-family: "Verdana";
+  background-color: "darkorange";
+  color: white;
+}
+grafico{
+  margin-right: "0px";
+  margin-bottom: "0px";
+  
+  
+}

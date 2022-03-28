@@ -1,0 +1,26 @@
+---
+title: "Cargaficheros_procesamiento"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Teradata
+
+Se necesita la extracción de dos ficheros.
+
+# Fichero 1:Las SQL de los usuarios entre dos fechas.
+
+```{r f2, message=FALSE, warning=FALSE}
+#SELECT * FROM 'god_parser_fin' WHERE ('it_ini_consulta' between cast('2020-05-14' as date format('yyyy-mm-dd')) AND cast('2020-05-24' as date format('yyyy-mm-dd'))) ORDER BY co_query_amp asc , orden asc
+```
+
+# Fichero 2:Las SQL de extracción de las vistas.
+
+```{r f1}
+#SELECT * FROM 'dbc.tables' WHERE tabletype='V'
+
+```
+

@@ -1,0 +1,119 @@
+Csnippet                C snippets
+SIR models              Compartmental epidemiological models
+accumulator variables   accumulator variables
+approximate Bayesian computation
+                        Approximate Bayesian computation
+basic components        Basic POMP model components.
+basic probes            Useful probes for partially-observed Markov
+                        processes
+betabinomial            Beta-binomial distribution
+blowflies               Nicholson's blowflies.
+bsflu                   Influenza outbreak in a boarding school
+bsmc2                   The Liu and West Bayesian particle filter
+bsplines                B-spline bases
+childhood disease data
+                        Historical childhood disease incidence data
+coef                    Extract, set, or alter coefficients
+cond.logLik             Conditional log likelihood
+continue                Continue an iterative calculation
+covariates              Covariates
+covmat                  Estimate a covariance matrix from algorithm
+                        traces
+dacca                   Model of cholera transmission for historic
+                        Bengal.
+design                  Design matrices for pomp calculations
+distributions           Probability distributions
+dmeasure                dmeasure
+dmeasure specification
+                        The measurement model density
+dprior                  dprior
+dprocess                dprocess
+dprocess specification
+                        The latent state process density
+ebola                   Ebola outbreak, West Africa, 2014-2016
+eff.sample.size         Effective sample size
+elementary algorithms   Elementary computations on POMP models.
+emeasure                emeasure
+emeasure specification
+                        The expectation of the measurement model
+estimation algorithms   Parameter estimation algorithms for POMP
+                        models.
+filter.mean             Filtering mean
+filter.traj             Filtering trajectories
+flow                    Flow of a deterministic model
+forecast                Forecast mean
+gompertz                Gompertz model with log-normal observations.
+hitch                   Hitching C snippets and R functions to pomp_fun
+                        objects
+kalman                  Ensemble Kalman filters
+kalmanFilter            Kalman filter
+logLik                  Log likelihood
+logmeanexp              The log-mean-exp trick
+lookup                  Lookup table
+mcap                    Monte Carlo adjusted profile
+mif2                    Iterated filtering: maximum likelihood by
+                        iterated, perturbed Bayes maps
+nonlinear forecasting   Nonlinear forecasting
+obs                     obs
+ou2                     Two-dimensional discrete-time
+                        Ornstein-Uhlenbeck process
+parameter transformations
+                        Parameter transformations
+parmat                  Create a matrix of parameters
+partrans                partrans
+parus                   Parus major population dynamics
+pfilter                 Particle filter
+plot                    pomp plotting facilities
+pmcmc                   The particle Markov chain Metropolis-Hastings
+                        algorithm
+pomp                    Constructor of the basic pomp object
+pomp examples           pomp_examples
+pomp-package            Inference for partially observed Markov
+                        processes
+pred.mean               Prediction mean
+pred.var                Prediction variance
+prior specification     prior distribution
+probe                   Probes (AKA summary statistics)
+probe matching          Probe matching
+proposals               MCMC proposal distributions
+reproducibility tools   Tools for reproducible computations.
+ricker                  Ricker model with Poisson observations.
+rinit                   rinit
+rinit specification     The initial-state distribution
+rmeasure                rmeasure
+rmeasure specification
+                        The measurement-model simulator
+rprior                  rprior
+rprocess                rprocess
+rprocess specification
+                        The latent state process simulator
+rw.sd                   rw.sd
+rw2                     Two-dimensional random-walk process
+sannbox                 Simulated annealing with box constraints.
+saved.states            Saved states
+simulate                Simulations of a partially-observed Markov
+                        process
+skeleton                skeleton
+skeleton specification
+                        The deterministic skeleton of a model
+spect                   Power spectrum
+spectrum matching       Spectrum matching
+spy                     Spy
+states                  Latent states
+summary                 Summary methods
+time                    Methods to extract and manipulate the
+                        obseration times
+timezero                The zero time
+traces                  Traces
+trajectory              Trajectory of a deterministic model
+trajectory matching     Trajectory matching
+transformations         Transformations
+userdata                Facilities for making additional information to
+                        basic components
+verhulst                Verhulst-Pearl model
+vmeasure                vmeasure
+vmeasure specification
+                        The variance of the measurement model
+window                  Window
+workhorses              Workhorse functions for the 'pomp' algorithms.
+wpfilter                Weighted particle filter

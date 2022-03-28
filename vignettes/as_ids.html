@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert a vertex or edge sequence to an ordinary vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head><body><div class="container">
+
+<table width="100%" summary="page for as_ids {igraph}"><tr><td>as_ids {igraph}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert a vertex or edge sequence to an ordinary vector</h2>
+
+<h3>Description</h3>
+
+<p>Convert a vertex or edge sequence to an ordinary vector
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+as_ids(seq)
+
+## S3 method for class 'igraph.vs'
+as_ids(seq)
+
+## S3 method for class 'igraph.es'
+as_ids(seq)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>seq</code></td>
+<td>
+<p>The vertex or edge sequence.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For graphs without names, a numeric vector is returned, containing the
+internal numeric vertex or edge ids.
+</p>
+<p>For graphs with names, and vertex sequences, the vertex names are
+returned in a character vector.
+</p>
+<p>For graphs with names and edge sequences, a character vector is
+returned, with the &lsquo;bar&rsquo; notation: <code>a|b</code> means an edge from
+vertex <code>a</code> to vertex <code>b</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character or numeric vector, see details below.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="r">g &lt;- make_ring(10)
+as_ids(V(g))
+</code></pre>
+
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10
+</code></pre>
+
+<pre><code class="r">as_ids(E(g))
+</code></pre>
+
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10
+</code></pre>
+
+<pre><code class="r">V(g)$name &lt;- letters[1:10]
+as_ids(V(g))
+</code></pre>
+
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot;
+</code></pre>
+
+<pre><code class="r">as_ids(E(g))
+</code></pre>
+
+<pre><code>##  [1] &quot;a|b&quot; &quot;b|c&quot; &quot;c|d&quot; &quot;d|e&quot; &quot;e|f&quot; &quot;f|g&quot; &quot;g|h&quot; &quot;h|i&quot; &quot;i|j&quot; &quot;a|j&quot;
+</code></pre>
+
+
+<hr /><div style="text-align: center;">[Package <em>igraph</em> version 1.2.9 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

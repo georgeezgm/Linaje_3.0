@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>R Documentation of tools</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+* {
+	font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Arial, sans-serif;
+	font-size: 14px;
+}
+body {
+  padding: 0 5px; 
+  margin: 0 auto; 
+  width: 80%;
+  max-width: 60em; /* 960px */
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #666;
+}
+h1, h2 {
+	text-align: center;
+}
+h1 {
+	font-size: x-large;
+}
+h2, h3 {
+	font-size: large;
+}
+h4, h6 {
+	font-style: italic;
+}
+h3 {
+	border-left: solid 5px #ddd;
+	padding-left: 5px;
+	font-variant: small-caps;
+}
+
+p img {
+	display: block;
+	margin: auto;
+}
+
+span, code, pre {
+	font-family: Monaco, "Lucida Console", "Courier New", Courier, monospace;
+}
+span.acronym {}
+span.env {
+	font-style: italic;
+}
+span.file {}
+span.option {}
+span.pkg {
+	font-weight: bold;
+}
+span.samp{}
+
+dt, p code {
+	background-color: #F7F7F7;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+<h1>tools</h1>
+
+<ul>
+<li><a href="CRANtools.html" target="content">CRANtools</a></li>
+<li><a href="HTMLheader.html" target="content">HTMLheader</a></li>
+<li><a href="HTMLlinks.html" target="content">HTMLlinks</a></li>
+<li><a href="QC.html" target="content">QC</a></li>
+<li><a href="Rcmd.html" target="content">Rcmd</a></li>
+<li><a href="Rd2HTML.html" target="content">Rd2HTML</a></li>
+<li><a href="Rd2txt_options.html" target="content">Rd2txt_options</a></li>
+<li><a href="RdTextFilter.html" target="content">RdTextFilter</a></li>
+<li><a href="Rdiff.html" target="content">Rdiff</a></li>
+<li><a href="Rdindex.html" target="content">Rdindex</a></li>
+<li><a href="Rdutils.html" target="content">Rdutils</a></li>
+<li><a href="SweaveTeXFilter.html" target="content">SweaveTeXFilter</a></li>
+<li><a href="add_datalist.html" target="content">add_datalist</a></li>
+<li><a href="assertCondition.html" target="content">assertCondition</a></li>
+<li><a href="bibstyle.html" target="content">bibstyle</a></li>
+<li><a href="buildVignette.html" target="content">buildVignette</a></li>
+<li><a href="buildVignettes.html" target="content">buildVignettes</a></li>
+<li><a href="charsets.html" target="content">charsets</a></li>
+<li><a href="checkFF.html" target="content">checkFF</a></li>
+<li><a href="checkMD5sums.html" target="content">checkMD5sums</a></li>
+<li><a href="checkPoFiles.html" target="content">checkPoFiles</a></li>
+<li><a href="checkRd.html" target="content">checkRd</a></li>
+<li><a href="checkRdaFiles.html" target="content">checkRdaFiles</a></li>
+<li><a href="checkTnF.html" target="content">checkTnF</a></li>
+<li><a href="checkVignettes.html" target="content">checkVignettes</a></li>
+<li><a href="check_packages_in_dir.html" target="content">check<em>packages</em>in_dir</a></li>
+<li><a href="codoc.html" target="content">codoc</a></li>
+<li><a href="compactPDF.html" target="content">compactPDF</a></li>
+<li><a href="delimMatch.html" target="content">delimMatch</a></li>
+<li><a href="dependsOnPkgs.html" target="content">dependsOnPkgs</a></li>
+<li><a href="encoded.html" target="content">encoded</a></li>
+<li><a href="fileutils.html" target="content">fileutils</a></li>
+<li><a href="find_gs_cmd.html" target="content">find<em>gs</em>cmd</a></li>
+<li><a href="getVignetteInfo.html" target="content">getVignetteInfo</a></li>
+<li><a href="loadRdMacros.html" target="content">loadRdMacros</a></li>
+<li><a href="makeLazyLoading.html" target="content">makeLazyLoading</a></li>
+<li><a href="make_translations_pkg.html" target="content">make<em>translations</em>pkg</a></li>
+<li><a href="makevars.html" target="content">makevars</a></li>
+<li><a href="md5sum.html" target="content">md5sum</a></li>
+<li><a href="package_dependencies.html" target="content">package_dependencies</a></li>
+<li><a href="package_native_routine_registration_skeleton.html" target="content">package<em>native</em>routine<em>registration</em>skeleton</a></li>
+<li><a href="parseLatex.html" target="content">parseLatex</a></li>
+<li><a href="parse_Rd.html" target="content">parse_Rd</a></li>
+<li><a href="print.via.format.html" target="content">print.via.format</a></li>
+<li><a href="pskill.html" target="content">pskill</a></li>
+<li><a href="psnice.html" target="content">psnice</a></li>
+<li><a href="read.00Index.html" target="content">read.00Index</a></li>
+<li><a href="showNonASCII.html" target="content">showNonASCII</a></li>
+<li><a href="startDynamicHelp.html" target="content">startDynamicHelp</a></li>
+<li><a href="testInstalledPackage.html" target="content">testInstalledPackage</a></li>
+<li><a href="texi2dvi.html" target="content">texi2dvi</a></li>
+<li><a href="toHTML.html" target="content">toHTML</a></li>
+<li><a href="toRd.html" target="content">toRd</a></li>
+<li><a href="toTitleCase.html" target="content">toTitleCase</a></li>
+<li><a href="tools-defunct.html" target="content">tools-defunct</a></li>
+<li><a href="tools-deprecated.html" target="content">tools-deprecated</a></li>
+<li><a href="tools-package.html" target="content">tools-package</a></li>
+<li><a href="undoc.html" target="content">undoc</a></li>
+<li><a href="updatePACKAGES.html" target="content">updatePACKAGES</a></li>
+<li><a href="update_pkg_po.html" target="content">update<em>pkg</em>po</a></li>
+<li><a href="userdir.html" target="content">userdir</a></li>
+<li><a href="vignetteEngine.html" target="content">vignetteEngine</a></li>
+<li><a href="vignetteInfo.html" target="content">vignetteInfo</a></li>
+<li><a href="writePACKAGES.html" target="content">writePACKAGES</a></li>
+<li><a href="xgettext.html" target="content">xgettext</a></li>
+</ul>
+
+<p>Generated with <a href="https://yihui.org/knitr">knitr</a>  1.36</p>
+
+</body>
+
+</html>

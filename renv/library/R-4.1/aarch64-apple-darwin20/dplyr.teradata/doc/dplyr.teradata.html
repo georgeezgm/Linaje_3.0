@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Koji Makiyama (@hoxo-m)" />
+
+<meta name="date" content="2020-11-12" />
+
+<title>A Teradata Backend for dplyr</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">A Teradata Backend for dplyr</h1>
+<h4 class="author">Koji Makiyama (<span class="citation">@hoxo-m</span>)</h4>
+<h4 class="date">2020-11-12</h4>
+
+
+
+<div id="overview" class="section level2">
+<h2>1. Overview</h2>
+<p>The package provides a Teradata backend for <strong>dplyr</strong>.</p>
+<p>It makes it possible to operate <a href="https://www.teradata.com/products-and-services/teradata-database/">Teradata Database</a> in the same way as manipulating data frames with <strong>dplyr</strong>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr.teradata)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Establish a connection to Teradata</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">todbc</span>(), </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">driver =</span> <span class="st">&quot;{Teradata Driver}&quot;</span>, <span class="at">DBCName =</span> <span class="st">&quot;host_name_or_IP_address&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">uid =</span> <span class="st">&quot;user_name&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>my_table <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;my_table_name&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a query</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> my_table <span class="sc">%&gt;%</span> </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(date, <span class="st">&quot;2017-01-01&quot;</span>, <span class="st">&quot;2017-01-03&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">show_query</span>(q)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;SQL&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SELECT &quot;date&quot;, count(*) AS &quot;n&quot;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; FROM &quot;my_table_name&quot;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WHERE (&quot;date&quot; BETWEEN &#39;2017-01-01&#39; AND &#39;2017-01-03&#39;)</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GROUP BY &quot;date&quot;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ORDER BY &quot;date&quot;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the query and get its result on R</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> q <span class="sc">%&gt;%</span> collect</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          date        n</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        &lt;date&gt;    &lt;int&gt;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2017-01-01   123456</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2017-01-02  7891011</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2017-01-03 12131415</span></span></code></pre></div>
+</div>
+<div id="installation" class="section level2">
+<h2>2. Installation</h2>
+<p>You can install the <strong>dplyr.teradata</strong> package from CRAN.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr.teradata&quot;</span>)</span></code></pre></div>
+<p>You can also install the development version of the package from GitHub.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>) <span class="co"># if you have not installed &quot;devtools&quot; package</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;hoxo-m/dplyr.teradata&quot;</span>)</span></code></pre></div>
+<p>The source code for <strong>dplyr.teradata</strong> package is available on GitHub at</p>
+<ul>
+<li><a href="https://github.com/hoxo-m/dplyr.teradata" class="uri">https://github.com/hoxo-m/dplyr.teradata</a>.</li>
+</ul>
+</div>
+<div id="motivation" class="section level2">
+<h2>3. Motivation</h2>
+<p>The package provides a Teradata backend for <strong>dplyr</strong>. It makes it possible to build SQL for <a href="https://www.teradata.com/products-and-services/teradata-database/">Teradata Database</a> in the same way as manipulating data frames with the <strong>dplyr</strong> package. It also can send the queries and then receive its results on R.</p>
+<p>Therefore, you can complete data analysis with Teradata only on R. It means that you are freed from troublesome switching of tools and switching thoughts that cause mistakes.</p>
+</div>
+<div id="usage" class="section level2">
+<h2>4. Usage</h2>
+<p>The package uses the <strong>odbc</strong> package to connect database and the <strong>dbplyr</strong> package to build SQL.</p>
+<p>First, you need to establish an ODBC connection to Teradata. See:</p>
+<ul>
+<li><a href="https://CRAN.R-project.org/package=odbc/readme/README.html">README - <strong>odbc</strong> package</a>.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Establish a connection to Teradata</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">odbc</span>(), </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">driver =</span> <span class="st">&quot;{Teradata Driver}&quot;</span>, <span class="at">DBCName =</span> <span class="st">&quot;host_name_or_IP_address&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">uid =</span> <span class="st">&quot;user_name&quot;</span>, <span class="at">pwd =</span> <span class="st">&quot;*****&quot;</span>)</span></code></pre></div>
+<p>Second, you need to specify a table to build SQL. See:</p>
+<ul>
+<li><a href="https://dbplyr.tidyverse.org/articles/dbplyr.html">Introduction to dbplyr • dbplyr</a>.</li>
+</ul>
+<p>To specify a table, you can use <code>tbl()</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting table</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>my_table <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">&quot;my_table_name&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting table in schema</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>my_table <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="fu">in_schema</span>(<span class="st">&quot;my_schema&quot;</span>, <span class="st">&quot;my_table_name&quot;</span>))</span></code></pre></div>
+<p>Third, you build queries. It can do in the same way as manipulating data frames with <strong>dplyr</strong>:</p>
+<ul>
+<li><a href="https://dplyr.tidyverse.org/">A Grammar of Data Manipulation • dplyr</a>.</li>
+</ul>
+<p>For example, you can use follows:</p>
+<ul>
+<li><code>mutate()</code> adds new <em>columns</em> that are functions of existing <em>columns</em>.</li>
+<li><code>select()</code> picks <em>columns</em> based on their names.</li>
+<li><code>filter()</code> picks <em>rows</em> based on their values.</li>
+<li><code>summarise()</code> reduces multiple values down to a single summary.</li>
+<li><code>arrange()</code> changes the ordering of the rows.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a query</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> my_table <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(date, <span class="st">&quot;2017-01-01&quot;</span>, <span class="st">&quot;2017-01-03&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span></code></pre></div>
+<p><code>n()</code> is a function in <strong>dplyr</strong> to return the number of rows in the current group but here it will be translated to <code>count(*)</code> as a SQL function.</p>
+<p>If you want to show built queries, use <code>show_query()</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_query</span>(q)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;SQL&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SELECT &quot;date&quot;, count(*) AS &quot;n&quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; FROM &quot;my_table_name&quot;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; WHERE (&quot;date&quot; BETWEEN &#39;2017-01-01&#39; AND &#39;2017-01-03&#39;)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GROUP BY &quot;date&quot;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ORDER BY &quot;date&quot;</span></span></code></pre></div>
+<p>Finally, you send built queries and get its results on R using <code>collect()</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the query and get its result on R</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> q <span class="sc">%&gt;%</span> collect</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 x 2</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          date        n</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        &lt;date&gt;    &lt;int&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2017-01-01   123456</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2017-01-02  7891011</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2017-01-03 12131415</span></span></code></pre></div>
+</div>
+<div id="translatable-functions" class="section level2">
+<h2>5. Translatable functions</h2>
+<p>The package mainly use <strong>dbplyr</strong> to translate manipulations into queries.</p>
+<p><em>Translatable functions</em> are the available functions in manipulations that it can translate into SQL functions.</p>
+<p>For instance, <code>n()</code> is translated to <code>count(*)</code> in the above example.</p>
+<p>To know translatable functions for Teradata, refer the following:</p>
+<ul>
+<li><a href="https://github.com/tidyverse/dbplyr/pull/43">Adds Teradata translation</a></li>
+</ul>
+<p>Here, we introduce the special translatable functions that it becomes available by <strong>dplyr.teradata</strong>.</p>
+<div id="treat-boolean" class="section level3">
+<h3>5.1. Treat Boolean</h3>
+<p>Teradata does not have the boolean data type. So when you use boolean, you need to write some complex statements. The package has several functions to treat it briefly.</p>
+<p><code>bool_to_int</code> transforms boolean to integer.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">is_positive =</span> <span class="fu">bool_to_int</span>(x <span class="sc">&gt;</span> 0L))</span></code></pre></div>
+<pre><code>#&gt; &lt;SQL&gt; CASE WHEN (`x` &gt; 0) THEN 1 WHEN NOT(`x` &gt; 0) THEN 0 END</code></pre>
+<p><code>count_if()</code> or <code>n_if()</code> counts a number of rows satisfying a condition.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">count_if</span>(x <span class="sc">&gt;</span> 0L))</span></code></pre></div>
+<pre><code>#&gt; &lt;SQL&gt; SUM(CASE WHEN (`x` &gt; 0) THEN 1 WHEN NOT(`x` &gt; 0) THEN 0 END)</code></pre>
+</div>
+<div id="to_timestamp" class="section level3">
+<h3>5.2. <code>to_timestamp()</code></h3>
+<p>When your tables has some columns stored UNIX time and you want to convert it to timestamp, you need to write complex SQL.</p>
+<p><code>to_timestamp()</code> is a translatable function that makes it easy.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">ts =</span> <span class="fu">to_timestamp</span>(unixtime_column))</span></code></pre></div>
+<p>Such as above manipulation is translated into SQL like following:</p>
+<pre><code>#&gt; &lt;SQL&gt; CAST(DATE &#39;1970-01-01&#39; + (`unixtime_column` / 86400) AS TIMESTAMP(0)) + (`unixtime_column` MOD 86400) * (INTERVAL &#39;00:00:01&#39; HOUR TO SECOND)</code></pre>
+</div>
+<div id="cut" class="section level3">
+<h3>5.3. <code>cut()</code></h3>
+<p><code>cut()</code> is very useful function that you can use in base R.</p>
+<p>For example, you want to cut values of <code>x</code> into three parts of ranges by break points 2 and 4:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span>(x, breaks)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] (0,2] (0,2] (2,4] (2,4] (4,6] (4,6]</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: (0,2] (2,4] (4,6]</span></span></code></pre></div>
+<p><strong>dplyr.teradata</strong> has a translatable function similar to this:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cut</span>(x, breaks))</span></code></pre></div>
+<p>In the result, it is translated to a <code>CASE WHEN</code> statement as follows:</p>
+<pre><code>#&gt; &lt;SQL&gt; CASE
+#&gt;  WHEN x &gt; 0 AND x &lt;= 2 THEN &#39;(0,2]&#39;
+#&gt;  WHEN x &gt; 2 AND x &lt;= 4 THEN &#39;(2,4]&#39;
+#&gt;  WHEN x &gt; 4 AND x &lt;= 6 THEN &#39;(4,6]&#39;
+#&gt;  ELSE NULL
+#&gt; END</code></pre>
+<p>Arguments of base <code>cut()</code> are also available:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cut</span>(x, breaks, <span class="at">labels =</span> <span class="st">&quot;-&quot;</span>, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>#&gt; &lt;SQL&gt; CASE
+#&gt;  WHEN x &gt;= 0 AND x &lt;= 2 THEN &#39;0-2&#39;
+#&gt;  WHEN x &gt; 2 AND x &lt;= 4 THEN &#39;3-4&#39;
+#&gt;  WHEN x &gt; 4 AND x &lt;= 6 THEN &#39;5-6&#39;
+#&gt;  ELSE NULL
+#&gt; END</code></pre>
+</div>
+</div>
+<div id="other-useful-functions" class="section level2">
+<h2>6. Other useful functions</h2>
+<div id="blob_to_string" class="section level3">
+<h3>6.1. <code>blob_to_string()</code></h3>
+<p>The <code>blob</code> object from databases sometimes prevents manipulations with <strong>dplyr</strong>.</p>
+<p>You might want to convert them to string.</p>
+<p><code>blob_to_string()</code> is a function to make it easy:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> blob<span class="sc">::</span><span class="fu">as_blob</span>(<span class="st">&quot;Good morning&quot;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;blob[1]&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] blob[12 B]</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print raw data in blob</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>x[[<span class="dv">1</span>]]</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 47 6f 6f 64 20 6d 6f 72 6e 69 6e 67</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">blob_to_string</span>(x)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;476f6f64206d6f726e696e67&quot;</span></span></code></pre></div>
+</div>
+</div>
+<div id="related-work" class="section level2">
+<h2>7. Related work</h2>
+<ul>
+<li><a href="https://dbplyr.tidyverse.org/">A ‘dplyr’ Backend for Databases • dbplyr</a></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

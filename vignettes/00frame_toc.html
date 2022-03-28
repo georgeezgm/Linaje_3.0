@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>R Documentation of visNetwork</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+* {
+	font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Arial, sans-serif;
+	font-size: 14px;
+}
+body {
+  padding: 0 5px; 
+  margin: 0 auto; 
+  width: 80%;
+  max-width: 60em; /* 960px */
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #666;
+}
+h1, h2 {
+	text-align: center;
+}
+h1 {
+	font-size: x-large;
+}
+h2, h3 {
+	font-size: large;
+}
+h4, h6 {
+	font-style: italic;
+}
+h3 {
+	border-left: solid 5px #ddd;
+	padding-left: 5px;
+	font-variant: small-caps;
+}
+
+p img {
+	display: block;
+	margin: auto;
+}
+
+span, code, pre {
+	font-family: Monaco, "Lucida Console", "Courier New", Courier, monospace;
+}
+span.acronym {}
+span.env {
+	font-style: italic;
+}
+span.file {}
+span.option {}
+span.pkg {
+	font-weight: bold;
+}
+span.samp{}
+
+dt, p code {
+	background-color: #F7F7F7;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+<h1>visNetwork</h1>
+
+<ul>
+<li><a href="addExport.html" target="content">addExport</a></li>
+<li><a href="addFontAwesome.html" target="content">addFontAwesome</a></li>
+<li><a href="addIonicons.html" target="content">addIonicons</a></li>
+<li><a href="visClusteringByColor.html" target="content">visClusteringByColor</a></li>
+<li><a href="visClusteringByConnection.html" target="content">visClusteringByConnection</a></li>
+<li><a href="visClusteringByGroup.html" target="content">visClusteringByGroup</a></li>
+<li><a href="visClusteringByHubsize.html" target="content">visClusteringByHubsize</a></li>
+<li><a href="visClusteringOutliers.html" target="content">visClusteringOutliers</a></li>
+<li><a href="visConfigure.html" target="content">visConfigure</a></li>
+<li><a href="visDocumentation.html" target="content">visDocumentation</a></li>
+<li><a href="visEdges.html" target="content">visEdges</a></li>
+<li><a href="visEvents.html" target="content">visEvents</a></li>
+<li><a href="visExport.html" target="content">visExport</a></li>
+<li><a href="visFit.html" target="content">visFit</a></li>
+<li><a href="visFocus.html" target="content">visFocus</a></li>
+<li><a href="visGetBoundingBox.html" target="content">visGetBoundingBox</a></li>
+<li><a href="visGetConnectedEdges.html" target="content">visGetConnectedEdges</a></li>
+<li><a href="visGetConnectedNodes.html" target="content">visGetConnectedNodes</a></li>
+<li><a href="visGetEdges.html" target="content">visGetEdges</a></li>
+<li><a href="visGetNodes.html" target="content">visGetNodes</a></li>
+<li><a href="visGetPositions.html" target="content">visGetPositions</a></li>
+<li><a href="visGetScale.html" target="content">visGetScale</a></li>
+<li><a href="visGetSelectedEdges.html" target="content">visGetSelectedEdges</a></li>
+<li><a href="visGetSelectedNodes.html" target="content">visGetSelectedNodes</a></li>
+<li><a href="visGetSelection.html" target="content">visGetSelection</a></li>
+<li><a href="visGetViewPosition.html" target="content">visGetViewPosition</a></li>
+<li><a href="visGroups.html" target="content">visGroups</a></li>
+<li><a href="visHclust.html" target="content">visHclust</a></li>
+<li><a href="visHierarchicalLayout.html" target="content">visHierarchicalLayout</a></li>
+<li><a href="visIgraphLayout.html" target="content">visIgraphLayout</a></li>
+<li><a href="visInteraction.html" target="content">visInteraction</a></li>
+<li><a href="visLayout.html" target="content">visLayout</a></li>
+<li><a href="visLegend.html" target="content">visLegend</a></li>
+<li><a href="visMoveNode.html" target="content">visMoveNode</a></li>
+<li><a href="visNearestNodes.html" target="content">visNearestNodes</a></li>
+<li><a href="visNetwork-collapse.html" target="content">visNetwork-collapse</a></li>
+<li><a href="visNetwork-exports.html" target="content">visNetwork-exports</a></li>
+<li><a href="visNetwork-igraph.html" target="content">visNetwork-igraph</a></li>
+<li><a href="visNetwork-shiny.html" target="content">visNetwork-shiny</a></li>
+<li><a href="visNetwork-treeModule.html" target="content">visNetwork-treeModule</a></li>
+<li><a href="visNetwork.html" target="content">visNetwork</a></li>
+<li><a href="visNetworkEditor-module.html" target="content">visNetworkEditor-module</a></li>
+<li><a href="visNetworkEditor.html" target="content">visNetworkEditor</a></li>
+<li><a href="visNodes.html" target="content">visNodes</a></li>
+<li><a href="visOptions.html" target="content">visOptions</a></li>
+<li><a href="visPhysics.html" target="content">visPhysics</a></li>
+<li><a href="visRedraw.html" target="content">visRedraw</a></li>
+<li><a href="visRemoveEdges.html" target="content">visRemoveEdges</a></li>
+<li><a href="visRemoveNodes.html" target="content">visRemoveNodes</a></li>
+<li><a href="visSave.html" target="content">visSave</a></li>
+<li><a href="visSelectEdges.html" target="content">visSelectEdges</a></li>
+<li><a href="visSelectNodes.html" target="content">visSelectNodes</a></li>
+<li><a href="visSetData.html" target="content">visSetData</a></li>
+<li><a href="visSetOptions.html" target="content">visSetOptions</a></li>
+<li><a href="visSetSelection.html" target="content">visSetSelection</a></li>
+<li><a href="visSetTitle.html" target="content">visSetTitle</a></li>
+<li><a href="visStabilize.html" target="content">visStabilize</a></li>
+<li><a href="visStartSimulation.html" target="content">visStartSimulation</a></li>
+<li><a href="visStopSimulation.html" target="content">visStopSimulation</a></li>
+<li><a href="visStorePositions.html" target="content">visStorePositions</a></li>
+<li><a href="visTree.html" target="content">visTree</a></li>
+<li><a href="visTreeEditor.html" target="content">visTreeEditor</a></li>
+<li><a href="visUnselectAll.html" target="content">visUnselectAll</a></li>
+<li><a href="visUpdateEdges.html" target="content">visUpdateEdges</a></li>
+<li><a href="visUpdateNodes.html" target="content">visUpdateNodes</a></li>
+</ul>
+
+<p>Generated with <a href="https://yihui.org/knitr">knitr</a>  1.36</p>
+
+</body>
+
+</html>
